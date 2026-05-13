@@ -98,3 +98,340 @@
         .fw-table th, .fw-table td {
             padding: 8px 12px; text-align: right;
             border-bottom: 1px solid #f1f5f9; font-size: 13px; vertical-align: middle;
+        }
+        .fw-table td:first-child {
+            text-align: left; color: #475569; font-weight: 600;
+            width: 28%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+
+        .fw-col-data { width: 24%; border-left: 1px solid #f1f5f9; background: #fff; }
+        .fw-col-data:hover { background: #f8fafc; }
+
+        .fw-cell-input {
+            width: 100%; padding: 5px 6px; text-align: right;
+            border: 1px solid #e2e8f0; border-radius: 4px;
+            font-size: 13px; color: #1e293b; font-family: 'Poppins', sans-serif; font-weight: 600;
+            background: white;
+        }
+        .fw-cell-input:focus { border-color: #10b981; outline: none; }
+        .fw-cell-input:disabled { background: #f8fafc; color: #94a3b8; cursor: not-allowed; }
+
+        .fw-type-select {
+            width: 100%; padding: 4px 6px; margin-top: 4px;
+            border: 1px solid rgba(255,255,255,0.2); border-radius: 4px;
+            font-weight: 700; color: white; background: rgba(0,0,0,0.15);
+            font-size: 11px; font-family: 'Poppins', sans-serif; cursor: pointer;
+        }
+        .fw-type-select option { color: #333; background: white; }
+
+        .fw-header-cell { text-align: center !important; color: white; padding: 12px 10px; }
+        .fw-header-1 { background-color: #0f172a; }
+        .fw-header-2 { background-color: #1e3a5f; }
+        .fw-header-3 { background-color: #10b981; }
+        .fw-header-title { text-transform: uppercase; font-weight: 800; font-size: 12px; letter-spacing: 0.5px; display: block; }
+
+        .fw-section-title {
+            background: #f1f5f9; font-weight: 700; font-size: 10px;
+            text-transform: uppercase; letter-spacing: 1px; color: #64748b;
+            padding: 9px 12px; border-top: 1px solid #e2e8f0;
+        }
+
+        .fw-text-warn { color: #ef4444 !important; font-weight: 700; }
+        .fw-text-ok   { color: #10b981 !important; font-weight: 700; }
+        .fw-bold      { font-weight: 700; color: #0f172a; }
+
+        .fw-total-row td {
+            border-top: 2px solid #cbd5e1; font-weight: 700;
+            font-size: 13px; background: #f8fafc; color: #0f172a;
+        }
+        .fw-summary-header td {
+            background: #0f172a; color: white; font-weight: 700;
+            font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em;
+            padding: 10px 12px; border-top: 2px solid #0f172a;
+        }
+
+        /* ── CTA SECTION ── */
+        .cta-card {
+            background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%);
+            border-radius: 24px; padding: 56px 48px; text-align: center;
+            position: relative; overflow: hidden;
+        }
+        .cta-card::before {
+            content: ''; position: absolute; top: -60px; right: -60px;
+            width: 240px; height: 240px; border-radius: 50%;
+            background: rgba(16,185,129,0.08);
+        }
+        .cta-card::after {
+            content: ''; position: absolute; bottom: -80px; left: -40px;
+            width: 200px; height: 200px; border-radius: 50%;
+            background: rgba(16,185,129,0.05);
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 768px) {
+            .fw-table th, .fw-table td { font-size: 11px; padding: 5px 4px; }
+            .cta-card { padding: 36px 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ════════════════════════════ HEADER ════════════════════════════ -->
+    <header class="sticky-header">
+        <div class="max-w-7xl mx-auto px-4 w-full flex justify-between items-center">
+            <a href="index.html" class="brand-logo"><span class="text-brand-green">Fleet</span>Wise</a>
+            <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left mr-2"></i> Voltar</a>
+        </div>
+    </header>
+
+    <!-- ════════════════════════════ HERO ════════════════════════════ -->
+    <section class="bg-white py-16 md:py-24">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row gap-16 items-center">
+
+                <div class="flex-1" data-aos="fade-right">
+                    <div class="hero-badge mb-6">
+                        <i class="fa-solid fa-chart-line text-xs"></i>
+                        Serviço FleetWise
+                    </div>
+                    <h1 class="text-4xl md:text-5xl font-bold text-slate-900 leading-tight mb-6">
+                        Análise de<br>
+                        <span class="text-brand-green">Custo Total</span><br>
+                        de Propriedade
+                    </h1>
+                    <p class="text-slate-600 text-base leading-relaxed mb-8 text-justify">
+                        O preço de compra é apenas a ponta do icebergue. Na FleetWise calculamos o verdadeiro
+                        custo de cada viatura ao longo de todo o seu ciclo de vida — combustível, manutenção,
+                        fiscalidade, seguros, pneus e valor residual — para que tome decisões de frota baseadas
+                        em dados reais, não em perceções.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <a href="#simulador"
+                           class="bg-brand-green text-white px-8 py-3 rounded-full font-bold text-sm hover:bg-emerald-600 transition shadow-lg">
+                            Simular agora <i class="fa-solid fa-arrow-down ml-2"></i>
+                        </a>
+                        <a href="https://fleetwisesolutions.pt/contactus" target="_blank"
+                           class="border border-slate-300 text-slate-700 px-8 py-3 rounded-full font-bold text-sm hover:border-slate-400 transition">
+                            Pedir Auditoria
+                        </a>
+                    </div>
+                </div>
+
+                <!-- KPI cards -->
+                <div class="flex-1 grid grid-cols-2 gap-4" data-aos="fade-left">
+                    <div class="benefit-card">
+                        <div class="text-3xl font-bold text-brand-green mb-1">+30%</div>
+                        <div class="text-sm text-slate-500 font-medium">Custos invisíveis face ao preço de aquisição</div>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="text-3xl font-bold text-brand-green mb-1">€ 2.500</div>
+                        <div class="text-sm text-slate-500 font-medium">Poupança média anual por viatura com otimização</div>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="text-3xl font-bold text-brand-green mb-1">3 min</div>
+                        <div class="text-sm text-slate-500 font-medium">Para simular os cenários da sua frota</div>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="text-3xl font-bold text-brand-green mb-1">100%</div>
+                        <div class="text-sm text-slate-500 font-medium">Independente — sem conflitos de interesse</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+                               <tr class="fw-total-row">
+                                <td>Poupança Mensal</td>
+                                <td class="fw-col-data fw-bold">—</td>
+                                <td class="fw-col-data fw-bold" id="out_sav_mes_2">-</td>
+                                <td class="fw-col-data fw-bold" id="out_sav_mes_3">-</td>
+                            </tr>
+                            <tr class="fw-total-row">
+                                <td>Poupança por Km</td>
+                                <td class="fw-col-data fw-bold">—</td>
+                                <td class="fw-col-data fw-bold" id="out_sav_km_2">-</td>
+                                <td class="fw-col-data fw-bold" id="out_sav_km_3">-</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Nota legal -->
+                <div class="px-5 py-4 bg-slate-50 border-t border-slate-100">
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        <i class="fa-solid fa-circle-info mr-1"></i>
+                        Os valores apresentados são estimativas para efeitos de comparação. Tributação Autónoma e limites IRC calculados com base no CIRC português vigente.
+                        Para uma análise personalizada e vinculativa, contacte a FleetWise.
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ════════════════════════════ CTA ════════════════════════════ -->
+    <section class="py-16 bg-white">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="cta-card" data-aos="fade-up">
+                <div class="relative z-10">
+                    <span class="inline-block bg-emerald-500 bg-opacity-20 text-emerald-300 text-xs font-bold uppercase tracking-widest px-4 py-2 rounded-full mb-6">
+                        Próximo passo
+                    </span>
+                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
+                        Quer resultados reais,<br>não estimativas?
+                    </h2>
+                    <p class="text-slate-300 text-sm md:text-base mb-8 max-w-lg mx-auto leading-relaxed">
+                        A nossa auditoria oficial vai além do simulador. Analisamos os dados reais da sua frota,
+                        negociamos em seu nome e entregamos um plano de ação com poupanças garantidas.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <a href="https://fleetwisesolutions.pt/contactus" target="_blank"
+                           class="bg-brand-green text-white px-10 py-4 rounded-full font-bold text-sm hover:bg-emerald-400 transition shadow-xl">
+                            Pedir Auditoria Oficial
+                        </a>
+                        <a href="index.html"
+                           class="border border-white border-opacity-30 text-white px-10 py-4 rounded-full font-bold text-sm hover:border-opacity-60 transition">
+                            Ver Outros Serviços
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ════════════════════════════ SCRIPTS ════════════════════════════ -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 600, once: true, offset: 60 });
+
+        function formatCustom(num, decimals, suffix) {
+            if (num === undefined || num === null) return '-';
+            var n = num.toFixed(decimals);
+            var parts = n.split('.');
+            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+            var str = parts.join(',');
+            if (suffix) str += ' ' + suffix;
+            return str;
+        }
+
+        function getVal(id) {
+            var el = document.getElementById(id);
+            if (!el) return 0;
+            var raw = el.value.toString().replace(/\./g, '').replace(',', '.').replace(/\s/g, '');
+            var val = parseFloat(raw);
+            return isNaN(val) ? 0 : val;
+        }
+
+        function fmtInput(el, decimals) {
+            var val = getVal(el.id);
+            el.value = formatCustom(val, decimals, '').trim();
+        }
+
+        function setTxt(id, txt, colorVal) {
+            var el = document.getElementById(id);
+            if (!el) return;
+            el.innerText = txt;
+            el.classList.remove('fw-text-ok', 'fw-text-warn');
+            if (colorVal > 0)      el.classList.add('fw-text-ok');
+            else if (colorVal < 0) el.classList.add('fw-text-warn');
+        }
+
+        function updateUI() {
+            for (var i = 1; i <= 3; i++) {
+                var type   = document.getElementById('type_' + i).value;
+                var fInput = document.getElementById('cons_fuel_' + i);
+                var eInput = document.getElementById('cons_elec_' + i);
+                if (type === 'ICE') {
+                    fInput.disabled = false; fInput.style.opacity = 1;
+                    eInput.disabled = true;  eInput.value = 0; eInput.style.opacity = 0.35;
+                } else if (type === 'BEV') {
+                    fInput.disabled = true;  fInput.value = 0; fInput.style.opacity = 0.35;
+                    eInput.disabled = false; eInput.style.opacity = 1;
+                } else {
+                    fInput.disabled = false; fInput.style.opacity = 1;
+                    eInput.disabled = false; eInput.style.opacity = 1;
+                }
+            }
+        }
+
+        function calcFleetWise() {
+            var qty   = getVal('g_qty')   || 1;
+            var kms   = getVal('g_kms')   || 1;
+            var years = getVal('g_years') || 4;
+            var fuelP = getVal('g_fuel');
+            var kwhP  = getVal('g_kwh');
+            var tcoRes = [];
+
+            for (var i = 1; i <= 3; i++) {
+                var type  = document.getElementById('type_' + i).value;
+                var price = getVal('price_' + i);
+                var cf    = getVal('cons_fuel_' + i);
+                var ce    = getVal('cons_elec_' + i);
+
+                var opex = getVal('maint_' + i) + getVal('tires_' + i) +
+                           getVal('iuc_'   + i) + getVal('ins_'   + i) +
+                           getVal('tolls_' + i) + getVal('tele_'  + i) +
+                           getVal('serv1_' + i) + getVal('serv2_' + i) +
+                           getVal('recon_' + i);
+
+                var limitIva = (type === 'BEV') ? 62500 : (type === 'PHEV' ? 50000 : 0);
+                var deduzIva = (type !== 'ICE' && price <= limitIva);
+
+                var ivaEl = document.getElementById('iva_status_' + i);
+                if (ivaEl) {
+                    ivaEl.innerText    = deduzIva ? 'SIM' : 'NÃO';
+                    ivaEl.style.color  = deduzIva ? '#10b981' : '#ef4444';
+                    ivaEl.style.fontWeight = 'bold';
+                }
+
+                var acq    = deduzIva ? price : (price * 1.23);
+                var energy = ((kms / 100) * cf * fuelP) + ((kms / 100) * ce * kwhP);
+                var amort  = acq / years;
+
+                var taRate = 0;
+                if (type === 'ICE') {
+                    if      (acq < 27500) taRate = 0.085;
+                    else if (acq < 35000) taRate = 0.255;
+                    else                  taRate = 0.325;
+                } else if (type === 'PHEV') {
+                    if      (acq < 27500) taRate = 0.025;
+                    else if (acq < 35000) taRate = 0.075;
+                    else                  taRate = 0.15;
+                } else if (type === 'BEV' && acq > 62500) {
+                    taRate = 0.10;
+                }
+
+                var baseTA = amort + opex + energy;
+                var taVal  = baseTA * taRate;
+
+                var limitIRC = (type === 'ICE') ? 25000 : (type === 'PHEV' ? 50000 : 62500);
+                var ircVal   = (Math.max(0, acq - limitIRC) / years) * 0.21;
+
+                var totalAnnualUnit = amort + opex + energy + taVal + ircVal;
+                tcoRes[i] = totalAnnualUnit;
+
+                setTxt('out_ta_'  + i, formatCustom(taVal,  0, '€'), -taVal);
+                setTxt('out_irc_' + i, formatCustom(ircVal, 0, '€'), -ircVal);
+                setTxt('out_tco_ano_' + i, formatCustom(totalAnnualUnit * qty, 0, '€'));
+                setTxt('out_tco_mes_' + i, formatCustom((totalAnnualUnit * qty) / 12, 0, '€'));
+                setTxt('out_tco_km_'  + i, formatCustom(totalAnnualUnit / kms, 2, '€'));
+            }
+
+            for (var c = 2; c <= 3; c++) {
+                var savA = (tcoRes[1] - tcoRes[c]) * qty;
+                setTxt('out_sav_ano_' + c, formatCustom(savA,       0, '€'), savA);
+                setTxt('out_sav_mes_' + c, formatCustom(savA / 12,  0, '€'), savA);
+                setTxt('out_sav_km_'  + c, formatCustom((tcoRes[1] - tcoRes[c]) / kms, 2, '€'), savA);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            updateUI();
+            calcFleetWise();
+        });
+    </script>
+
+</body>
+</html>
