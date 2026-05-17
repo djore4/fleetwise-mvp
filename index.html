@@ -15,6 +15,7 @@ tailwind.config={theme:{extend:{colors:{fw:{'green':'#10b981','green-d':'#059669
 <style>
 *{font-family:'Poppins',sans-serif;box-sizing:border-box}
 html,body{height:100%;margin:0;padding:0}
+html{font-size:13.5px}
 /* ── LAYOUT ── */
 #login-screen{min-height:100vh;display:flex}
 #app{height:100vh;display:flex;overflow:hidden}
@@ -311,16 +312,11 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
   <!-- SIDEBAR -->
   <aside id="sidebar">
     <!-- Logo -->
-    <div style="padding:20px 16px 12px;display:flex;align-items:center;gap:10px;border-bottom:1px solid #1e293b">
-      <div style="width:34px;height:34px;background:#10b981;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0">
-        <i class="fa-solid fa-car-side" style="color:#fff;font-size:.9rem"></i>
+    <div style="padding:20px 16px 12px;border-bottom:1px solid #1e293b">
+      <div style="font-size:1.2rem;font-weight:800;letter-spacing:-.01em;line-height:1">
+        <span style="color:#10b981">Fleet</span><span style="color:#fff">Wise</span>
       </div>
-      <div>
-        <div style="font-size:1.1rem;font-weight:800;letter-spacing:-.01em;line-height:1">
-          <span style="color:#10b981">Fleet</span><span style="color:#fff">Wise</span>
-        </div>
-        <div style="font-size:.6rem;color:#475569;font-weight:500;letter-spacing:.03em">PLATFORM</div>
-      </div>
+      <div style="font-size:.6rem;color:#475569;font-weight:500;letter-spacing:.03em;margin-top:2px">PLATFORM</div>
     </div>
 
     <!-- Navigation -->
