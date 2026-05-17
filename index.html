@@ -155,6 +155,64 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 .sim-blue{background:#eff6ff;border:1px solid #bfdbfe}
 .sim-gray{background:#f8fafc;border:1px solid #e2e8f0}
 .sim-big{font-size:1.75rem;font-weight:800;color:#10b981}
+/* ── MOBILE ── */
+#sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:99}
+#hamburger{display:none;width:36px;height:36px;border:1px solid #e2e8f0;border-radius:8px;background:#fff;align-items:center;justify-content:center;cursor:pointer;color:#475569;flex-shrink:0;transition:all .15s}
+#hamburger:hover{background:#f8fafc}
+@media(max-width:768px){
+  #login-screen{flex-direction:column}
+  .login-left{width:100%;padding:28px 24px;min-height:auto}
+  .login-left-stats{display:none}
+  .login-right{padding:24px 20px}
+  #sidebar{position:fixed;left:0;top:0;bottom:0;z-index:100;transform:translateX(-100%);transition:transform .25s ease;width:256px!important;min-width:256px!important}
+  #sidebar.mob-open{transform:translateX(0)}
+  #sidebar-overlay{display:block;opacity:0;pointer-events:none;transition:opacity .25s}
+  #sidebar-overlay.mob-open{opacity:1;pointer-events:auto}
+  #hamburger{display:flex}
+  #topbar{padding:0 12px;gap:8px}
+  #topbar-search{display:none}
+  #lang-btn{display:none}
+  #topbar-name{display:none}
+  #content{padding:14px}
+  .kpi-5,.kpi-4{grid-template-columns:repeat(2,1fr);gap:10px}
+  .kpi-3{grid-template-columns:repeat(2,1fr);gap:10px}
+  .kpi-card{padding:14px}
+  .kpi-value{font-size:1.35rem}
+  .g2,.g3,.g21{grid-template-columns:1fr;gap:14px}
+  .tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .data-tbl{min-width:520px}
+  .tabs{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .tabs::-webkit-scrollbar{display:none}
+  .tab-btn{white-space:nowrap;flex-shrink:0;padding:9px 12px;font-size:.8rem}
+  .modal-box{width:96%;max-height:92vh;margin:0 auto}
+  .chart-wrap{height:180px}
+  .chart-tall{height:210px}
+  .chart-sm{height:150px}
+  .pg-hdr{margin-bottom:14px}
+  .pg-title{font-size:1.1rem}
+  .card-body{padding:14px}
+  .fbar{gap:8px}
+  .fbar .form-input{min-width:0;flex:1}
+  .fbar .form-select{min-width:0;flex:1;font-size:.8rem}
+  .savings-item{padding:10px 12px}
+  .v-hero{padding:18px}
+  #app{height:100dvh}
+  .v-hero-stats{grid-template-columns:repeat(3,1fr)!important}
+  #topbar-user-name{display:none}
+}
+@media(max-width:480px){
+  .kpi-5,.kpi-4,.kpi-3{grid-template-columns:1fr 1fr}
+  .kpi-value{font-size:1.2rem}
+  .kpi-icon{width:34px;height:34px;font-size:.85rem}
+  #content{padding:10px}
+  .card-body{padding:10px}
+  .data-tbl th,.data-tbl td{padding:8px 10px}
+  .pg-title{font-size:1rem}
+  .login-left{padding:20px 16px}
+  .login-right{padding:16px}
+  .btn{font-size:.8rem;padding:7px 13px}
+  .g2[style*="gap:12px"]{gap:10px!important}
+}
 </style>
 </head>
 <body>
@@ -183,7 +241,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
           <div><p style="color:#e2e8f0;font-size:.84rem;font-weight:600;margin:0 0 2px">Espectro de Autonomia</p><p style="color:#64748b;font-size:.77rem;margin:0">Do self-service ao outsourcing integral — à medida de cada Cliente</p></div>
         </div>
       </div>
-      <div style="display:flex;gap:24px;padding-top:24px;border-top:1px solid #1e293b">
+      <div class="login-left-stats" style="display:flex;gap:24px;padding-top:24px;border-top:1px solid #1e293b">
         <div><p style="color:#10b981;font-size:1.3rem;font-weight:800;margin:0">261</p><p style="color:#64748b;font-size:.72rem;margin:0">Viaturas geridas</p></div>
         <div><p style="color:#10b981;font-size:1.3rem;font-weight:800;margin:0">12</p><p style="color:#64748b;font-size:.72rem;margin:0">Clientes ativos</p></div>
         <div><p style="color:#10b981;font-size:1.3rem;font-weight:800;margin:0">€86k</p><p style="color:#64748b;font-size:.72rem;margin:0">Poupança TCO gerada</p></div>
@@ -247,6 +305,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
 <!-- ═══════════════════════════════════════════════════════════
      APP SHELL
 ═══════════════════════════════════════════════════════════ -->
+<div id="sidebar-overlay" onclick="closeSidebar()"></div>
 <div id="app" style="display:none">
 
   <!-- SIDEBAR -->
@@ -284,12 +343,13 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;heigh
   <div id="main-area">
     <!-- TOPBAR -->
     <header id="topbar">
+      <button id="hamburger" onclick="toggleSidebar()"><i class="fa-solid fa-bars" style="font-size:.9rem"></i></button>
       <div style="flex:1;display:flex;align-items:center;gap:10px">
         <h2 id="topbar-title" style="font-size:.95rem;font-weight:600;color:#0f172a;margin:0"></h2>
         <div id="topbar-badge"></div>
       </div>
       <!-- Search -->
-      <div style="position:relative;display:flex;align-items:center">
+      <div id="topbar-search" style="position:relative;display:flex;align-items:center">
         <i class="fa-solid fa-magnifying-glass" style="position:absolute;left:10px;color:#94a3b8;font-size:.8rem"></i>
         <input type="text" placeholder="Pesquisar..." data-i18n-placeholder="common.search" style="padding:7px 11px 7px 30px;border:1px solid #e2e8f0;border-radius:8px;font-size:.82rem;outline:none;width:200px;font-family:'Poppins',sans-serif;color:#334155">
       </div>
@@ -747,6 +807,7 @@ const PAGE_TITLES = {
 function navigate(page){
   if(!S.user)return;
   destroyCharts();
+  closeSidebar();
   S.page=page;
   // Hide all pages
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
@@ -1091,7 +1152,7 @@ function renderDashboardDriver(){
         </div>
         <div style="text-align:right">${fuelBadge(v.fuel)}</div>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px" class="v-hero-stats">
         <div style="background:rgba(255,255,255,.06);border-radius:10px;padding:12px">
           <div style="font-size:.7rem;color:#94a3b8;margin-bottom:4px">km Atual</div>
           <div style="font-size:1.1rem;font-weight:700">${fmtNum(v.km)} km</div>
@@ -2294,6 +2355,18 @@ function toggleLang(){
   document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{el.placeholder=t(el.dataset['i18nPlaceholder']);});
   // Re-render current page
   if(S.user)navigate(S.page);
+}
+
+// ─────────────────────────────────────────────────────────────
+// MOBILE SIDEBAR
+// ─────────────────────────────────────────────────────────────
+function toggleSidebar(){
+  document.getElementById('sidebar').classList.toggle('mob-open');
+  document.getElementById('sidebar-overlay').classList.toggle('mob-open');
+}
+function closeSidebar(){
+  document.getElementById('sidebar').classList.remove('mob-open');
+  document.getElementById('sidebar-overlay').classList.remove('mob-open');
 }
 
 // ─────────────────────────────────────────────────────────────
