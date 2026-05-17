@@ -802,6 +802,7 @@ const PAGE_TITLES = {
 
 function navigate(page){
   if(!S.user)return;
+  if(page==='simulator'&&S.user.role!=='admin')return;
   destroyCharts();
   closeSidebar();
   S.page=page;
@@ -841,7 +842,7 @@ function buildSidebarNav(){
       +navItem('tco','fa-chart-bar')
       +navItem('maintenance','fa-wrench')
       +navItem('fiscal','fa-file-invoice')
-      +navItem('simulator','fa-bolt')
+      +(u.role==='admin'?navItem('simulator','fa-bolt'):'')
       +navItem('reports','fa-leaf')
       +'<div class="nav-sep"></div>';
     if(u.role==='admin') html+=navItem('clients','fa-users');
