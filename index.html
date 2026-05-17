@@ -15,7 +15,7 @@ tailwind.config={theme:{extend:{colors:{fw:{'green':'#10b981','green-d':'#059669
 <style>
 *{font-family:'Poppins',sans-serif;box-sizing:border-box}
 html,body{height:100%;margin:0;padding:0}
-html{font-size:12.5px}
+html{font-size:10px}
 /* ── LAYOUT ── */
 #login-screen{min-height:100vh;display:flex}
 #app{height:100vh;display:flex;overflow:hidden}
@@ -824,9 +824,8 @@ function navigate(page){
   if(renders[page])renders[page]();
 }
 
-function initApp(){
+function buildSidebarNav(){
   const u=S.user;
-  // Build sidebar nav
   const nav=document.getElementById('sidebar-nav');
   let html='';
   if(u.role==='driver'){
@@ -850,6 +849,16 @@ function initApp(){
       +`<div class="nav-item" onclick="logout()" style="margin-top:4px"><i class="fa-solid fa-right-from-bracket" style="width:18px;text-align:center;font-size:.9rem"></i><span>${t('nav.logout')}</span></div>`;
   }
   nav.innerHTML=html;
+  // Mark active item
+  document.querySelectorAll('.nav-item').forEach(n=>{
+    n.classList.toggle('active',n.dataset.page===S.page);
+  });
+  document.getElementById('user-role-label').textContent=t('role.'+u.role);
+}
+
+function initApp(){
+  const u=S.user;
+  buildSidebarNav();
   // User strip
   document.getElementById('user-avatar').textContent=u.initials;
   document.getElementById('user-name').textContent=u.name;
@@ -2333,6 +2342,8 @@ function toggleLang(){
   // Re-translate static elements
   document.querySelectorAll('[data-i18n]').forEach(el=>{el.textContent=t(el.dataset.i18n);});
   document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{el.placeholder=t(el.dataset['i18nPlaceholder']);});
+  // Rebuild sidebar nav with new language
+  if(S.user)buildSidebarNav();
   // Re-render current page
   if(S.user)navigate(S.page);
 }
