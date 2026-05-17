@@ -15,7 +15,7 @@ tailwind.config={theme:{extend:{colors:{fw:{'green':'#10b981','green-d':'#059669
 <style>
 *{font-family:'Poppins',sans-serif;box-sizing:border-box}
 html,body{height:100%;margin:0;padding:0}
-html{font-size:13.5px}
+html{font-size:12.5px}
 /* ── LAYOUT ── */
 #login-screen{min-height:100vh;display:flex}
 #app{height:100vh;display:flex;overflow:hidden}
@@ -985,14 +985,6 @@ function renderDashboardAdmin(){
       </div>
     </div>
 
-    ${alerts.length?`<div style="margin-bottom:24px">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-        <h3 style="font-size:.9rem;font-weight:600;color:#0f172a;margin:0"><i class="fa-solid fa-bell" style="color:#f59e0b;margin-right:6px"></i>${t('dash.alerts')} <span style="background:#fee2e2;color:#991b1b;border-radius:20px;padding:2px 8px;font-size:.7rem;font-weight:700;margin-left:4px">${alerts.length}</span></h3>
-        <button class="btn btn-sec btn-sm" onclick="navigate('maintenance')">${t('dash.view_all')}</button>
-      </div>
-      ${alertsHtml}
-    </div>`:''}
-
     <div class="g2" style="margin-bottom:20px">
       <div class="card">
         <div class="card-header"><span class="card-title"><i class="fa-solid fa-chart-pie" style="color:#10b981;margin-right:6px"></i>${t('dash.fleet_comp')}</span></div>
@@ -1096,14 +1088,6 @@ function renderDashboardManager(){
         <div class="kpi-change pos">${bev} BEV + ${phev} PHEV</div>
       </div>
     </div>
-
-    ${alerts.length?`<div style="margin-bottom:24px">
-      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
-        <h3 style="font-size:.9rem;font-weight:600;color:#0f172a;margin:0"><i class="fa-solid fa-bell" style="color:#f59e0b;margin-right:6px"></i>${t('dash.alerts')} <span style="background:#fee2e2;color:#991b1b;border-radius:20px;padding:2px 8px;font-size:.7rem;font-weight:700;margin-left:4px">${alerts.length}</span></h3>
-        <button class="btn btn-sec btn-sm" onclick="navigate('maintenance')">${t('dash.view_all')}</button>
-      </div>
-      ${alertsHtml}
-    </div>`:''}
 
     <div class="g2">
       <div class="card">
