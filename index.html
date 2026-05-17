@@ -13,51 +13,90 @@
 tailwind.config={theme:{extend:{colors:{fw:{'green':'#10b981','green-d':'#059669','green-l':'#d1fae5','green-bg':'#ecfdf5','navy':'#0f172a','navy-m':'#1e293b','navy-l':'#334155'}},fontFamily:{sans:['Poppins','sans-serif']}}}}
 </script>
 <style>
+/* ════════════════════════════════════════════════════════════
+   FLEETWISE — DESIGN TOKENS
+   Tipografia base 10px · Espaçamento grelha 4px · Radius 4/6/10/16
+   ════════════════════════════════════════════════════════════ */
+:root{
+  /* TYPE */
+  --fs-xs:.7rem; --fs-sm:.8rem; --fs-md:.9rem; --fs-base:1rem;
+  --fs-lg:1.2rem; --fs-xl:1.5rem; --fs-2xl:1.9rem; --fs-3xl:2.6rem;
+  --fw-reg:400; --fw-med:500; --fw-semi:600; --fw-bold:700; --fw-xbold:800;
+  --lh-tight:1.15; --lh-snug:1.35; --lh-normal:1.5;
+  /* SPACE (4px grid) */
+  --sp-0:0; --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-5:20px;
+  --sp-6:24px; --sp-8:32px; --sp-10:40px; --sp-12:48px; --sp-16:64px;
+  /* RADIUS */
+  --r-sm:4px; --r-md:6px; --r-lg:10px; --r-xl:16px; --r-full:9999px;
+  /* SHADOWS */
+  --sh-sm:0 1px 2px rgba(15,23,42,.06);
+  --sh-md:0 4px 12px rgba(15,23,42,.08);
+  --sh-lg:0 12px 32px rgba(15,23,42,.10);
+  /* COLORS — Brand */
+  --c-navy:#0f172a; --c-navy-2:#1e293b; --c-navy-3:#334155;
+  --c-green:#10b981; --c-green-d:#059669; --c-green-l:#d1fae5; --c-green-bg:#ecfdf5;
+  /* COLORS — Text */
+  --c-text:#0f172a; --c-text-2:#475569; --c-text-3:#64748b; --c-text-4:#94a3b8;
+  /* COLORS — Surfaces */
+  --c-bg:#f8fafc; --c-card:#fff; --c-border:#e2e8f0; --c-border-2:#f1f5f9;
+  /* COLORS — Status */
+  --c-warn:#f59e0b; --c-danger:#ef4444; --c-info:#3b82f6;
+  /* TRANSITION */
+  --t-fast:.15s ease; --t-base:.2s ease;
+}
+
 *{font-family:'Poppins',sans-serif;box-sizing:border-box}
 html,body{height:100%;margin:0;padding:0}
-html{font-size:9px}
+html{font-size:10px}
+body{color:var(--c-text);font-size:var(--fs-base);line-height:var(--lh-snug)}
+
 /* ── LAYOUT ── */
 #login-screen{min-height:100vh;display:flex}
 #app{height:100vh;display:flex;overflow:hidden}
-#sidebar{width:155px;min-width:155px;background:#0f172a;display:flex;flex-direction:column;overflow-y:auto;transition:width .2s}
+#sidebar{width:172px;min-width:172px;background:var(--c-navy);display:flex;flex-direction:column;overflow-y:auto;transition:width var(--t-base)}
 #main-area{flex:1;display:flex;flex-direction:column;overflow:hidden}
-#topbar{height:32px;min-height:32px;background:#fff;border-bottom:1px solid #e2e8f0;display:flex;align-items:center;padding:0 8px;gap:4px;z-index:10}
-#content{flex:1;overflow-y:auto;padding:6px 8px;background:#f8fafc}
+#topbar{height:48px;min-height:48px;background:var(--c-card);border-bottom:1px solid var(--c-border);display:flex;align-items:center;padding:0 var(--sp-3);gap:var(--sp-2);z-index:10}
+#content{flex:1;overflow-y:auto;padding:var(--sp-4);background:var(--c-bg)}
 .page{display:none}.page.active{display:block}
+
 /* ── SIDEBAR ── */
-.nav-item{display:flex;align-items:center;gap:5px;padding:4px 6px;color:#94a3b8;border-radius:4px;cursor:pointer;transition:all .15s;margin:1px 3px;font-size:.95rem;font-weight:500;user-select:none}
+.nav-item{display:flex;align-items:center;gap:var(--sp-2);padding:var(--sp-2) var(--sp-3);color:#94a3b8;border-radius:var(--r-sm);cursor:pointer;transition:all var(--t-fast);margin:2px var(--sp-2);font-size:var(--fs-md);font-weight:var(--fw-med);user-select:none}
 .nav-item:hover{background:rgba(255,255,255,.06);color:#cbd5e1}
-.nav-item.active{background:rgba(16,185,129,.14);color:#10b981}
-.nav-item i{width:12px;text-align:center;font-size:.88rem;opacity:.8}
+.nav-item.active{background:rgba(16,185,129,.14);color:var(--c-green)}
+.nav-item i{width:16px;text-align:center;font-size:var(--fs-md);opacity:.8}
 .nav-item.active i{opacity:1}
-.nav-sep{height:1px;background:#1e293b;margin:2px 0}
-.nav-section{font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#475569;padding:4px 10px 1px}
+.nav-sep{height:1px;background:var(--c-navy-2);margin:var(--sp-2) 0}
+.nav-section{font-size:var(--fs-xs);font-weight:var(--fw-semi);text-transform:uppercase;letter-spacing:.08em;color:#475569;padding:var(--sp-2) var(--sp-3) var(--sp-1)}
+
 /* ── KPI CARDS ── */
-.kpi-grid{display:grid;gap:4px;margin-bottom:6px}
+.kpi-grid{display:grid;gap:var(--sp-3);margin-bottom:var(--sp-4)}
 .kpi-5{grid-template-columns:repeat(5,1fr)}
 .kpi-4{grid-template-columns:repeat(4,1fr)}
 .kpi-3{grid-template-columns:repeat(3,1fr)}
-.kpi-card{background:#fff;border-radius:5px;padding:6px 8px;border:1px solid #e2e8f0;transition:box-shadow .2s}
-.kpi-card:hover{box-shadow:0 1px 4px rgba(0,0,0,.07)}
-.kpi-icon{width:18px;height:18px;border-radius:4px;display:flex;align-items:center;justify-content:center;margin-bottom:3px;font-size:.75rem}
-.kpi-label{font-size:.78rem;color:#64748b;font-weight:500;margin-bottom:1px}
-.kpi-value{font-size:1.25rem;font-weight:700;color:#0f172a;line-height:1.15}
-.kpi-change{font-size:.7rem;font-weight:600;margin-top:1px}
-.kpi-change.pos{color:#10b981}.kpi-change.neg{color:#ef4444}.kpi-change.neu{color:#64748b}
+.kpi-card{background:var(--c-card);border-radius:var(--r-md);padding:var(--sp-3) var(--sp-3);border:1px solid var(--c-border);transition:box-shadow var(--t-base)}
+.kpi-card:hover{box-shadow:var(--sh-sm)}
+.kpi-icon{width:28px;height:28px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;margin-bottom:var(--sp-2);font-size:var(--fs-md)}
+.kpi-label{font-size:var(--fs-sm);color:var(--c-text-3);font-weight:var(--fw-med);margin-bottom:var(--sp-1)}
+.kpi-value{font-size:var(--fs-xl);font-weight:var(--fw-bold);color:var(--c-text);line-height:var(--lh-tight)}
+.kpi-change{font-size:var(--fs-xs);font-weight:var(--fw-semi);margin-top:var(--sp-1)}
+.kpi-change.pos{color:var(--c-green)}.kpi-change.neg{color:var(--c-danger)}.kpi-change.neu{color:var(--c-text-3)}
+
 /* ── CARDS ── */
-.card{background:#fff;border-radius:5px;border:1px solid #e2e8f0;overflow:hidden}
-.card-header{padding:4px 8px;border-bottom:1px solid #f1f5f9;display:flex;align-items:center;justify-content:space-between}
-.card-title{font-size:.85rem;font-weight:600;color:#0f172a}
-.card-body{padding:6px 8px}
+.card{background:var(--c-card);border-radius:var(--r-md);border:1px solid var(--c-border);overflow:hidden}
+.card-header{padding:var(--sp-3) var(--sp-3);border-bottom:1px solid var(--c-border-2);display:flex;align-items:center;justify-content:space-between}
+.card-title{font-size:var(--fs-md);font-weight:var(--fw-semi);color:var(--c-text)}
+.card-body{padding:var(--sp-3) var(--sp-3)}
+
 /* ── TABLE ── */
-.tbl-wrap{background:#fff;border-radius:5px;border:1px solid #e2e8f0;overflow:hidden}
+.tbl-wrap{background:var(--c-card);border-radius:var(--r-md);border:1px solid var(--c-border);overflow:hidden}
 .data-tbl{width:100%;border-collapse:collapse}
-.data-tbl th{text-align:left;padding:3px 6px;background:#f8fafc;font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:#64748b;border-bottom:1px solid #e2e8f0}
-.data-tbl td{padding:4px 6px;font-size:.82rem;color:#334155;border-bottom:1px solid #f1f5f9}
+.data-tbl th{text-align:left;padding:var(--sp-2) var(--sp-3);background:var(--c-bg);font-size:var(--fs-xs);font-weight:var(--fw-semi);text-transform:uppercase;letter-spacing:.05em;color:var(--c-text-3);border-bottom:1px solid var(--c-border)}
+.data-tbl td{padding:var(--sp-2) var(--sp-3);font-size:var(--fs-md);color:var(--c-navy-3);border-bottom:1px solid var(--c-border-2)}
 .data-tbl tr:last-child td{border-bottom:none}
 .data-tbl tbody tr:hover td{background:#fafafa;cursor:pointer}
+
 /* ── BADGES ── */
-.badge{display:inline-flex;align-items:center;gap:2px;padding:1px 4px;border-radius:20px;font-size:.7rem;font-weight:600;white-space:nowrap}
+.badge{display:inline-flex;align-items:center;gap:var(--sp-1);padding:2px var(--sp-2);border-radius:var(--r-full);font-size:var(--fs-xs);font-weight:var(--fw-semi);white-space:nowrap}
 .b-ok{background:#d1fae5;color:#065f46}
 .b-atencao{background:#fef3c7;color:#92400e}
 .b-urgente{background:#fee2e2;color:#991b1b}
@@ -76,162 +115,158 @@ html{font-size:9px}
 .b-hibrido{background:#d1fae5;color:#065f46}
 .b-outsourcing{background:#fef3c7;color:#92400e}
 /* ── BUTTONS ── */
-.btn{display:inline-flex;align-items:center;gap:3px;border:none;border-radius:3px;padding:3px 7px;font-size:.85rem;font-weight:600;cursor:pointer;transition:all .15s;font-family:'Poppins',sans-serif}
-.btn-primary{background:#10b981;color:#fff}.btn-primary:hover{background:#059669}
-.btn-sec{background:#fff;color:#334155;border:1px solid #e2e8f0}.btn-sec:hover{background:#f8fafc;border-color:#cbd5e1}
-.btn-sm{padding:2px 5px;font-size:.75rem}
-.btn-icon{width:20px;height:20px;padding:0;border-radius:3px;justify-content:center;border:1px solid #e2e8f0;background:#fff;color:#64748b}.btn-icon:hover{background:#f8fafc;color:#334155}
+.btn{display:inline-flex;align-items:center;gap:var(--sp-1);border:none;border-radius:var(--r-sm);padding:var(--sp-2) var(--sp-3);font-size:var(--fs-md);font-weight:var(--fw-semi);cursor:pointer;transition:all var(--t-fast);font-family:'Poppins',sans-serif;line-height:1}
+.btn-primary{background:var(--c-green);color:#fff}.btn-primary:hover{background:var(--c-green-d)}
+.btn-sec{background:var(--c-card);color:var(--c-navy-3);border:1px solid var(--c-border)}.btn-sec:hover{background:var(--c-bg);border-color:#cbd5e1}
+.btn-sm{padding:var(--sp-1) var(--sp-2);font-size:var(--fs-sm)}
+.btn-icon{width:32px;height:32px;padding:0;border-radius:var(--r-sm);justify-content:center;border:1px solid var(--c-border);background:var(--c-card);color:var(--c-text-3)}.btn-icon:hover{background:var(--c-bg);color:var(--c-navy-3)}
+
 /* ── FORMS ── */
-.form-label{display:block;font-size:.75rem;font-weight:600;color:#475569;margin-bottom:1px}
-.form-input,.form-select{width:100%;padding:3px 6px;border:1px solid #e2e8f0;border-radius:3px;font-size:.85rem;color:#1e293b;background:#fff;outline:none;font-family:'Poppins',sans-serif;transition:border-color .15s}
-.form-input:focus,.form-select:focus{border-color:#10b981;box-shadow:0 0 0 2px rgba(16,185,129,.1)}
+.form-label{display:block;font-size:var(--fs-sm);font-weight:var(--fw-semi);color:var(--c-text-2);margin-bottom:var(--sp-1)}
+.form-input,.form-select{width:100%;padding:var(--sp-2) var(--sp-3);border:1px solid var(--c-border);border-radius:var(--r-sm);font-size:var(--fs-md);color:var(--c-navy-2);background:var(--c-card);outline:none;font-family:'Poppins',sans-serif;transition:border-color var(--t-fast)}
+.form-input:focus,.form-select:focus{border-color:var(--c-green);box-shadow:0 0 0 3px rgba(16,185,129,.1)}
+
 /* ── ALERTS ── */
-.alert-row{display:flex;align-items:flex-start;gap:4px;padding:4px 6px;border-radius:4px;margin-bottom:2px;font-size:.78rem}
+.alert-row{display:flex;align-items:flex-start;gap:var(--sp-2);padding:var(--sp-2) var(--sp-3);border-radius:var(--r-sm);margin-bottom:var(--sp-1);font-size:var(--fs-md)}
 .al-urgente{background:#fff5f5;border:1px solid #fecaca;color:#991b1b}
 .al-atencao{background:#fffbeb;border:1px solid #fde68a;color:#92400e}
 .al-info{background:#eff6ff;border:1px solid #bfdbfe;color:#1e40af}
 .al-ok{background:#ecfdf5;border:1px solid #a7f3d0;color:#065f46}
+
 /* ── MODAL ── */
 #modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1000;align-items:center;justify-content:center}
 #modal-overlay.open{display:flex}
-.modal-box{background:#fff;border-radius:6px;width:88%;max-width:460px;max-height:88vh;overflow-y:auto;box-shadow:0 10px 32px rgba(0,0,0,.2)}
-.modal-hdr{padding:6px 10px;border-bottom:1px solid #f1f5f9;display:flex;align-items:center;justify-content:space-between}
-.modal-title{font-size:.85rem;font-weight:600;color:#0f172a}
-.modal-body{padding:8px 10px}
-.modal-foot{padding:6px 10px;border-top:1px solid #f1f5f9;display:flex;justify-content:flex-end;gap:4px}
+.modal-box{background:var(--c-card);border-radius:var(--r-lg);width:88%;max-width:480px;max-height:88vh;overflow-y:auto;box-shadow:var(--sh-lg)}
+.modal-hdr{padding:var(--sp-3) var(--sp-4);border-bottom:1px solid var(--c-border-2);display:flex;align-items:center;justify-content:space-between}
+.modal-title{font-size:var(--fs-lg);font-weight:var(--fw-semi);color:var(--c-text)}
+.modal-body{padding:var(--sp-4)}
+.modal-foot{padding:var(--sp-3) var(--sp-4);border-top:1px solid var(--c-border-2);display:flex;justify-content:flex-end;gap:var(--sp-2)}
+
 /* ── CHARTS ── */
-.chart-wrap{position:relative;height:115px}
-.chart-tall{position:relative;height:145px}
-.chart-sm{position:relative;height:88px}
+.chart-wrap{position:relative;height:160px}
+.chart-tall{position:relative;height:200px}
+.chart-sm{position:relative;height:120px}
+
 /* ── GRID ── */
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:6px}
-.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
-.g21{display:grid;grid-template-columns:2fr 1fr;gap:6px}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-3)}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp-3)}
+.g21{display:grid;grid-template-columns:2fr 1fr;gap:var(--sp-3)}
+
 /* ── PAGE HEADER ── */
-.pg-hdr{margin-bottom:6px}
-.pg-title{font-size:.9rem;font-weight:700;color:#0f172a;margin:0}
-.pg-sub{font-size:.72rem;color:#64748b;margin:0}
+.pg-hdr{margin-bottom:var(--sp-4)}
+.pg-title{font-size:var(--fs-xl);font-weight:var(--fw-bold);color:var(--c-text);margin:0;line-height:var(--lh-tight)}
+.pg-sub{font-size:var(--fs-md);color:var(--c-text-3);margin:var(--sp-1) 0 0}
+
 /* ── FILTERS BAR ── */
-.fbar{display:flex;align-items:center;gap:4px;margin-bottom:5px;flex-wrap:wrap}
-.fbar .form-input,.fbar .form-select{width:auto;padding:2px 5px}
-.fbar .form-input{min-width:120px}
-.fbar .form-select{min-width:85px}
+.fbar{display:flex;align-items:center;gap:var(--sp-2);margin-bottom:var(--sp-3);flex-wrap:wrap}
+.fbar .form-input,.fbar .form-select{width:auto;padding:var(--sp-1) var(--sp-2)}
+.fbar .form-input{min-width:160px}
+.fbar .form-select{min-width:120px}
+
 /* ── TABS ── */
-.tabs{display:flex;border-bottom:1px solid #e2e8f0;margin-bottom:6px}
-.tab-btn{padding:4px 8px;font-size:.78rem;font-weight:500;color:#64748b;border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;font-family:'Poppins',sans-serif;margin-bottom:-1px}
-.tab-btn:hover{color:#334155}
-.tab-btn.active{color:#10b981;border-bottom-color:#10b981}
+.tabs{display:flex;border-bottom:1px solid var(--c-border);margin-bottom:var(--sp-4);gap:var(--sp-1)}
+.tab-btn{padding:var(--sp-2) var(--sp-3);font-size:var(--fs-md);font-weight:var(--fw-med);color:var(--c-text-3);border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;transition:all var(--t-fast);font-family:'Poppins',sans-serif;margin-bottom:-1px}
+.tab-btn:hover{color:var(--c-navy-3)}
+.tab-btn.active{color:var(--c-green);border-bottom-color:var(--c-green)}
 .tab-pane{display:none}.tab-pane.active{display:block}
+
 /* ── MISC ── */
-.health-bar{height:3px;border-radius:2px;background:#e2e8f0;overflow:hidden;margin-top:2px}
-.health-fill{height:100%;border-radius:2px;background:#10b981}
-.health-fill.warn{background:#f59e0b}.health-fill.danger{background:#ef4444}
-.empty-state{text-align:center;padding:14px 10px;color:#94a3b8}
-.empty-state i{font-size:1.3rem;margin-bottom:4px;display:block;color:#cbd5e1}
-.divider{height:1px;background:#f1f5f9;margin:4px 0}
-::-webkit-scrollbar{width:3px;height:3px}
+.health-bar{height:4px;border-radius:var(--r-sm);background:var(--c-border);overflow:hidden;margin-top:var(--sp-1)}
+.health-fill{height:100%;border-radius:var(--r-sm);background:var(--c-green)}
+.health-fill.warn{background:var(--c-warn)}.health-fill.danger{background:var(--c-danger)}
+.empty-state{text-align:center;padding:var(--sp-6) var(--sp-4);color:var(--c-text-4)}
+.empty-state i{font-size:var(--fs-2xl);margin-bottom:var(--sp-2);display:block;color:#cbd5e1}
+.divider{height:1px;background:var(--c-border-2);margin:var(--sp-2) 0}
+::-webkit-scrollbar{width:6px;height:6px}
 ::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:2px}
+::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:var(--r-sm)}
 ::-webkit-scrollbar-thumb:hover{background:#94a3b8}
+
 /* ── LOGIN ── */
-.login-left{width:38%;background:linear-gradient(150deg,#0f172a 0%,#1e3a5f 50%,#064e3b 100%);display:flex;flex-direction:column;justify-content:center;padding:36px;position:relative;overflow:hidden}
-.login-left::before{content:'';position:absolute;width:260px;height:260px;border-radius:50%;background:rgba(16,185,129,.07);bottom:-60px;left:-60px}
-.login-left::after{content:'';position:absolute;width:140px;height:140px;border-radius:50%;background:rgba(16,185,129,.05);top:-30px;right:-20px}
-.login-right{flex:1;display:flex;align-items:center;justify-content:center;background:#fff;padding:20px}
-.login-form{width:100%;max-width:320px}
-.demo-btn{width:100%;text-align:left;padding:7px 9px;border:1px solid #e2e8f0;border-radius:6px;background:#fff;cursor:pointer;transition:all .15s;margin-bottom:4px;display:flex;align-items:center;gap:8px;font-family:'Poppins',sans-serif}
-.demo-btn:hover{border-color:#10b981;background:#f0fdf9}
-.demo-dot{width:26px;height:26px;border-radius:5px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.68rem;font-weight:700;color:#fff}
+.login-left{width:38%;background:linear-gradient(150deg,#0f172a 0%,#1e3a5f 50%,#064e3b 100%);display:flex;flex-direction:column;justify-content:center;padding:var(--sp-10);position:relative;overflow:hidden}
+.login-left::before{content:'';position:absolute;width:260px;height:260px;border-radius:var(--r-full);background:rgba(16,185,129,.07);bottom:-60px;left:-60px}
+.login-left::after{content:'';position:absolute;width:140px;height:140px;border-radius:var(--r-full);background:rgba(16,185,129,.05);top:-30px;right:-20px}
+.login-right{flex:1;display:flex;align-items:center;justify-content:center;background:var(--c-card);padding:var(--sp-6)}
+.login-form{width:100%;max-width:360px}
+.demo-btn{width:100%;text-align:left;padding:var(--sp-3);border:1px solid var(--c-border);border-radius:var(--r-md);background:var(--c-card);cursor:pointer;transition:all var(--t-fast);margin-bottom:var(--sp-2);display:flex;align-items:center;gap:var(--sp-3);font-family:'Poppins',sans-serif}
+.demo-btn:hover{border-color:var(--c-green);background:#f0fdf9}
+.demo-dot{width:32px;height:32px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:var(--fs-sm);font-weight:var(--fw-bold);color:#fff}
+
 /* ── VEHICLE HERO CARD ── */
-.v-hero{background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 100%);border-radius:8px;padding:12px;color:#fff;margin-bottom:8px}
+.v-hero{background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 100%);border-radius:var(--r-lg);padding:var(--sp-5);color:#fff;margin-bottom:var(--sp-4)}
+
 /* ── RANGE INPUT ── */
-input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:3px;border-radius:2px;background:#e2e8f0;outline:none}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:13px;height:13px;border-radius:50%;background:#10b981;cursor:pointer;box-shadow:0 1px 3px rgba(16,185,129,.4)}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:var(--r-sm);background:var(--c-border);outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:var(--r-full);background:var(--c-green);cursor:pointer;box-shadow:0 1px 3px rgba(16,185,129,.4)}
+
 /* ── TCO SPECIFIC ── */
-.savings-item{display:flex;align-items:center;gap:5px;padding:4px 7px;border-radius:4px;background:#f8fafc;border:1px solid #f1f5f9;margin-bottom:3px}
-.savings-amount{font-size:.8rem;font-weight:700;color:#10b981;white-space:nowrap}
+.savings-item{display:flex;align-items:center;gap:var(--sp-2);padding:var(--sp-2) var(--sp-3);border-radius:var(--r-sm);background:var(--c-bg);border:1px solid var(--c-border-2);margin-bottom:var(--sp-1)}
+.savings-amount{font-size:var(--fs-md);font-weight:var(--fw-bold);color:var(--c-green);white-space:nowrap}
+
 /* ── SIM RESULT ── */
-.sim-result-card{border-radius:5px;padding:7px;margin-bottom:4px}
-.sim-green{background:#ecfdf5;border:1px solid #a7f3d0}
+.sim-result-card{border-radius:var(--r-md);padding:var(--sp-3);margin-bottom:var(--sp-2)}
+.sim-green{background:var(--c-green-bg);border:1px solid #a7f3d0}
 .sim-blue{background:#eff6ff;border:1px solid #bfdbfe}
-.sim-gray{background:#f8fafc;border:1px solid #e2e8f0}
-.sim-big{font-size:1.15rem;font-weight:800;color:#10b981}
-.b-ok{background:#d1fae5;color:#065f46}
-.b-atencao{background:#fef3c7;color:#92400e}
-.b-urgente{background:#fee2e2;color:#991b1b}
-.b-expirado{background:#fce7f3;color:#9d174d}
-.b-bev{background:#dbeafe;color:#1e40af}
-.b-phev{background:#ede9fe;color:#4c1d95}
-.b-diesel{background:#f1f5f9;color:#334155}
-.b-gasolina{background:#fff7ed;color:#9a3412}
-.b-admin{background:#fef3c7;color:#92400e}
-.b-manager{background:#d1fae5;color:#065f46}
-.b-driver{background:#dbeafe;color:#1e40af}
-.b-micro{background:#f1f5f9;color:#475569}
-.b-media{background:#dbeafe;color:#1e40af}
-.b-grande{background:#ede9fe;color:#4c1d95}
-.b-self{background:#f1f5f9;color:#475569}
-.b-hibrido{background:#d1fae5;color:#065f46}
-.b-outsourcing{background:#fef3c7;color:#92400e}
-.sim-gray{background:#f8fafc;border:1px solid #e2e8f0}
-.sim-big{font-size:1.5rem;font-weight:800;color:#10b981}
+.sim-gray{background:var(--c-bg);border:1px solid var(--c-border)}
+.sim-big{font-size:var(--fs-xl);font-weight:var(--fw-xbold);color:var(--c-green)}
+
 /* ── MOBILE ── */
 #sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:99}
-#hamburger{display:none;width:36px;height:36px;border:1px solid #e2e8f0;border-radius:8px;background:#fff;align-items:center;justify-content:center;cursor:pointer;color:#475569;flex-shrink:0;transition:all .15s}
-#hamburger:hover{background:#f8fafc}
+#hamburger{display:none;width:36px;height:36px;border:1px solid var(--c-border);border-radius:var(--r-md);background:var(--c-card);align-items:center;justify-content:center;cursor:pointer;color:var(--c-text-2);flex-shrink:0;transition:all var(--t-fast)}
+#hamburger:hover{background:var(--c-bg)}
+
 @media(max-width:768px){
   #login-screen{flex-direction:column}
-  .login-left{width:100%;padding:28px 24px;min-height:auto}
+  .login-left{width:100%;padding:var(--sp-6) var(--sp-5);min-height:auto}
   .login-left-stats{display:none}
-  .login-right{padding:24px 20px}
-  #sidebar{position:fixed;left:0;top:0;bottom:0;z-index:100;transform:translateX(-100%);transition:transform .25s ease;width:256px!important;min-width:256px!important}
+  .login-right{padding:var(--sp-6) var(--sp-5)}
+  #sidebar{position:fixed;left:0;top:0;bottom:0;z-index:100;transform:translateX(-100%);transition:transform .25s ease;width:260px!important;min-width:260px!important}
   #sidebar.mob-open{transform:translateX(0)}
   #sidebar-overlay{display:block;opacity:0;pointer-events:none;transition:opacity .25s}
   #sidebar-overlay.mob-open{opacity:1;pointer-events:auto}
   #hamburger{display:flex}
-  #topbar{padding:0 12px;gap:8px}
+  #topbar{padding:0 var(--sp-3);gap:var(--sp-2)}
   #topbar-search{display:none}
   #lang-btn{display:none}
   #topbar-name{display:none}
-  #content{padding:14px}
-  .kpi-5,.kpi-4{grid-template-columns:repeat(2,1fr);gap:8px}
-  .kpi-3{grid-template-columns:repeat(2,1fr);gap:8px}
-  .kpi-card{padding:10px 11px}
-  .kpi-value{font-size:1.1rem}
-  .g2,.g3,.g21{grid-template-columns:1fr;gap:10px}
+  #content{padding:var(--sp-4)}
+  .kpi-5,.kpi-4{grid-template-columns:repeat(2,1fr);gap:var(--sp-2)}
+  .kpi-3{grid-template-columns:repeat(2,1fr);gap:var(--sp-2)}
+  .kpi-card{padding:var(--sp-3)}
+  .kpi-value{font-size:var(--fs-lg)}
+  .g2,.g3,.g21{grid-template-columns:1fr;gap:var(--sp-3)}
   .tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
   .data-tbl{min-width:520px}
   .tabs{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
   .tabs::-webkit-scrollbar{display:none}
-  .tab-btn{white-space:nowrap;flex-shrink:0;padding:9px 12px;font-size:.8rem}
+  .tab-btn{white-space:nowrap;flex-shrink:0;padding:var(--sp-2) var(--sp-3);font-size:var(--fs-md)}
   .modal-box{width:96%;max-height:92vh;margin:0 auto}
   .chart-wrap{height:180px}
-  .chart-tall{height:210px}
-  .chart-sm{height:150px}
-  .pg-hdr{margin-bottom:14px}
-  .pg-title{font-size:1.1rem}
-  .card-body{padding:14px}
-  .fbar{gap:8px}
+  .chart-tall{height:220px}
+  .chart-sm{height:140px}
+  .pg-hdr{margin-bottom:var(--sp-4)}
+  .pg-title{font-size:var(--fs-xl)}
+  .card-body{padding:var(--sp-4)}
+  .fbar{gap:var(--sp-2)}
   .fbar .form-input{min-width:0;flex:1}
-  .fbar .form-select{min-width:0;flex:1;font-size:.8rem}
-  .savings-item{padding:10px 12px}
-  .v-hero{padding:18px}
+  .fbar .form-select{min-width:0;flex:1;font-size:var(--fs-md)}
+  .savings-item{padding:var(--sp-3)}
+  .v-hero{padding:var(--sp-5)}
   #app{height:100dvh}
   .v-hero-stats{grid-template-columns:repeat(3,1fr)!important}
   #topbar-user-name{display:none}
 }
 @media(max-width:480px){
   .kpi-5,.kpi-4,.kpi-3{grid-template-columns:1fr 1fr}
-  .kpi-value{font-size:1.2rem}
-  .kpi-icon{width:34px;height:34px;font-size:.85rem}
+  .kpi-value{font-size:var(--fs-lg)}
+  .kpi-icon{width:32px;height:32px;font-size:var(--fs-md)}
   #content{padding:10px}
-  .card-body{padding:10px}
-  .data-tbl th,.data-tbl td{padding:8px 10px}
-  .pg-title{font-size:1rem}
-  .login-left{padding:20px 16px}
-  .login-right{padding:16px}
-  .btn{font-size:.8rem;padding:7px 13px}
-  .g2[style*="gap:12px"]{gap:10px!important}
+  .card-body{padding:var(--sp-4)}
+  .data-tbl th,.data-tbl td{padding:var(--sp-2) var(--sp-3)}
+  .pg-title{font-size:var(--fs-lg)}
+  .login-left{padding:var(--sp-5) var(--sp-4)}
+  .login-right{padding:var(--sp-4)}
+  .btn{font-size:var(--fs-md);padding:var(--sp-2) var(--sp-3)}
 }
 </style>
 </head>
@@ -243,28 +278,28 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:13px;heigh
 <div id="login-screen">
   <div class="login-left">
     <div style="position:relative;z-index:1">
-      <div style="font-size:2rem;font-weight:800;letter-spacing:-.02em;margin-bottom:8px">
+      <div style="font-size:1.9rem;font-weight:800;letter-spacing:-.02em;margin-bottom:8px">
         <span style="color:#10b981">Fleet</span><span style="color:#fff">Wise</span>
       </div>
-      <p style="color:#94a3b8;font-size:.9rem;margin:0 0 40px;font-style:italic">Simplifique, Otimize, Rentabilize!</p>
+      <p style="color:#94a3b8;font-size:1rem;margin:0 0 40px;font-style:italic">Simplifique, Otimize, Rentabilize!</p>
       <div style="display:flex;flex-direction:column;gap:16px;margin-bottom:48px">
         <div style="display:flex;align-items:flex-start;gap:12px">
-          <div style="width:32px;height:32px;border-radius:8px;background:rgba(16,185,129,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px"><i class="fa-solid fa-shield-halved" style="color:#10b981;font-size:.8rem"></i></div>
-          <div><p style="color:#e2e8f0;font-size:.84rem;font-weight:600;margin:0 0 2px">Independência Total</p><p style="color:#64748b;font-size:.77rem;margin:0">Sem conflito de interesses — defendemos exclusivamente o Cliente</p></div>
+          <div style="width:32px;height:32px;border-radius:6px;background:rgba(16,185,129,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px"><i class="fa-solid fa-shield-halved" style="color:#10b981;font-size:.8rem"></i></div>
+          <div><p style="color:#e2e8f0;font-size:.9rem;font-weight:600;margin:0 0 2px">Independência Total</p><p style="color:#64748b;font-size:.8rem;margin:0">Sem conflito de interesses — defendemos exclusivamente o Cliente</p></div>
         </div>
         <div style="display:flex;align-items:flex-start;gap:12px">
-          <div style="width:32px;height:32px;border-radius:8px;background:rgba(16,185,129,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px"><i class="fa-solid fa-calculator" style="color:#10b981;font-size:.8rem"></i></div>
-          <div><p style="color:#e2e8f0;font-size:.84rem;font-weight:600;margin:0 0 2px">Domínio Fiscal</p><p style="color:#64748b;font-size:.77rem;margin:0">Tributação Autónoma, BEV/PHEV, IRC — otimização em tempo real</p></div>
+          <div style="width:32px;height:32px;border-radius:6px;background:rgba(16,185,129,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px"><i class="fa-solid fa-calculator" style="color:#10b981;font-size:.8rem"></i></div>
+          <div><p style="color:#e2e8f0;font-size:.9rem;font-weight:600;margin:0 0 2px">Domínio Fiscal</p><p style="color:#64748b;font-size:.8rem;margin:0">Tributação Autónoma, BEV/PHEV, IRC — otimização em tempo real</p></div>
         </div>
         <div style="display:flex;align-items:flex-start;gap:12px">
-          <div style="width:32px;height:32px;border-radius:8px;background:rgba(16,185,129,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px"><i class="fa-solid fa-sliders" style="color:#10b981;font-size:.8rem"></i></div>
-          <div><p style="color:#e2e8f0;font-size:.84rem;font-weight:600;margin:0 0 2px">Espectro de Autonomia</p><p style="color:#64748b;font-size:.77rem;margin:0">Do self-service ao outsourcing integral — à medida de cada Cliente</p></div>
+          <div style="width:32px;height:32px;border-radius:6px;background:rgba(16,185,129,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px"><i class="fa-solid fa-sliders" style="color:#10b981;font-size:.8rem"></i></div>
+          <div><p style="color:#e2e8f0;font-size:.9rem;font-weight:600;margin:0 0 2px">Espectro de Autonomia</p><p style="color:#64748b;font-size:.8rem;margin:0">Do self-service ao outsourcing integral — à medida de cada Cliente</p></div>
         </div>
       </div>
       <div class="login-left-stats" style="display:flex;gap:24px;padding-top:24px;border-top:1px solid #1e293b">
-        <div><p style="color:#10b981;font-size:1.3rem;font-weight:800;margin:0">261</p><p style="color:#64748b;font-size:.72rem;margin:0">Viaturas geridas</p></div>
-        <div><p style="color:#10b981;font-size:1.3rem;font-weight:800;margin:0">12</p><p style="color:#64748b;font-size:.72rem;margin:0">Clientes ativos</p></div>
-        <div><p style="color:#10b981;font-size:1.3rem;font-weight:800;margin:0">€86k</p><p style="color:#64748b;font-size:.72rem;margin:0">Poupança TCO gerada</p></div>
+        <div><p style="color:#10b981;font-size:1.5rem;font-weight:800;margin:0">261</p><p style="color:#64748b;font-size:.7rem;margin:0">Viaturas geridas</p></div>
+        <div><p style="color:#10b981;font-size:1.5rem;font-weight:800;margin:0">12</p><p style="color:#64748b;font-size:.7rem;margin:0">Clientes ativos</p></div>
+        <div><p style="color:#10b981;font-size:1.5rem;font-weight:800;margin:0">€86k</p><p style="color:#64748b;font-size:.7rem;margin:0">Poupança TCO gerada</p></div>
       </div>
     </div>
   </div>
@@ -273,7 +308,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:13px;heigh
     <div class="login-form">
       <div style="margin-bottom:28px">
         <h1 style="font-size:1.5rem;font-weight:700;color:#0f172a;margin:0 0 6px" data-i18n="login.title">Iniciar Sessão</h1>
-        <p style="color:#64748b;font-size:.84rem;margin:0">Bem-vindo à plataforma FleetWise</p>
+        <p style="color:#64748b;font-size:.9rem;margin:0">Bem-vindo à plataforma FleetWise</p>
       </div>
 
       <form id="login-form" onsubmit="loginSubmit(event)" style="margin-bottom:24px">
@@ -290,32 +325,32 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:13px;heigh
 
       <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
         <div style="flex:1;height:1px;background:#e2e8f0"></div>
-        <span style="font-size:.75rem;color:#94a3b8;font-weight:500" data-i18n="login.demo">Contas de demonstração</span>
+        <span style="font-size:.8rem;color:#94a3b8;font-weight:500" data-i18n="login.demo">Contas de demonstração</span>
         <div style="flex:1;height:1px;background:#e2e8f0"></div>
       </div>
 
       <button class="demo-btn" onclick="loginAs(1)">
         <div class="demo-dot" style="background:#f59e0b"><i class="fa-solid fa-star" style="font-size:.7rem"></i></div>
         <div>
-          <div style="font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#92400e" data-i18n="login.role.admin">FleetWise Admin</div>
-          <div style="font-size:.86rem;font-weight:600;color:#0f172a">João Duarte</div>
-          <div style="font-size:.73rem;color:#64748b">joao@fleetwise.pt</div>
+          <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#92400e" data-i18n="login.role.admin">FleetWise Admin</div>
+          <div style="font-size:.9rem;font-weight:600;color:#0f172a">João Duarte</div>
+          <div style="font-size:.7rem;color:#64748b">joao@fleetwise.pt</div>
         </div>
       </button>
       <button class="demo-btn" onclick="loginAs(2)">
         <div class="demo-dot" style="background:#10b981"><i class="fa-solid fa-building" style="font-size:.7rem"></i></div>
         <div>
-          <div style="font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#065f46" data-i18n="login.role.manager">Gestor Cliente</div>
-          <div style="font-size:.86rem;font-weight:600;color:#0f172a">Ana Costa</div>
-          <div style="font-size:.73rem;color:#64748b">ana@logisticanorte.pt · Logística Norte</div>
+          <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#065f46" data-i18n="login.role.manager">Gestor Cliente</div>
+          <div style="font-size:.9rem;font-weight:600;color:#0f172a">Ana Costa</div>
+          <div style="font-size:.7rem;color:#64748b">ana@logisticanorte.pt · Logística Norte</div>
         </div>
       </button>
       <button class="demo-btn" onclick="loginAs(3)">
         <div class="demo-dot" style="background:#3b82f6"><i class="fa-solid fa-user" style="font-size:.7rem"></i></div>
         <div>
-          <div style="font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#1e40af" data-i18n="login.role.driver">Condutor</div>
-          <div style="font-size:.86rem;font-weight:600;color:#0f172a">Pedro Ferreira</div>
-          <div style="font-size:.73rem;color:#64748b">pedro@logisticanorte.pt · Toyota Prius</div>
+          <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#1e40af" data-i18n="login.role.driver">Condutor</div>
+          <div style="font-size:.9rem;font-weight:600;color:#0f172a">Pedro Ferreira</div>
+          <div style="font-size:.7rem;color:#64748b">pedro@logisticanorte.pt · Toyota Prius</div>
         </div>
       </button>
     </div>
@@ -335,7 +370,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:13px;heigh
       <div style="font-size:1.2rem;font-weight:800;letter-spacing:-.01em;line-height:1">
         <span style="color:#10b981">Fleet</span><span style="color:#fff">Wise</span>
       </div>
-      <div style="font-size:.6rem;color:#475569;font-weight:500;letter-spacing:.03em;margin-top:2px">PLATFORM</div>
+      <div style="font-size:.7rem;color:#475569;font-weight:500;letter-spacing:.03em;margin-top:2px">PLATFORM</div>
     </div>
 
     <!-- Navigation -->
@@ -345,10 +380,10 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:13px;heigh
 
     <!-- User strip -->
     <div id="sidebar-user" style="padding:12px 16px;border-top:1px solid #1e293b;display:flex;align-items:center;gap:10px;cursor:pointer" onclick="navigate('settings')">
-      <div id="user-avatar" style="width:34px;height:34px;border-radius:8px;background:#10b981;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;color:#fff;flex-shrink:0"></div>
+      <div id="user-avatar" style="width:34px;height:34px;border-radius:6px;background:#10b981;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;color:#fff;flex-shrink:0"></div>
       <div style="flex:1;min-width:0">
         <div id="user-name" style="font-size:.8rem;font-weight:600;color:#e2e8f0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis"></div>
-        <div id="user-role-label" style="font-size:.68rem;color:#64748b"></div>
+        <div id="user-role-label" style="font-size:.7rem;color:#64748b"></div>
       </div>
       <i class="fa-solid fa-ellipsis-vertical" style="color:#475569;font-size:.8rem"></i>
     </div>
@@ -358,30 +393,30 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:13px;heigh
   <div id="main-area">
     <!-- TOPBAR -->
     <header id="topbar">
-      <button id="hamburger" onclick="toggleSidebar()"><i class="fa-solid fa-bars" style="font-size:.9rem"></i></button>
+      <button id="hamburger" onclick="toggleSidebar()"><i class="fa-solid fa-bars" style="font-size:1rem"></i></button>
       <div style="flex:1;display:flex;align-items:center;gap:10px">
-        <h2 id="topbar-title" style="font-size:.95rem;font-weight:600;color:#0f172a;margin:0"></h2>
+        <h2 id="topbar-title" style="font-size:1rem;font-weight:600;color:#0f172a;margin:0"></h2>
         <div id="topbar-badge"></div>
       </div>
       <!-- Search -->
       <div id="topbar-search" style="position:relative;display:flex;align-items:center">
         <i class="fa-solid fa-magnifying-glass" style="position:absolute;left:10px;color:#94a3b8;font-size:.8rem"></i>
-        <input type="text" placeholder="Pesquisar..." data-i18n-placeholder="common.search" style="padding:7px 11px 7px 30px;border:1px solid #e2e8f0;border-radius:8px;font-size:.82rem;outline:none;width:200px;font-family:'Poppins',sans-serif;color:#334155">
+        <input type="text" placeholder="Pesquisar..." data-i18n-placeholder="common.search" style="padding:7px 11px 7px 30px;border:1px solid #e2e8f0;border-radius:6px;font-size:.9rem;outline:none;width:200px;font-family:'Poppins',sans-serif;color:#334155">
       </div>
       <!-- Lang toggle -->
-      <button id="lang-btn" onclick="toggleLang()" style="padding:6px 12px;border:1px solid #e2e8f0;border-radius:8px;font-size:.78rem;font-weight:600;background:#fff;cursor:pointer;color:#475569;transition:all .15s;font-family:'Poppins',sans-serif">
+      <button id="lang-btn" onclick="toggleLang()" style="padding:6px 12px;border:1px solid #e2e8f0;border-radius:6px;font-size:.8rem;font-weight:600;background:#fff;cursor:pointer;color:#475569;transition:all .15s;font-family:'Poppins',sans-serif">
         🌐 PT
       </button>
       <!-- Notifications -->
       <button class="btn btn-icon" style="position:relative" onclick="openNotifications()">
-        <i class="fa-solid fa-bell" style="font-size:.85rem"></i>
+        <i class="fa-solid fa-bell" style="font-size:.9rem"></i>
         <span id="notif-dot" style="width:8px;height:8px;background:#ef4444;border-radius:50%;position:absolute;top:5px;right:5px;display:none"></span>
       </button>
       <!-- User menu -->
-      <div style="display:flex;align-items:center;gap:8px;padding:5px 10px;border:1px solid #e2e8f0;border-radius:8px;cursor:pointer;background:#fff" onclick="navigate('settings')">
-        <div id="topbar-avatar" style="width:26px;height:26px;border-radius:6px;background:#10b981;display:flex;align-items:center;justify-content:center;font-size:.68rem;font-weight:700;color:#fff"></div>
+      <div style="display:flex;align-items:center;gap:8px;padding:5px 10px;border:1px solid #e2e8f0;border-radius:6px;cursor:pointer;background:#fff" onclick="navigate('settings')">
+        <div id="topbar-avatar" style="width:26px;height:26px;border-radius:6px;background:#10b981;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:#fff"></div>
         <span id="topbar-name" style="font-size:.8rem;font-weight:500;color:#334155"></span>
-        <i class="fa-solid fa-chevron-down" style="font-size:.65rem;color:#94a3b8"></i>
+        <i class="fa-solid fa-chevron-down" style="font-size:.7rem;color:#94a3b8"></i>
       </div>
     </header>
 
@@ -854,7 +889,7 @@ function buildSidebarNav(){
       +navItem('service','fa-wrench')
       +'<div class="nav-sep"></div>'
       +navItem('settings','fa-gear')
-      +`<div class="nav-item" onclick="logout()" style="margin-top:4px"><i class="fa-solid fa-right-from-bracket" style="width:18px;text-align:center;font-size:.9rem"></i><span>${t('nav.logout')}</span></div>`;
+      +`<div class="nav-item" onclick="logout()" style="margin-top:4px"><i class="fa-solid fa-right-from-bracket" style="width:18px;text-align:center;font-size:1rem"></i><span>${t('nav.logout')}</span></div>`;
   } else {
     html+=navItem('dashboard','fa-house')
       +navItem('fleet','fa-car-side')
@@ -866,7 +901,7 @@ function buildSidebarNav(){
       +'<div class="nav-sep"></div>';
     if(u.role==='admin') html+=navItem('clients','fa-users');
     html+=navItem('settings','fa-gear')
-      +`<div class="nav-item" onclick="logout()" style="margin-top:4px"><i class="fa-solid fa-right-from-bracket" style="width:18px;text-align:center;font-size:.9rem"></i><span>${t('nav.logout')}</span></div>`;
+      +`<div class="nav-item" onclick="logout()" style="margin-top:4px"><i class="fa-solid fa-right-from-bracket" style="width:18px;text-align:center;font-size:1rem"></i><span>${t('nav.logout')}</span></div>`;
   }
   nav.innerHTML=html;
   // Mark active item
@@ -938,21 +973,21 @@ function renderDashboardAdmin(){
   const alerts=getAlerts();
   const alertsHtml=alerts.map(a=>`
     <div class="alert-row al-${a.type==='info'?'info':a.type==='urgente'?'urgente':'atencao'}">
-      <i class="fa-solid ${a.icon}" style="font-size:.85rem;flex-shrink:0;margin-top:2px"></i>
+      <i class="fa-solid ${a.icon}" style="font-size:.9rem;flex-shrink:0;margin-top:2px"></i>
       <span>${a.msg}</span>
     </div>`).join('');
 
   const topClients=CLIENTS.sort((a,b)=>b.vehicles-a.vehicles).slice(0,5);
   const topClientsRows=topClients.map(c=>`
     <tr onclick="navigate('clients')">
-      <td><div style="font-weight:600;font-size:.84rem">${c.name}</div></td>
+      <td><div style="font-weight:600;font-size:.9rem">${c.name}</div></td>
       <td>${tierBadge(c.tier)}</td>
       <td>${serviceBadge(c.service)}</td>
       <td style="font-weight:600">${c.vehicles}</td>
       <td>
         <div style="display:flex;align-items:center;gap:8px">
           <div style="flex:1"><div class="health-bar" style="width:70px"><div class="health-fill ${c.health<70?'danger':c.health<85?'warn':''}" style="width:${c.health}%"></div></div></div>
-          <span style="font-size:.78rem;font-weight:600;color:${healthColor(c.health)}">${c.health}%</span>
+          <span style="font-size:.8rem;font-weight:600;color:${healthColor(c.health)}">${c.health}%</span>
         </div>
       </td>
     </tr>`).join('');
@@ -966,12 +1001,12 @@ function renderDashboardAdmin(){
   ];
   const activityHtml=recentActivity.map(a=>`
     <div style="display:flex;gap:12px;padding:10px 0;border-bottom:1px solid #f1f5f9">
-      <div style="width:30px;height:30px;border-radius:8px;background:${a.color}20;display:flex;align-items:center;justify-content:center;flex-shrink:0">
-        <i class="fa-solid ${a.icon}" style="color:${a.color};font-size:.75rem"></i>
+      <div style="width:30px;height:30px;border-radius:6px;background:${a.color}20;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <i class="fa-solid ${a.icon}" style="color:${a.color};font-size:.8rem"></i>
       </div>
       <div style="flex:1">
-        <p style="font-size:.82rem;color:#334155;margin:0 0 2px">${a.text}</p>
-        <p style="font-size:.72rem;color:#94a3b8;margin:0">${a.time}</p>
+        <p style="font-size:.9rem;color:#334155;margin:0 0 2px">${a.text}</p>
+        <p style="font-size:.7rem;color:#94a3b8;margin:0">${a.time}</p>
       </div>
     </div>`).join('');
 
@@ -986,31 +1021,31 @@ function renderDashboardAdmin(){
         <div class="kpi-icon" style="background:#ecfdf5"><i class="fa-solid fa-users" style="color:#10b981"></i></div>
         <div class="kpi-label">${t('dash.active_clients')}</div>
         <div class="kpi-value">12</div>
-        <div class="kpi-change pos"><i class="fa-solid fa-arrow-up" style="font-size:.65rem"></i> +2 este mês</div>
+        <div class="kpi-change pos"><i class="fa-solid fa-arrow-up" style="font-size:.7rem"></i> +2 este mês</div>
       </div>
       <div class="kpi-card">
         <div class="kpi-icon" style="background:#dbeafe"><i class="fa-solid fa-car-side" style="color:#3b82f6"></i></div>
         <div class="kpi-label">${t('dash.vehicles')}</div>
         <div class="kpi-value">261</div>
-        <div class="kpi-change pos"><i class="fa-solid fa-arrow-up" style="font-size:.65rem"></i> +18 este mês</div>
+        <div class="kpi-change pos"><i class="fa-solid fa-arrow-up" style="font-size:.7rem"></i> +18 este mês</div>
       </div>
       <div class="kpi-card">
         <div class="kpi-icon" style="background:#ede9fe"><i class="fa-solid fa-route" style="color:#8b5cf6"></i></div>
         <div class="kpi-label">${t('dash.km')}</div>
         <div class="kpi-value">2,8M</div>
-        <div class="kpi-change pos"><i class="fa-solid fa-arrow-up" style="font-size:.65rem"></i> +14% vs 2025</div>
+        <div class="kpi-change pos"><i class="fa-solid fa-arrow-up" style="font-size:.7rem"></i> +14% vs 2025</div>
       </div>
       <div class="kpi-card">
         <div class="kpi-icon" style="background:#ecfdf5"><i class="fa-solid fa-piggy-bank" style="color:#10b981"></i></div>
         <div class="kpi-label">${t('dash.savings')}</div>
         <div class="kpi-value">€86k</div>
-        <div class="kpi-change pos"><i class="fa-solid fa-arrow-up" style="font-size:.65rem"></i> +€12k este mês</div>
+        <div class="kpi-change pos"><i class="fa-solid fa-arrow-up" style="font-size:.7rem"></i> +€12k este mês</div>
       </div>
       <div class="kpi-card">
         <div class="kpi-icon" style="background:#fef3c7"><i class="fa-solid fa-star" style="color:#f59e0b"></i></div>
         <div class="kpi-label">${t('dash.nps')}</div>
         <div class="kpi-value">67</div>
-        <div class="kpi-change pos"><i class="fa-solid fa-arrow-up" style="font-size:.65rem"></i> +12 pts vs Q1</div>
+        <div class="kpi-change pos"><i class="fa-solid fa-arrow-up" style="font-size:.7rem"></i> +12 pts vs Q1</div>
       </div>
     </div>
 
@@ -1070,7 +1105,7 @@ function renderDashboardManager(){
 
   const alertsHtml=alerts.map(a=>`
     <div class="alert-row al-${a.type==='info'?'info':a.type==='urgente'?'urgente':'atencao'}">
-      <i class="fa-solid ${a.icon}" style="font-size:.85rem;flex-shrink:0;margin-top:2px"></i>
+      <i class="fa-solid ${a.icon}" style="font-size:.9rem;flex-shrink:0;margin-top:2px"></i>
       <span>${a.msg}</span>
     </div>`).join('');
 
@@ -1155,7 +1190,7 @@ function renderDashboardDriver(){
     <div class="v-hero">
       <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px">
         <div>
-          <div style="font-size:.75rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#64748b;margin-bottom:4px">A Minha Viatura</div>
+          <div style="font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#64748b;margin-bottom:4px">A Minha Viatura</div>
           <div style="font-size:1.5rem;font-weight:700">${v.brand} ${v.model}</div>
           <div style="font-size:1rem;color:#94a3b8;margin-top:2px">${v.plate}</div>
         </div>
@@ -1164,15 +1199,15 @@ function renderDashboardDriver(){
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px" class="v-hero-stats">
         <div style="background:rgba(255,255,255,.06);border-radius:10px;padding:12px">
           <div style="font-size:.7rem;color:#94a3b8;margin-bottom:4px">km Atual</div>
-          <div style="font-size:1.1rem;font-weight:700">${fmtNum(v.km)} km</div>
+          <div style="font-size:1rem;font-weight:700">${fmtNum(v.km)} km</div>
         </div>
         <div style="background:rgba(255,255,255,.06);border-radius:10px;padding:12px">
           <div style="font-size:.7rem;color:#94a3b8;margin-bottom:4px">Renting Mensal</div>
-          <div style="font-size:1.1rem;font-weight:700">${fmtEur(v.monthly)}/mês</div>
+          <div style="font-size:1rem;font-weight:700">${fmtEur(v.monthly)}/mês</div>
         </div>
         <div style="background:rgba(255,255,255,.06);border-radius:10px;padding:12px">
           <div style="font-size:.7rem;color:#94a3b8;margin-bottom:4px">Valor Aquisição</div>
-          <div style="font-size:1.1rem;font-weight:700">${fmtEur(v.value)}</div>
+          <div style="font-size:1rem;font-weight:700">${fmtEur(v.value)}</div>
         </div>
       </div>
     </div>
@@ -1180,21 +1215,21 @@ function renderDashboardDriver(){
       <div class="kpi-card">
         <div class="kpi-icon" style="background:${ipoS==='ok'?'#ecfdf5':ipoS==='atencao'?'#fef3c7':'#fee2e2'}"><i class="fa-solid fa-id-card" style="color:${ipoS==='ok'?'#10b981':ipoS==='atencao'?'#f59e0b':'#ef4444'}"></i></div>
         <div class="kpi-label">IPO</div>
-        <div class="kpi-value" style="font-size:1.1rem">${fmtDate(v.ipo)}</div>
+        <div class="kpi-value" style="font-size:1rem">${fmtDate(v.ipo)}</div>
         <div style="margin-top:6px">${badge(ipoS)}</div>
         ${daysUntil(v.ipo)>0?`<div class="kpi-change neu" style="margin-top:4px">em ${daysUntil(v.ipo)} dias</div>`:''}
       </div>
       <div class="kpi-card">
         <div class="kpi-icon" style="background:${segS==='ok'?'#ecfdf5':segS==='atencao'?'#fef3c7':'#fee2e2'}"><i class="fa-solid fa-shield-halved" style="color:${segS==='ok'?'#10b981':segS==='atencao'?'#f59e0b':'#ef4444'}"></i></div>
         <div class="kpi-label">Seguro</div>
-        <div class="kpi-value" style="font-size:1.1rem">${fmtDate(v.seguro)}</div>
+        <div class="kpi-value" style="font-size:1rem">${fmtDate(v.seguro)}</div>
         <div style="margin-top:6px">${badge(segS)}</div>
         ${daysUntil(v.seguro)>0?`<div class="kpi-change neu" style="margin-top:4px">em ${daysUntil(v.seguro)} dias</div>`:''}
       </div>
       <div class="kpi-card">
         <div class="kpi-icon" style="background:${revS==='ok'?'#ecfdf5':revS==='atencao'?'#fef3c7':'#fee2e2'}"><i class="fa-solid fa-wrench" style="color:${revS==='ok'?'#10b981':revS==='atencao'?'#f59e0b':'#ef4444'}"></i></div>
         <div class="kpi-label">Próx. Revisão</div>
-        <div class="kpi-value" style="font-size:1.1rem">${fmtDate(v.revisao)}</div>
+        <div class="kpi-value" style="font-size:1rem">${fmtDate(v.revisao)}</div>
         <div style="margin-top:6px">${badge(revS)}</div>
         ${daysUntil(v.revisao)>0?`<div class="kpi-change neu" style="margin-top:4px">em ${daysUntil(v.revisao)} dias</div>`:''}
       </div>
@@ -1233,7 +1268,7 @@ function renderFleet(){
         <option value="ok">${t('status.ok')}</option><option value="atencao">${t('status.atencao')}</option>
         <option value="urgente">${t('status.urgente')}</option><option value="expirado">${t('status.expirado')}</option>
       </select>
-      <span id="fleet-count" style="font-size:.78rem;color:#64748b;font-weight:500;margin-left:auto"></span>
+      <span id="fleet-count" style="font-size:.8rem;color:#64748b;font-weight:500;margin-left:auto"></span>
     </div>
     <div class="tbl-wrap">
       <table class="data-tbl">
@@ -1272,11 +1307,11 @@ function buildFleetTable(){
       <td><span style="font-weight:600;color:#0f172a">${v.plate}</span></td>
       <td><span style="font-weight:500">${v.brand} ${v.model}</span></td>
       <td style="color:#64748b">${v.driver}</td>
-      ${isAdmin?`<td style="color:#64748b;font-size:.78rem">${clientName(v.clientId)}</td>`:''}
+      ${isAdmin?`<td style="color:#64748b;font-size:.8rem">${clientName(v.clientId)}</td>`:''}
       <td>${fuelBadge(v.fuel)}</td>
-      <td style="font-size:.82rem">${fmtNum(v.km)} km</td>
-      <td><div style="font-size:.78rem">${fmtDate(v.ipo)}</div><div style="margin-top:2px">${badge(ipoS)}</div></td>
-      <td><div style="font-size:.78rem">${fmtDate(v.seguro)}</div><div style="margin-top:2px">${badge(segS)}</div></td>
+      <td style="font-size:.9rem">${fmtNum(v.km)} km</td>
+      <td><div style="font-size:.8rem">${fmtDate(v.ipo)}</div><div style="margin-top:2px">${badge(ipoS)}</div></td>
+      <td><div style="font-size:.8rem">${fmtDate(v.seguro)}</div><div style="margin-top:2px">${badge(segS)}</div></td>
       <td>${badge(st)}</td>
       <td><button class="btn btn-sec btn-sm" onclick="event.stopPropagation();openVehicleModal(${v.id})"><i class="fa-solid fa-eye"></i></button></td>
     </tr>`;
@@ -1287,32 +1322,32 @@ function openVehicleModal(id){
   const v=VEHICLES.find(x=>x.id===id);if(!v)return;
   const ipoS=getStatus(v.ipo),segS=getStatus(v.seguro),revS=getStatus(v.revisao),ta=calcTA(v);
   const body=`
-    <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px;padding:16px;background:#f8fafc;border-radius:12px">
-      <div style="width:48px;height:48px;border-radius:12px;background:#0f172a;display:flex;align-items:center;justify-content:center;flex-shrink:0">
-        <i class="fa-solid fa-car-side" style="color:#10b981;font-size:1.1rem"></i>
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px;padding:16px;background:#f8fafc;border-radius:10px">
+      <div style="width:48px;height:48px;border-radius:10px;background:#0f172a;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <i class="fa-solid fa-car-side" style="color:#10b981;font-size:1rem"></i>
       </div>
       <div>
-        <div style="font-size:1.1rem;font-weight:700;color:#0f172a">${v.brand} ${v.model}</div>
-        <div style="font-size:.85rem;color:#64748b">${v.plate} &nbsp;${fuelBadge(v.fuel)}</div>
+        <div style="font-size:1rem;font-weight:700;color:#0f172a">${v.brand} ${v.model}</div>
+        <div style="font-size:.9rem;color:#64748b">${v.plate} &nbsp;${fuelBadge(v.fuel)}</div>
       </div>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
-      <div style="padding:11px;background:#f8fafc;border-radius:10px"><div style="font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#94a3b8;margin-bottom:3px">Condutor</div><div style="font-size:.88rem;font-weight:600;color:#0f172a">${v.driver}</div></div>
-      <div style="padding:11px;background:#f8fafc;border-radius:10px"><div style="font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#94a3b8;margin-bottom:3px">km Atual</div><div style="font-size:.88rem;font-weight:600;color:#0f172a">${fmtNum(v.km)} km</div></div>
-      <div style="padding:11px;background:#f8fafc;border-radius:10px"><div style="font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#94a3b8;margin-bottom:3px">Valor Aquisição</div><div style="font-size:.88rem;font-weight:600;color:#0f172a">${fmtEur(v.value)}</div></div>
-      <div style="padding:11px;background:#f8fafc;border-radius:10px"><div style="font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#94a3b8;margin-bottom:3px">Renting/mês</div><div style="font-size:.88rem;font-weight:600;color:#0f172a">${fmtEur(v.monthly)}/mês</div></div>
+      <div style="padding:11px;background:#f8fafc;border-radius:10px"><div style="font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#94a3b8;margin-bottom:3px">Condutor</div><div style="font-size:.9rem;font-weight:600;color:#0f172a">${v.driver}</div></div>
+      <div style="padding:11px;background:#f8fafc;border-radius:10px"><div style="font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#94a3b8;margin-bottom:3px">km Atual</div><div style="font-size:.9rem;font-weight:600;color:#0f172a">${fmtNum(v.km)} km</div></div>
+      <div style="padding:11px;background:#f8fafc;border-radius:10px"><div style="font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#94a3b8;margin-bottom:3px">Valor Aquisição</div><div style="font-size:.9rem;font-weight:600;color:#0f172a">${fmtEur(v.value)}</div></div>
+      <div style="padding:11px;background:#f8fafc;border-radius:10px"><div style="font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#94a3b8;margin-bottom:3px">Renting/mês</div><div style="font-size:.9rem;font-weight:600;color:#0f172a">${fmtEur(v.monthly)}/mês</div></div>
     </div>
     <div style="margin-bottom:14px">
-      <div style="font-size:.72rem;font-weight:600;color:#475569;margin-bottom:8px;letter-spacing:.04em">DOCUMENTOS & DATAS</div>
+      <div style="font-size:.7rem;font-weight:600;color:#475569;margin-bottom:8px;letter-spacing:.04em">DOCUMENTOS & DATAS</div>
       ${[['fa-id-card','IPO',v.ipo,ipoS],['fa-shield-halved','Seguro',v.seguro,segS],['fa-wrench','Próx. Revisão',v.revisao,revS]].map(([ico,lbl,date,st])=>`
-      <div style="display:flex;align-items:center;justify-content:space-between;padding:9px 13px;background:#f8fafc;border-radius:9px;margin-bottom:6px">
-        <div style="display:flex;align-items:center;gap:8px"><i class="fa-solid ${ico}" style="color:#64748b;font-size:.8rem;width:16px;text-align:center"></i><span style="font-size:.84rem;font-weight:500">${lbl}</span></div>
-        <div style="display:flex;align-items:center;gap:6px"><span style="font-size:.78rem;color:#64748b">${fmtDate(date)}</span>${badge(st)}${daysUntil(date)>0?`<span style="font-size:.7rem;color:#94a3b8">em ${daysUntil(date)}d</span>`:''}</div>
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:9px 13px;background:#f8fafc;border-radius:10px;margin-bottom:6px">
+        <div style="display:flex;align-items:center;gap:8px"><i class="fa-solid ${ico}" style="color:#64748b;font-size:.8rem;width:16px;text-align:center"></i><span style="font-size:.9rem;font-weight:500">${lbl}</span></div>
+        <div style="display:flex;align-items:center;gap:6px"><span style="font-size:.8rem;color:#64748b">${fmtDate(date)}</span>${badge(st)}${daysUntil(date)>0?`<span style="font-size:.7rem;color:#94a3b8">em ${daysUntil(date)}d</span>`:''}</div>
       </div>`).join('')}
     </div>
     ${ta>0
-      ?`<div style="padding:11px 14px;background:#ecfdf5;border:1px solid #a7f3d0;border-radius:10px;display:flex;align-items:center;justify-content:space-between"><div style="display:flex;align-items:center;gap:8px"><i class="fa-solid fa-calculator" style="color:#10b981"></i><span style="font-size:.84rem;font-weight:500;color:#065f46">Tributação Autónoma estimada</span></div><span style="font-size:1rem;font-weight:700;color:#065f46">${fmtEur(ta)}/ano</span></div>`
-      :`<div style="padding:11px 14px;background:#ecfdf5;border:1px solid #a7f3d0;border-radius:10px;display:flex;align-items:center;gap:8px"><i class="fa-solid fa-bolt" style="color:#10b981"></i><span style="font-size:.84rem;color:#065f46;font-weight:500">Isento de Tributação Autónoma (BEV)</span></div>`}`;
+      ?`<div style="padding:11px 14px;background:#ecfdf5;border:1px solid #a7f3d0;border-radius:10px;display:flex;align-items:center;justify-content:space-between"><div style="display:flex;align-items:center;gap:8px"><i class="fa-solid fa-calculator" style="color:#10b981"></i><span style="font-size:.9rem;font-weight:500;color:#065f46">Tributação Autónoma estimada</span></div><span style="font-size:1rem;font-weight:700;color:#065f46">${fmtEur(ta)}/ano</span></div>`
+      :`<div style="padding:11px 14px;background:#ecfdf5;border:1px solid #a7f3d0;border-radius:10px;display:flex;align-items:center;gap:8px"><i class="fa-solid fa-bolt" style="color:#10b981"></i><span style="font-size:.9rem;color:#065f46;font-weight:500">Isento de Tributação Autónoma (BEV)</span></div>`}`;
   openModal(`${v.brand} ${v.model} — ${v.plate}`,body,`<button class="btn btn-sec" onclick="closeModal()">${t('common.close')}</button>`);
 }
 
@@ -1329,7 +1364,7 @@ function openAddVehicleModal(){
       <div><label class="form-label">Valor Aquisição (€)</label><input type="number" class="form-input" placeholder="Ex: 35000"></div>
       <div><label class="form-label">Renting Mensal (€)</label><input type="number" class="form-input" placeholder="Ex: 650"></div>
     </div>
-    <div style="margin-top:12px;padding:10px 13px;background:#eff6ff;border-radius:8px;font-size:.78rem;color:#1e40af"><i class="fa-solid fa-circle-info" style="margin-right:6px"></i>Demonstração — dados não persistidos.</div>`;
+    <div style="margin-top:12px;padding:10px 13px;background:#eff6ff;border-radius:6px;font-size:.8rem;color:#1e40af"><i class="fa-solid fa-circle-info" style="margin-right:6px"></i>Demonstração — dados não persistidos.</div>`;
   openModal(t('fleet.add'),body,`<button class="btn btn-sec" onclick="closeModal()">${t('common.cancel')}</button><button class="btn btn-primary" onclick="closeModal()"><i class="fa-solid fa-plus"></i> Adicionar</button>`);
 }
 
@@ -1408,13 +1443,13 @@ function renderTCO(){
         <div class="card-body" style="padding:14px">
           ${opps.map(o=>`
           <div class="savings-item">
-            <div style="width:36px;height:36px;border-radius:8px;background:${o.color}20;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="fa-solid ${o.icon}" style="color:${o.color};font-size:.85rem"></i></div>
-            <div style="flex:1;min-width:0"><div style="font-size:.82rem;font-weight:600;color:#0f172a">${o.title}</div><div style="font-size:.72rem;color:#64748b;margin-top:1px">${o.desc}</div></div>
+            <div style="width:36px;height:36px;border-radius:6px;background:${o.color}20;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="fa-solid ${o.icon}" style="color:${o.color};font-size:.9rem"></i></div>
+            <div style="flex:1;min-width:0"><div style="font-size:.9rem;font-weight:600;color:#0f172a">${o.title}</div><div style="font-size:.7rem;color:#64748b;margin-top:1px">${o.desc}</div></div>
             <div class="savings-amount">${fmtEur(o.saving)}/ano</div>
           </div>`).join('')}
           <div style="margin-top:12px;padding:13px;background:#ecfdf5;border-radius:10px;text-align:center">
-            <div style="font-size:.75rem;color:#065f46;margin-bottom:4px">Poupança Total Identificada</div>
-            <div style="font-size:1.4rem;font-weight:800;color:#10b981">${fmtEur(totalSavings)}/ano</div>
+            <div style="font-size:.8rem;color:#065f46;margin-bottom:4px">Poupança Total Identificada</div>
+            <div style="font-size:1.5rem;font-weight:800;color:#10b981">${fmtEur(totalSavings)}/ano</div>
             <button class="btn btn-primary btn-sm" style="margin-top:8px;width:100%;justify-content:center" onclick="navigate('simulator')"><i class="fa-solid fa-bolt"></i> Simular Eletrificação</button>
           </div>
         </div>
@@ -1450,8 +1485,8 @@ function renderMaintenance(){
     else if(days<=60){sc='b-atencao';sl=t('status.atencao');}
     else{sc='b-ok';sl=t('status.ok');}
     return`<tr>
-      <td><div style="font-weight:600;font-size:.84rem">${v.plate||'—'}</div><div style="font-size:.74rem;color:#64748b">${v.brand||''} ${v.model||''}</div></td>
-      <td style="font-size:.83rem">${m.type}</td>
+      <td><div style="font-weight:600;font-size:.9rem">${v.plate||'—'}</div><div style="font-size:.74rem;color:#64748b">${v.brand||''} ${v.model||''}</div></td>
+      <td style="font-size:.9rem">${m.type}</td>
       <td>${fmtDate(m.date)}${!isDone&&days>0?`<div style="font-size:.7rem;color:#94a3b8">em ${days}d</div>`:''}</td>
       <td style="font-size:.8rem;color:#64748b">${m.provider}</td>
       <td style="font-weight:600">${fmtEur(m.cost)}</td>
@@ -1469,10 +1504,10 @@ function renderMaintenance(){
     </div>
     <div class="tabs" id="maint-tabs">
       <button class="tab-btn ${S.maintTab==='pending'?'active':''}" onclick="switchMaintTab('pending')">
-        <i class="fa-solid fa-clock" style="margin-right:5px"></i>${t('maint.pending')} <span style="background:#fee2e2;color:#991b1b;border-radius:10px;padding:1px 7px;font-size:.68rem;font-weight:700;margin-left:4px">${pending.length}</span>
+        <i class="fa-solid fa-clock" style="margin-right:5px"></i>${t('maint.pending')} <span style="background:#fee2e2;color:#991b1b;border-radius:10px;padding:1px 7px;font-size:.7rem;font-weight:700;margin-left:4px">${pending.length}</span>
       </button>
       <button class="tab-btn ${S.maintTab==='done'?'active':''}" onclick="switchMaintTab('done')">
-        <i class="fa-solid fa-circle-check" style="margin-right:5px"></i>${t('maint.done')} <span style="background:#d1fae5;color:#065f46;border-radius:10px;padding:1px 7px;font-size:.68rem;font-weight:700;margin-left:4px">${done.length}</span>
+        <i class="fa-solid fa-circle-check" style="margin-right:5px"></i>${t('maint.done')} <span style="background:#d1fae5;color:#065f46;border-radius:10px;padding:1px 7px;font-size:.7rem;font-weight:700;margin-left:4px">${done.length}</span>
       </button>
     </div>
     <div id="maint-tab-pending" class="tab-pane ${S.maintTab==='pending'?'active':''}">
@@ -1501,7 +1536,7 @@ function openAddMaintModal(){
         <div><label class="form-label">Custo (€)</label><input type="number" class="form-input" placeholder="Ex: 350"></div>
       </div>
       <div><label class="form-label">Prestador de Serviço</label><input type="text" class="form-input" placeholder="Ex: Auto-Sueco Porto"></div>
-      <div style="padding:10px 13px;background:#eff6ff;border-radius:8px;font-size:.78rem;color:#1e40af"><i class="fa-solid fa-circle-info" style="margin-right:6px"></i>Demonstração &mdash; dados não persistidos.</div>
+      <div style="padding:10px 13px;background:#eff6ff;border-radius:6px;font-size:.8rem;color:#1e40af"><i class="fa-solid fa-circle-info" style="margin-right:6px"></i>Demonstração &mdash; dados não persistidos.</div>
     </div>`;
   openModal(t('maint.add'),body,`<button class="btn btn-sec" onclick="closeModal()">${t('common.cancel')}</button><button class="btn btn-primary" onclick="closeModal()"><i class="fa-solid fa-plus"></i> Registar</button>`);
 }
@@ -1523,7 +1558,7 @@ function renderFiscal(){
   function fRow(item,showProv){
     const days=daysUntil(item.due),st=days<0?'expirado':days<=30?'urgente':days<=60?'atencao':'ok';
     return`<tr>
-      <td><div style="font-weight:600;font-size:.84rem">${item.plate}</div><div style="font-size:.74rem;color:#64748b">${item.vehicle}</div></td>
+      <td><div style="font-weight:600;font-size:.9rem">${item.plate}</div><div style="font-size:.74rem;color:#64748b">${item.vehicle}</div></td>
       <td>${fmtDate(item.due)}${days>0?`<div style="font-size:.7rem;color:#94a3b8">em ${days}d</div>`:''}</td>
       <td style="font-weight:600">${fmtEur(item.amount)}</td>
       ${showProv?`<td style="font-size:.8rem;color:#64748b">${item.provider||'—'}</td>`:''}
@@ -1536,9 +1571,9 @@ function renderFiscal(){
       <p class="pg-sub">Obrigações fiscais e documentais &middot; ${allVeh.length} ${t('common.vehicles')}</p>
     </div>
     <div class="tabs" id="fiscal-tabs">
-      <button class="tab-btn ${S.fiscalTab==='iuc'?'active':''}" onclick="switchFiscalTab('iuc')"><i class="fa-solid fa-car" style="margin-right:5px"></i>${t('fiscal.iuc')} <span style="background:#f1f5f9;color:#475569;border-radius:10px;padding:1px 7px;font-size:.68rem;margin-left:4px">${iucData.length}</span></button>
-      <button class="tab-btn ${S.fiscalTab==='ipo'?'active':''}" onclick="switchFiscalTab('ipo')"><i class="fa-solid fa-id-card" style="margin-right:5px"></i>${t('fiscal.ipo')} <span style="background:#f1f5f9;color:#475569;border-radius:10px;padding:1px 7px;font-size:.68rem;margin-left:4px">${ipoData.length}</span></button>
-      <button class="tab-btn ${S.fiscalTab==='seguros'?'active':''}" onclick="switchFiscalTab('seguros')"><i class="fa-solid fa-shield-halved" style="margin-right:5px"></i>${t('fiscal.seguros')} <span style="background:#f1f5f9;color:#475569;border-radius:10px;padding:1px 7px;font-size:.68rem;margin-left:4px">${segData.length}</span></button>
+      <button class="tab-btn ${S.fiscalTab==='iuc'?'active':''}" onclick="switchFiscalTab('iuc')"><i class="fa-solid fa-car" style="margin-right:5px"></i>${t('fiscal.iuc')} <span style="background:#f1f5f9;color:#475569;border-radius:10px;padding:1px 7px;font-size:.7rem;margin-left:4px">${iucData.length}</span></button>
+      <button class="tab-btn ${S.fiscalTab==='ipo'?'active':''}" onclick="switchFiscalTab('ipo')"><i class="fa-solid fa-id-card" style="margin-right:5px"></i>${t('fiscal.ipo')} <span style="background:#f1f5f9;color:#475569;border-radius:10px;padding:1px 7px;font-size:.7rem;margin-left:4px">${ipoData.length}</span></button>
+      <button class="tab-btn ${S.fiscalTab==='seguros'?'active':''}" onclick="switchFiscalTab('seguros')"><i class="fa-solid fa-shield-halved" style="margin-right:5px"></i>${t('fiscal.seguros')} <span style="background:#f1f5f9;color:#475569;border-radius:10px;padding:1px 7px;font-size:.7rem;margin-left:4px">${segData.length}</span></button>
       <button class="tab-btn ${S.fiscalTab==='ta'?'active':''}" onclick="switchFiscalTab('ta')"><i class="fa-solid fa-calculator" style="margin-right:5px"></i>${t('fiscal.ta_calc')}</button>
     </div>
     <div id="fiscal-tab-iuc" class="tab-pane ${S.fiscalTab==='iuc'?'active':''}">
@@ -1555,16 +1590,16 @@ function renderFiscal(){
         <div class="card">
           <div class="card-header"><span class="card-title"><i class="fa-solid fa-chart-bar" style="color:#ef4444;margin-right:6px"></i>Tributação Autónoma por Tipo de Frota</span></div>
           <div class="card-body">
-            <div style="font-size:.73rem;color:#64748b;margin-bottom:10px">CIRC Art. 88 &mdash; Taxas aplicáveis em 2024</div>
+            <div style="font-size:.7rem;color:#64748b;margin-bottom:10px">CIRC Art. 88 &mdash; Taxas aplicáveis em 2024</div>
             ${[['BEV (Elétrico)',allVeh.filter(v=>v.fuel==='bev').length,'#10b981','Isento',taByFuel.bev],['PHEV',allVeh.filter(v=>v.fuel==='phev').length,'#8b5cf6','5 &ndash; 17,5%',taByFuel.phev],['Diesel',allVeh.filter(v=>v.fuel==='diesel').length,'#64748b','10 &ndash; 35%',taByFuel.diesel],['Gasolina',allVeh.filter(v=>v.fuel==='gasolina').length,'#f59e0b','10 &ndash; 35%',taByFuel.gasolina]].map(([fuel,cnt,col,rate,ta])=>`
             <div style="display:flex;align-items:center;gap:12px;padding:11px;border-radius:10px;background:#f8fafc;margin-bottom:8px">
               <div style="width:10px;height:10px;border-radius:50%;background:${col};flex-shrink:0"></div>
-              <div style="flex:1"><div style="font-size:.84rem;font-weight:600;color:#0f172a">${fuel}</div><div style="font-size:.7rem;color:#64748b">Taxa: ${rate} &middot; ${cnt} viatura${cnt!==1?'s':''}</div></div>
-              <div style="text-align:right"><div style="font-size:.9rem;font-weight:700;color:${ta>0?'#ef4444':'#10b981'}">${ta>0?fmtEur(ta)+'/ano':'Isento'}</div></div>
+              <div style="flex:1"><div style="font-size:.9rem;font-weight:600;color:#0f172a">${fuel}</div><div style="font-size:.7rem;color:#64748b">Taxa: ${rate} &middot; ${cnt} viatura${cnt!==1?'s':''}</div></div>
+              <div style="text-align:right"><div style="font-size:1rem;font-weight:700;color:${ta>0?'#ef4444':'#10b981'}">${ta>0?fmtEur(ta)+'/ano':'Isento'}</div></div>
             </div>`).join('')}
             <div style="padding:13px;background:#fff5f5;border:1px solid #fecaca;border-radius:10px;display:flex;justify-content:space-between;align-items:center">
-              <div><div style="font-size:.84rem;font-weight:700;color:#991b1b">TA Total Anual</div><div style="font-size:.73rem;color:#b91c1c">Impacto fiscal atual da frota</div></div>
-              <div style="font-size:1.4rem;font-weight:800;color:#ef4444">${fmtEur(taTotal)}</div>
+              <div><div style="font-size:.9rem;font-weight:700;color:#991b1b">TA Total Anual</div><div style="font-size:.7rem;color:#b91c1c">Impacto fiscal atual da frota</div></div>
+              <div style="font-size:1.5rem;font-weight:800;color:#ef4444">${fmtEur(taTotal)}</div>
             </div>
           </div>
         </div>
@@ -1575,7 +1610,7 @@ function renderFiscal(){
               <div><label class="form-label">Valor de Aquisição (€)</label><input type="number" id="ta-value" class="form-input" value="35000" oninput="calcTAForm()"></div>
               <div><label class="form-label">Combustível</label><select id="ta-fuel" class="form-select" onchange="calcTAForm()"><option value="diesel">Diesel</option><option value="gasolina">Gasolina</option><option value="phev">PHEV</option><option value="bev">Elétrico (BEV)</option></select></div>
               <div><label class="form-label">Taxa IRC (%)</label><input type="number" id="ta-irc" class="form-input" value="21" min="0" max="100"></div>
-              <div id="ta-result" style="padding:14px;background:#f8fafc;border-radius:12px;border:1px solid #e2e8f0"></div>
+              <div id="ta-result" style="padding:14px;background:#f8fafc;border-radius:10px;border:1px solid #e2e8f0"></div>
             </div>
           </div>
         </div>
@@ -1606,14 +1641,14 @@ function calcTAForm(){
   const phevSaving=(fuel==='diesel'||fuel==='gasolina')?taAmt-(value<=27500?value*.05:value<=35000?value*.125:value*.175):0;
   result.innerHTML=`
     <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px">
-      <div><div style="font-size:.7rem;color:#64748b">Taxa aplicável</div><div style="font-size:1.1rem;font-weight:700;color:${taAmt>0?'#ef4444':'#10b981'}">${Math.round(rate*100)}%</div></div>
-      <div style="text-align:right"><div style="font-size:.7rem;color:#64748b">TA Anual</div><div style="font-size:1.4rem;font-weight:800;color:${taAmt>0?'#ef4444':'#10b981'}">${fmtEur(taAmt)}</div></div>
+      <div><div style="font-size:.7rem;color:#64748b">Taxa aplicável</div><div style="font-size:1rem;font-weight:700;color:${taAmt>0?'#ef4444':'#10b981'}">${Math.round(rate*100)}%</div></div>
+      <div style="text-align:right"><div style="font-size:.7rem;color:#64748b">TA Anual</div><div style="font-size:1.5rem;font-weight:800;color:${taAmt>0?'#ef4444':'#10b981'}">${fmtEur(taAmt)}</div></div>
     </div>
     ${fuel!=='bev'?`<div style="display:flex;gap:8px;margin-bottom:10px">
-      ${bevSaving>0?`<div style="flex:1;padding:8px;background:#ecfdf5;border-radius:8px;text-align:center"><div style="font-size:.68rem;color:#065f46">Poupança c/ BEV</div><div style="font-size:.88rem;font-weight:700;color:#10b981">${fmtEur(bevSaving)}/ano</div></div>`:''}
-      ${phevSaving>0?`<div style="flex:1;padding:8px;background:#eff6ff;border-radius:8px;text-align:center"><div style="font-size:.68rem;color:#1e40af">Poupança c/ PHEV</div><div style="font-size:.88rem;font-weight:700;color:#3b82f6">${fmtEur(phevSaving)}/ano</div></div>`:''}
+      ${bevSaving>0?`<div style="flex:1;padding:8px;background:#ecfdf5;border-radius:6px;text-align:center"><div style="font-size:.7rem;color:#065f46">Poupança c/ BEV</div><div style="font-size:.9rem;font-weight:700;color:#10b981">${fmtEur(bevSaving)}/ano</div></div>`:''}
+      ${phevSaving>0?`<div style="flex:1;padding:8px;background:#eff6ff;border-radius:6px;text-align:center"><div style="font-size:.7rem;color:#1e40af">Poupança c/ PHEV</div><div style="font-size:.9rem;font-weight:700;color:#3b82f6">${fmtEur(phevSaving)}/ano</div></div>`:''}
     </div>`:''}
-    <div style="font-size:.72rem;color:#64748b;padding:8px;background:#f8fafc;border-radius:6px">${note}</div>`;
+    <div style="font-size:.7rem;color:#64748b;padding:8px;background:#f8fafc;border-radius:6px">${note}</div>`;
 }
 
 // ─────────────────────────────────────────────────────────────
@@ -1652,7 +1687,7 @@ function renderSimulator(){
             <div>
               <label class="form-label">${t('sim.value')}</label>
               <input type="range" id="sim-value" min="15000" max="80000" step="500" value="32000" oninput="document.getElementById('sim-value-disp').textContent='€'+parseInt(this.value).toLocaleString('pt-PT');runSimulator()">
-              <div style="display:flex;justify-content:space-between;margin-top:4px"><span style="font-size:.72rem;color:#94a3b8">€15.000</span><span id="sim-value-disp" style="font-size:.82rem;font-weight:700;color:#0f172a">€32.000</span><span style="font-size:.72rem;color:#94a3b8">€80.000</span></div>
+              <div style="display:flex;justify-content:space-between;margin-top:4px"><span style="font-size:.7rem;color:#94a3b8">€15.000</span><span id="sim-value-disp" style="font-size:.9rem;font-weight:700;color:#0f172a">€32.000</span><span style="font-size:.7rem;color:#94a3b8">€80.000</span></div>
             </div>
             <div class="g2" style="gap:12px">
               <div>
@@ -1674,10 +1709,10 @@ function renderSimulator(){
       </div>
     </div>
     <div id="sim-results"></div>
-    <div style="margin-top:16px;padding:16px 20px;background:linear-gradient(135deg,#0f172a 0%,#064e3b 100%);border-radius:14px;display:flex;align-items:center;justify-content:space-between;gap:16px">
+    <div style="margin-top:16px;padding:16px 20px;background:linear-gradient(135deg,#0f172a 0%,#064e3b 100%);border-radius:16px;display:flex;align-items:center;justify-content:space-between;gap:16px">
       <div>
-        <div style="color:#10b981;font-weight:700;font-size:.9rem;margin-bottom:3px"><i class="fa-solid fa-phone" style="margin-right:6px"></i>${t('sim.cta')}</div>
-        <div style="color:#94a3b8;font-size:.78rem">Análise detalhada da frota + apoio à decisão de compra/leasing BEV/PHEV</div>
+        <div style="color:#10b981;font-weight:700;font-size:1rem;margin-bottom:3px"><i class="fa-solid fa-phone" style="margin-right:6px"></i>${t('sim.cta')}</div>
+        <div style="color:#94a3b8;font-size:.8rem">Análise detalhada da frota + apoio à decisão de compra/leasing BEV/PHEV</div>
       </div>
       <button class="btn btn-primary" style="flex-shrink:0;padding:10px 22px"><i class="fa-solid fa-calendar-check"></i> Agendar Reunião</button>
     </div>`;
@@ -1735,23 +1770,23 @@ function runSimulator(){
 
   const resHtml=`
     <div style="margin-bottom:14px;display:flex;align-items:center;gap:8px">
-      <div style="padding:6px 14px;background:#ecfdf5;border:1px solid #a7f3d0;border-radius:8px;font-size:.8rem;font-weight:700;color:#065f46"><i class="fa-solid fa-check" style="margin-right:5px"></i>Melhor opção: ${bestOption} &mdash; poupança de ${fmtEur(bestSav)}/ano na frota</div>
+      <div style="padding:6px 14px;background:#ecfdf5;border:1px solid #a7f3d0;border-radius:6px;font-size:.8rem;font-weight:700;color:#065f46"><i class="fa-solid fa-check" style="margin-right:5px"></i>Melhor opção: ${bestOption} &mdash; poupança de ${fmtEur(bestSav)}/ano na frota</div>
     </div>
     <div class="kpi-grid kpi-3" style="margin-bottom:16px">
       <div class="kpi-card sim-gray">
         <div class="kpi-label" style="color:#64748b">TCO Atual (${fuel.toUpperCase()}) · ${nveh} viaturas</div>
         <div class="kpi-value" style="color:#ef4444">${fmtEur(fleetCurr)}/ano</div>
-        <div style="font-size:.73rem;color:#94a3b8;margin-top:4px">TA: ${fmtEur(taFleetCurr)}/ano · Comb.: ${fmtEur(fuelCurrPV*nveh)}/ano</div>
+        <div style="font-size:.7rem;color:#94a3b8;margin-top:4px">TA: ${fmtEur(taFleetCurr)}/ano · Comb.: ${fmtEur(fuelCurrPV*nveh)}/ano</div>
       </div>
       <div class="kpi-card sim-green">
         <div class="kpi-label" style="color:#065f46">TCO Elétrico (BEV) · ${nveh} viaturas</div>
         <div class="kpi-value" style="color:#10b981">${fmtEur(fleetBev)}/ano</div>
-        <div style="font-size:.73rem;color:#059669;margin-top:4px">TA: Isento &nbsp;·&nbsp; Poupança: <b>${fmtEur(savBev*nveh)}/ano</b></div>
+        <div style="font-size:.7rem;color:#059669;margin-top:4px">TA: Isento &nbsp;·&nbsp; Poupança: <b>${fmtEur(savBev*nveh)}/ano</b></div>
       </div>
       <div class="kpi-card sim-blue">
         <div class="kpi-label" style="color:#1e40af">TCO PHEV · ${nveh} viaturas</div>
         <div class="kpi-value" style="color:#3b82f6">${fmtEur(fleetPhev)}/ano</div>
-        <div style="font-size:.73rem;color:#1e40af;margin-top:4px">TA reduzida: ${fmtEur(taFleetPhev)}/ano &nbsp;·&nbsp; <b>${fmtEur(savPhev*nveh)}/ano</b></div>
+        <div style="font-size:.7rem;color:#1e40af;margin-top:4px">TA reduzida: ${fmtEur(taFleetPhev)}/ano &nbsp;·&nbsp; <b>${fmtEur(savPhev*nveh)}/ano</b></div>
       </div>
     </div>
     <div class="g2">
@@ -1760,13 +1795,13 @@ function runSimulator(){
         <div class="card-body" style="padding:14px">
           ${[[t('sim.ta_saving'),taSavBev,'#10b981','fa-calculator'],[t('sim.fuel_saving'),fuelSavBev,'#3b82f6','fa-gas-pump'],[t('sim.maint_saving'),maintSavBev,'#8b5cf6','fa-wrench'],['Benefício IRC (TA poupada)',ircBenBev,'#f59e0b','fa-landmark']].map(([lbl,val,col,ico])=>`
           <div class="savings-item">
-            <div style="width:34px;height:34px;border-radius:8px;background:${col}20;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="fa-solid ${ico}" style="color:${col};font-size:.8rem"></i></div>
-            <div style="flex:1"><div style="font-size:.82rem;font-weight:600;color:#0f172a">${lbl}</div></div>
+            <div style="width:34px;height:34px;border-radius:6px;background:${col}20;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="fa-solid ${ico}" style="color:${col};font-size:.8rem"></i></div>
+            <div style="flex:1"><div style="font-size:.9rem;font-weight:600;color:#0f172a">${lbl}</div></div>
             <div class="savings-amount">${fmtEur(val)}/ano</div>
           </div>`).join('')}
           <div style="padding:12px;background:#ecfdf5;border-radius:10px;display:flex;justify-content:space-between;align-items:center;margin-top:4px">
-            <div style="font-size:.84rem;font-weight:700;color:#065f46">Total poupança BEV/ano</div>
-            <div style="font-size:1.3rem;font-weight:800;color:#10b981">${fmtEur(savBev*nveh)}</div>
+            <div style="font-size:.9rem;font-weight:700;color:#065f46">Total poupança BEV/ano</div>
+            <div style="font-size:1.5rem;font-weight:800;color:#10b981">${fmtEur(savBev*nveh)}</div>
           </div>
         </div>
       </div>
@@ -1775,13 +1810,13 @@ function runSimulator(){
         <div class="card-body" style="padding:14px">
           ${[[t('sim.ta_saving'),taSavPhev,'#8b5cf6','fa-calculator'],[t('sim.fuel_saving'),fuelSavPhev,'#3b82f6','fa-gas-pump'],[t('sim.maint_saving'),maintSavPhev,'#10b981','fa-wrench'],['Benefício IRC (TA poupada)',ircBenPhev,'#f59e0b','fa-landmark']].map(([lbl,val,col,ico])=>`
           <div class="savings-item">
-            <div style="width:34px;height:34px;border-radius:8px;background:${col}20;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="fa-solid ${ico}" style="color:${col};font-size:.8rem"></i></div>
-            <div style="flex:1"><div style="font-size:.82rem;font-weight:600;color:#0f172a">${lbl}</div></div>
+            <div style="width:34px;height:34px;border-radius:6px;background:${col}20;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="fa-solid ${ico}" style="color:${col};font-size:.8rem"></i></div>
+            <div style="flex:1"><div style="font-size:.9rem;font-weight:600;color:#0f172a">${lbl}</div></div>
             <div class="savings-amount">${fmtEur(val)}/ano</div>
           </div>`).join('')}
           <div style="padding:12px;background:#eff6ff;border-radius:10px;display:flex;justify-content:space-between;align-items:center;margin-top:4px">
-            <div style="font-size:.84rem;font-weight:700;color:#1e40af">Total poupança PHEV/ano</div>
-            <div style="font-size:1.3rem;font-weight:800;color:#3b82f6">${fmtEur(savPhev*nveh)}</div>
+            <div style="font-size:.9rem;font-weight:700;color:#1e40af">Total poupança PHEV/ano</div>
+            <div style="font-size:1.5rem;font-weight:800;color:#3b82f6">${fmtEur(savPhev*nveh)}</div>
           </div>
         </div>
       </div>
@@ -1873,8 +1908,8 @@ function renderReports(){
         <div class="card-body">
           <div style="margin-bottom:16px">
             <div style="display:flex;justify-content:space-between;margin-bottom:6px">
-              <span style="font-size:.82rem;font-weight:600;color:#0f172a">Taxa de Eletrificação</span>
-              <span style="font-size:.82rem;font-weight:700;color:#10b981">${electrif}%</span>
+              <span style="font-size:.9rem;font-weight:600;color:#0f172a">Taxa de Eletrificação</span>
+              <span style="font-size:.9rem;font-weight:700;color:#10b981">${electrif}%</span>
             </div>
             <div style="height:10px;background:#e2e8f0;border-radius:6px;overflow:hidden">
               <div style="height:100%;width:${electrif}%;background:linear-gradient(90deg,#10b981,#059669);border-radius:6px;transition:width .6s"></div>
@@ -1882,10 +1917,10 @@ function renderReports(){
             <div style="font-size:.7rem;color:#94a3b8;margin-top:4px">Meta 2027: 50%</div>
           </div>
           ${[['Elétrico (BEV)',bev,'#10b981'],['PHEV',phev,'#8b5cf6'],['Diesel',diesel,'#64748b'],['Gasolina',gas,'#f59e0b']].map(([lbl,cnt,col])=>`
-          <div style="display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:9px;background:#f8fafc;margin-bottom:6px">
+          <div style="display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:10px;background:#f8fafc;margin-bottom:6px">
             <div style="width:9px;height:9px;border-radius:50%;background:${col};flex-shrink:0"></div>
-            <div style="flex:1;font-size:.84rem;font-weight:500;color:#0f172a">${lbl}</div>
-            <div style="font-size:.84rem;font-weight:700;color:#0f172a">${cnt} <span style="font-weight:400;color:#94a3b8;font-size:.72rem">(${total?Math.round(cnt/total*100):0}%)</span></div>
+            <div style="flex:1;font-size:.9rem;font-weight:500;color:#0f172a">${lbl}</div>
+            <div style="font-size:.9rem;font-weight:700;color:#0f172a">${cnt} <span style="font-weight:400;color:#94a3b8;font-size:.7rem">(${total?Math.round(cnt/total*100):0}%)</span></div>
           </div>`).join('')}
         </div>
       </div>
@@ -1948,7 +1983,7 @@ function renderClients(){
         <option value="hibrido">${t('service.hibrido')}</option>
         <option value="outsourcing">${t('service.outsourcing')}</option>
       </select>
-      <span id="clients-count" style="font-size:.78rem;color:#64748b;font-weight:500;margin-left:auto"></span>
+      <span id="clients-count" style="font-size:.8rem;color:#64748b;font-weight:500;margin-left:auto"></span>
     </div>
     <div class="tbl-wrap">
       <table class="data-tbl">
@@ -1980,8 +2015,8 @@ function buildClientsTable(search){
   tbody.innerHTML=list.map(c=>`
     <tr onclick="openClientModal(${c.id})" style="cursor:pointer">
       <td>
-        <div style="font-weight:600;font-size:.86rem;color:#0f172a">${c.name}</div>
-        <div style="font-size:.72rem;color:#94a3b8">NIF ${c.nif}</div>
+        <div style="font-weight:600;font-size:.9rem;color:#0f172a">${c.name}</div>
+        <div style="font-size:.7rem;color:#94a3b8">NIF ${c.nif}</div>
       </td>
       <td>${tierBadge(c.tier)}</td>
       <td>${serviceBadge(c.service)}</td>
@@ -1989,12 +2024,12 @@ function buildClientsTable(search){
       <td>
         <div style="display:flex;align-items:center;gap:8px">
           <div style="flex:1;max-width:70px"><div class="health-bar"><div class="health-fill ${healthClass(c.health)}" style="width:${c.health}%"></div></div></div>
-          <span style="font-size:.78rem;font-weight:700;color:${healthColor(c.health)}">${c.health}%</span>
+          <span style="font-size:.8rem;font-weight:700;color:${healthColor(c.health)}">${c.health}%</span>
         </div>
       </td>
       <td>
-        <div style="font-size:.82rem;font-weight:500">${c.contact}</div>
-        <div style="font-size:.72rem;color:#94a3b8">${c.email}</div>
+        <div style="font-size:.9rem;font-weight:500">${c.contact}</div>
+        <div style="font-size:.7rem;color:#94a3b8">${c.email}</div>
       </td>
       <td style="font-size:.8rem;color:#64748b">${c.since}</td>
       <td><button class="btn btn-sec btn-sm" onclick="event.stopPropagation();openClientModal(${c.id})"><i class="fa-solid fa-eye"></i></button></td>
@@ -2009,25 +2044,25 @@ function openClientModal(id){
   const phev=vlist.filter(v=>v.fuel==='phev').length;
   const taCost=vlist.reduce((s,v)=>s+calcTA(v),0);
   const body=`
-    <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px;padding:16px;background:#f8fafc;border-radius:12px">
-      <div style="width:46px;height:46px;border-radius:12px;background:#0f172a;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.1rem;font-weight:800;color:#10b981">${c.name.charAt(0)}</div>
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px;padding:16px;background:#f8fafc;border-radius:10px">
+      <div style="width:46px;height:46px;border-radius:10px;background:#0f172a;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1rem;font-weight:800;color:#10b981">${c.name.charAt(0)}</div>
       <div>
         <div style="font-size:1rem;font-weight:700;color:#0f172a">${c.name}</div>
         <div style="font-size:.8rem;color:#64748b">NIF ${c.nif} &nbsp;·&nbsp; ${tierBadge(c.tier)} ${serviceBadge(c.service)}</div>
       </div>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
-      <div style="padding:11px;background:#f8fafc;border-radius:10px"><div style="font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#94a3b8;margin-bottom:3px">Viaturas</div><div style="font-size:.9rem;font-weight:700;color:#0f172a">${vlist.length} viaturas</div></div>
-      <div style="padding:11px;background:#f8fafc;border-radius:10px"><div style="font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#94a3b8;margin-bottom:3px">Saúde da Frota</div><div style="font-size:.9rem;font-weight:700;color:${healthColor(c.health)}">${c.health}%</div></div>
-      <div style="padding:11px;background:#f8fafc;border-radius:10px"><div style="font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#94a3b8;margin-bottom:3px">BEV + PHEV</div><div style="font-size:.9rem;font-weight:700;color:#10b981">${bev+phev} viaturas (${vlist.length?Math.round((bev+phev)/vlist.length*100):0}%)</div></div>
-      <div style="padding:11px;background:#fff5f5;border-radius:10px"><div style="font-size:.68rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#94a3b8;margin-bottom:3px">Tributação Autónoma</div><div style="font-size:.9rem;font-weight:700;color:#ef4444">${fmtEur(taCost)}/ano</div></div>
+      <div style="padding:11px;background:#f8fafc;border-radius:10px"><div style="font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#94a3b8;margin-bottom:3px">Viaturas</div><div style="font-size:1rem;font-weight:700;color:#0f172a">${vlist.length} viaturas</div></div>
+      <div style="padding:11px;background:#f8fafc;border-radius:10px"><div style="font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#94a3b8;margin-bottom:3px">Saúde da Frota</div><div style="font-size:1rem;font-weight:700;color:${healthColor(c.health)}">${c.health}%</div></div>
+      <div style="padding:11px;background:#f8fafc;border-radius:10px"><div style="font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#94a3b8;margin-bottom:3px">BEV + PHEV</div><div style="font-size:1rem;font-weight:700;color:#10b981">${bev+phev} viaturas (${vlist.length?Math.round((bev+phev)/vlist.length*100):0}%)</div></div>
+      <div style="padding:11px;background:#fff5f5;border-radius:10px"><div style="font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#94a3b8;margin-bottom:3px">Tributação Autónoma</div><div style="font-size:1rem;font-weight:700;color:#ef4444">${fmtEur(taCost)}/ano</div></div>
     </div>
     ${alerts>0?`<div class="alert-row al-urgente" style="margin-bottom:12px"><i class="fa-solid fa-triangle-exclamation"></i><span>${alerts} viatura${alerts>1?'s':''} com alertas urgentes</span></div>`:''}
     <div style="margin-bottom:12px">
-      <div style="font-size:.72rem;font-weight:600;color:#475569;margin-bottom:8px">CONTACTO</div>
-      <div style="font-size:.85rem;color:#334155;margin-bottom:4px"><i class="fa-solid fa-user" style="width:16px;color:#94a3b8"></i> ${c.contact}</div>
-      <div style="font-size:.85rem;color:#334155;margin-bottom:4px"><i class="fa-solid fa-envelope" style="width:16px;color:#94a3b8"></i> ${c.email}</div>
-      <div style="font-size:.85rem;color:#334155"><i class="fa-solid fa-phone" style="width:16px;color:#94a3b8"></i> ${c.phone}</div>
+      <div style="font-size:.7rem;font-weight:600;color:#475569;margin-bottom:8px">CONTACTO</div>
+      <div style="font-size:.9rem;color:#334155;margin-bottom:4px"><i class="fa-solid fa-user" style="width:16px;color:#94a3b8"></i> ${c.contact}</div>
+      <div style="font-size:.9rem;color:#334155;margin-bottom:4px"><i class="fa-solid fa-envelope" style="width:16px;color:#94a3b8"></i> ${c.email}</div>
+      <div style="font-size:.9rem;color:#334155"><i class="fa-solid fa-phone" style="width:16px;color:#94a3b8"></i> ${c.phone}</div>
     </div>`;
   openModal(c.name,body,`<button class="btn btn-sec" onclick="closeModal()">${t('common.close')}</button><button class="btn btn-primary" onclick="closeModal();navigate('fleet')"><i class="fa-solid fa-car-side"></i> Ver Frota</button>`);
 }
@@ -2046,7 +2081,7 @@ function openAddClientModal(){
         <div><label class="form-label">Email</label><input type="email" class="form-input" placeholder="gestor@empresa.pt"></div>
       </div>
       <div><label class="form-label">Telefone</label><input type="tel" class="form-input" placeholder="+351 912 345 678"></div>
-      <div style="padding:10px 13px;background:#eff6ff;border-radius:8px;font-size:.78rem;color:#1e40af"><i class="fa-solid fa-circle-info" style="margin-right:6px"></i>Demonstração — dados não persistidos.</div>
+      <div style="padding:10px 13px;background:#eff6ff;border-radius:6px;font-size:.8rem;color:#1e40af"><i class="fa-solid fa-circle-info" style="margin-right:6px"></i>Demonstração — dados não persistidos.</div>
     </div>`;
   openModal(t('clients.add'),body,`<button class="btn btn-sec" onclick="closeModal()">${t('common.cancel')}</button><button class="btn btn-primary" onclick="closeModal()"><i class="fa-solid fa-plus"></i> Criar Cliente</button>`);
 }
@@ -2069,7 +2104,7 @@ function renderSettings(){
           <div class="card-header"><span class="card-title"><i class="fa-solid fa-user" style="color:#10b981;margin-right:6px"></i>${t('settings.profile')}</span></div>
           <div class="card-body">
             <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px">
-              <div style="width:56px;height:56px;border-radius:14px;background:#10b981;display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:800;color:#fff;flex-shrink:0">${u.initials}</div>
+              <div style="width:56px;height:56px;border-radius:16px;background:#10b981;display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:800;color:#fff;flex-shrink:0">${u.initials}</div>
               <div>
                 <div style="font-size:1rem;font-weight:700;color:#0f172a">${u.name}</div>
                 <div style="font-size:.8rem;color:#64748b;margin-bottom:4px">${u.email}</div>
@@ -2088,8 +2123,8 @@ function renderSettings(){
           <div class="card-header"><span class="card-title"><i class="fa-solid fa-globe" style="color:#3b82f6;margin-right:6px"></i>${t('settings.lang')}</span></div>
           <div class="card-body">
             <div style="display:flex;gap:10px">
-              <button onclick="if(S.lang!=='pt'){toggleLang()}" class="btn ${S.lang==='pt'?'btn-primary':'btn-sec'}" style="flex:1;justify-content:center"><span style="font-size:1.1rem">🇵🇹</span> Português</button>
-              <button onclick="if(S.lang!=='en'){toggleLang()}" class="btn ${S.lang==='en'?'btn-primary':'btn-sec'}" style="flex:1;justify-content:center"><span style="font-size:1.1rem">🇬🇧</span> English</button>
+              <button onclick="if(S.lang!=='pt'){toggleLang()}" class="btn ${S.lang==='pt'?'btn-primary':'btn-sec'}" style="flex:1;justify-content:center"><span style="font-size:1rem">🇵🇹</span> Português</button>
+              <button onclick="if(S.lang!=='en'){toggleLang()}" class="btn ${S.lang==='en'?'btn-primary':'btn-sec'}" style="flex:1;justify-content:center"><span style="font-size:1rem">🇬🇧</span> English</button>
             </div>
           </div>
         </div>
@@ -2102,10 +2137,10 @@ function renderSettings(){
             ${[['Alertas IPO/Seguros (urgente)','Notificação quando vencimento &le; 30 dias',true],['Alerta Revisão Periódica','Lembrete de revisão agendada',true],['Relatório TCO Mensal','Resumo mensal enviado por email',false],['Novos Clientes (Admin)','Alerta de novo cliente adicionado',u.role==='admin'],['Alertas Tributação Autónoma','Relatório fiscal trimestral',u.role!=='driver']].map(([title,desc,on])=>`
             <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid #f1f5f9">
               <div>
-                <div style="font-size:.85rem;font-weight:500;color:#0f172a">${title}</div>
-                <div style="font-size:.73rem;color:#94a3b8;margin-top:1px">${desc}</div>
+                <div style="font-size:.9rem;font-weight:500;color:#0f172a">${title}</div>
+                <div style="font-size:.7rem;color:#94a3b8;margin-top:1px">${desc}</div>
               </div>
-              <div onclick="this.dataset.on=this.dataset.on==='1'?'0':'1';this.style.background=this.dataset.on==='1'?'#10b981':'#e2e8f0';this.querySelector('div').style.transform=this.dataset.on==='1'?'translateX(20px)':'translateX(0)'" data-on="${on?'1':'0'}" style="width:40px;height:22px;border-radius:11px;background:${on?'#10b981':'#e2e8f0'};cursor:pointer;position:relative;flex-shrink:0;transition:background .2s">
+              <div onclick="this.dataset.on=this.dataset.on==='1'?'0':'1';this.style.background=this.dataset.on==='1'?'#10b981':'#e2e8f0';this.querySelector('div').style.transform=this.dataset.on==='1'?'translateX(20px)':'translateX(0)'" data-on="${on?'1':'0'}" style="width:40px;height:22px;border-radius:10px;background:${on?'#10b981':'#e2e8f0'};cursor:pointer;position:relative;flex-shrink:0;transition:background .2s">
                 <div style="width:18px;height:18px;border-radius:50%;background:#fff;position:absolute;top:2px;left:2px;transform:${on?'translateX(18px)':'translateX(0)'};transition:transform .2s;box-shadow:0 1px 4px rgba(0,0,0,.2)"></div>
               </div>
             </div>`).join('')}
@@ -2119,15 +2154,15 @@ function renderSettings(){
             <p style="font-size:.8rem;color:#64748b;margin:0 0 14px">Define o nível de intervenção FleetWise na gestão da sua frota.</p>
             ${[['self','fa-user','Self-service','Plataforma autónoma — apenas relatórios e alertas'],['hibrido','fa-handshake','Híbrido','Decisões partilhadas FleetWise + Cliente'],['outsourcing','fa-building','Outsourcing Total','FleetWise gere integralmente a frota']].map(([val,ico,lbl,desc])=>`
             <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:10px;border:2px solid ${client&&client.service===val?'#10b981':'#e2e8f0'};margin-bottom:8px;cursor:pointer;background:${client&&client.service===val?'#f0fdf9':'#fff'}" onclick="document.querySelectorAll('.aut-opt').forEach(el=>el.style.borderColor='#e2e8f0');this.style.borderColor='#10b981'">
-              <div style="width:34px;height:34px;border-radius:8px;background:${client&&client.service===val?'#ecfdf5':'#f8fafc'};display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="fa-solid ${ico}" style="color:${client&&client.service===val?'#10b981':'#94a3b8'};font-size:.85rem"></i></div>
-              <div><div style="font-size:.86rem;font-weight:600;color:#0f172a">${lbl}</div><div style="font-size:.73rem;color:#64748b">${desc}</div></div>
+              <div style="width:34px;height:34px;border-radius:6px;background:${client&&client.service===val?'#ecfdf5':'#f8fafc'};display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="fa-solid ${ico}" style="color:${client&&client.service===val?'#10b981':'#94a3b8'};font-size:.9rem"></i></div>
+              <div><div style="font-size:.9rem;font-weight:600;color:#0f172a">${lbl}</div><div style="font-size:.7rem;color:#64748b">${desc}</div></div>
             </div>`).join('')}
           </div>
         </div>`:''
         }
         <div style="display:flex;justify-content:flex-end;gap:10px">
           <button class="btn btn-sec" onclick="navigate('dashboard')"><i class="fa-solid fa-xmark"></i> ${t('common.cancel')}</button>
-          <button class="btn btn-primary" onclick="openModal('Confirmação','<div style=\"text-align:center;padding:10px\"><i class=\"fa-solid fa-check-circle\" style=\"color:#10b981;font-size:2rem;margin-bottom:12px;display:block\"></i><p style=\"font-size:.9rem;color:#334155\">Definições guardadas com sucesso!<br><span style=\"font-size:.78rem;color:#94a3b8\">(Demonstração — sem persistência de dados)</span></p></div>','<button class=\"btn btn-primary\" onclick=\"closeModal()\">OK</button>')"><i class="fa-solid fa-floppy-disk"></i> ${t('settings.save')}</button>
+          <button class="btn btn-primary" onclick="openModal('Confirmação','<div style=\"text-align:center;padding:10px\"><i class=\"fa-solid fa-check-circle\" style=\"color:#10b981;font-size:1.9rem;margin-bottom:12px;display:block\"></i><p style=\"font-size:1rem;color:#334155\">Definições guardadas com sucesso!<br><span style=\"font-size:.8rem;color:#94a3b8\">(Demonstração — sem persistência de dados)</span></p></div>','<button class=\"btn btn-primary\" onclick=\"closeModal()\">OK</button>')"><i class="fa-solid fa-floppy-disk"></i> ${t('settings.save')}</button>
         </div>
       </div>
     </div>`;
@@ -2152,7 +2187,7 @@ function renderMyVehicle(){
       <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px">
         <div>
           <div style="font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#475569;margin-bottom:6px">A Minha Viatura Atual</div>
-          <div style="font-size:1.6rem;font-weight:800;line-height:1.1">${v.brand} ${v.model}</div>
+          <div style="font-size:1.5rem;font-weight:800;line-height:1.1">${v.brand} ${v.model}</div>
           <div style="font-size:1rem;color:#94a3b8;margin-top:4px">${v.plate}</div>
         </div>
         <div style="text-align:right">${fuelBadge(v.fuel)}</div>
@@ -2160,8 +2195,8 @@ function renderMyVehicle(){
       <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
         ${[['fa-route','km Atual',fmtNum(v.km)+' km'],['fa-euro-sign','Renting/mês',fmtEur(v.monthly)+'/mês'],['fa-tag','Valor Aquisição',fmtEur(v.value)],['fa-calendar-check','Em serviço desde','Jan 2025']].map(([ico,lbl,val])=>`
         <div style="background:rgba(255,255,255,.07);border-radius:10px;padding:12px">
-          <div style="font-size:.65rem;color:#94a3b8;margin-bottom:3px;display:flex;align-items:center;gap:5px"><i class="fa-solid ${ico}"></i>${lbl}</div>
-          <div style="font-size:.95rem;font-weight:700">${val}</div>
+          <div style="font-size:.7rem;color:#94a3b8;margin-bottom:3px;display:flex;align-items:center;gap:5px"><i class="fa-solid ${ico}"></i>${lbl}</div>
+          <div style="font-size:1rem;font-weight:700">${val}</div>
         </div>`).join('')}
       </div>
     </div>
@@ -2171,7 +2206,7 @@ function renderMyVehicle(){
           <i class="fa-solid fa-id-card" style="color:${ipoS==='ok'?'#10b981':ipoS==='atencao'?'#f59e0b':'#ef4444'}"></i>
         </div>
         <div class="kpi-label">IPO</div>
-        <div class="kpi-value" style="font-size:1.1rem">${fmtDate(v.ipo)}</div>
+        <div class="kpi-value" style="font-size:1rem">${fmtDate(v.ipo)}</div>
         <div style="margin-top:6px">${badge(ipoS)}</div>
         ${daysUntil(v.ipo)>0?`<div class="kpi-change neu" style="margin-top:4px">em ${daysUntil(v.ipo)} dias</div>`:`<div class="kpi-change neg" style="margin-top:4px">Renovação necessária</div>`}
       </div>
@@ -2180,7 +2215,7 @@ function renderMyVehicle(){
           <i class="fa-solid fa-shield-halved" style="color:${segS==='ok'?'#10b981':segS==='atencao'?'#f59e0b':'#ef4444'}"></i>
         </div>
         <div class="kpi-label">Seguro</div>
-        <div class="kpi-value" style="font-size:1.1rem">${fmtDate(v.seguro)}</div>
+        <div class="kpi-value" style="font-size:1rem">${fmtDate(v.seguro)}</div>
         <div style="margin-top:6px">${badge(segS)}</div>
         ${daysUntil(v.seguro)>0?`<div class="kpi-change neu" style="margin-top:4px">em ${daysUntil(v.seguro)} dias</div>`:`<div class="kpi-change neg" style="margin-top:4px">Renovação necessária</div>`}
       </div>
@@ -2189,7 +2224,7 @@ function renderMyVehicle(){
           <i class="fa-solid fa-wrench" style="color:${revS==='ok'?'#10b981':revS==='atencao'?'#f59e0b':'#ef4444'}"></i>
         </div>
         <div class="kpi-label">Próxima Revisão</div>
-        <div class="kpi-value" style="font-size:1.1rem">${fmtDate(v.revisao)}</div>
+        <div class="kpi-value" style="font-size:1rem">${fmtDate(v.revisao)}</div>
         <div style="margin-top:6px">${badge(revS)}</div>
         ${daysUntil(v.revisao)>0?`<div class="kpi-change neu" style="margin-top:4px">em ${daysUntil(v.revisao)} dias</div>`:`<div class="kpi-change neg" style="margin-top:4px">Revisão em atraso</div>`}
       </div>
@@ -2203,7 +2238,7 @@ function renderMyVehicle(){
             ${maint.length?maint.map(m=>{
               const st=m.status==='done'?'ok':m.status==='overdue'?'expirado':'urgente';
               const stLbl=m.status==='done'?'Concluído':m.status==='overdue'?'Em atraso':'Pendente';
-              return`<tr><td style="font-size:.83rem">${m.type}</td><td style="font-size:.8rem">${fmtDate(m.date)}</td><td style="font-size:.78rem;color:#64748b">${m.provider}</td><td style="font-weight:600;font-size:.82rem">${fmtEur(m.cost)}</td><td><span class="badge b-${st}">${stLbl}</span></td></tr>`;
+              return`<tr><td style="font-size:.9rem">${m.type}</td><td style="font-size:.8rem">${fmtDate(m.date)}</td><td style="font-size:.8rem;color:#64748b">${m.provider}</td><td style="font-weight:600;font-size:.9rem">${fmtEur(m.cost)}</td><td><span class="badge b-${st}">${stLbl}</span></td></tr>`;
             }).join('')
             :'<tr><td colspan="5" style="text-align:center;color:#94a3b8;padding:20px">Sem registos</td></tr>'}
           </tbody>
@@ -2215,7 +2250,7 @@ function renderMyVehicle(){
           ${[['Combustível',fuelBadge(v.fuel)],['Condutor Atual',u.name],['N.º km Registados',fmtNum(v.km)+' km'],['Renting Mensal',fmtEur(v.monthly)+'/mês'],['Valor de Aquisição',fmtEur(v.value)],['Empresa',clientName(v.clientId)]].map(([lbl,val])=>`
           <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid #f1f5f9">
             <span style="font-size:.8rem;color:#64748b">${lbl}</span>
-            <span style="font-size:.82rem;font-weight:600;color:#0f172a">${val}</span>
+            <span style="font-size:.9rem;font-weight:600;color:#0f172a">${val}</span>
           </div>`).join('')}
           <div style="margin-top:14px">
             <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="navigate('service')"><i class="fa-solid fa-wrench"></i> Pedir Assistência</button>
@@ -2250,8 +2285,8 @@ function renderService(){
             ${v?`<div style="padding:12px 14px;background:#f0fdf9;border:1px solid #a7f3d0;border-radius:10px;display:flex;align-items:center;gap:10px">
               <i class="fa-solid fa-car-side" style="color:#10b981"></i>
               <div>
-                <div style="font-size:.84rem;font-weight:600;color:#065f46">${v.brand} ${v.model}</div>
-                <div style="font-size:.73rem;color:#059669">${v.plate} &nbsp;·&nbsp; ${fmtNum(v.km)} km</div>
+                <div style="font-size:.9rem;font-weight:600;color:#065f46">${v.brand} ${v.model}</div>
+                <div style="font-size:.7rem;color:#059669">${v.plate} &nbsp;·&nbsp; ${fmtNum(v.km)} km</div>
               </div>
             </div>`:''}
             <div>
@@ -2265,7 +2300,7 @@ function renderService(){
                 <option value="Sinistro">Sinistro / Acidente</option>
                 <option value="Outro">Outro</option>
               </select>
-              <div id="svc-type-info" style="font-size:.73rem;color:#64748b;margin-top:4px;min-height:16px">Descreva o problema e sintomas observados.</div>
+              <div id="svc-type-info" style="font-size:.7rem;color:#64748b;margin-top:4px;min-height:16px">Descreva o problema e sintomas observados.</div>
             </div>
             <div>
               <label class="form-label">${t('service.desc')}</label>
@@ -2289,12 +2324,12 @@ function renderService(){
               <label class="form-label">km Atuais (confirmação)</label>
               <input type="number" class="form-input" value="${v?v.km:''}" placeholder="Ex: 34200">
             </div>
-            <div style="padding:11px 14px;background:#f8fafc;border-radius:8px;display:flex;align-items:center;gap:8px;font-size:.78rem;color:#475569;cursor:pointer;border:1px dashed #e2e8f0">
+            <div style="padding:11px 14px;background:#f8fafc;border-radius:6px;display:flex;align-items:center;gap:8px;font-size:.8rem;color:#475569;cursor:pointer;border:1px dashed #e2e8f0">
               <i class="fa-solid fa-camera" style="color:#94a3b8"></i>
               <span>Anexar fotografia (opcional) — clique para selecionar</span>
             </div>
             <button class="btn btn-primary" style="width:100%;justify-content:center;padding:11px" onclick="submitServiceRequest()"><i class="fa-solid fa-paper-plane"></i> ${t('service.submit')}</button>
-            <div style="font-size:.73rem;color:#94a3b8;text-align:center">Será notificado por email após confirmação do pedido pela FleetWise.</div>
+            <div style="font-size:.7rem;color:#94a3b8;text-align:center">Será notificado por email após confirmação do pedido pela FleetWise.</div>
           </div>
         </div>
       </div>
@@ -2307,8 +2342,8 @@ function renderService(){
               ${recentRequests.map(r=>`
               <tr>
                 <td>
-                  <div style="font-size:.83rem;font-weight:500">${r.type}</div>
-                  <div style="font-size:.72rem;color:#94a3b8">${r.desc}</div>
+                  <div style="font-size:.9rem;font-weight:500">${r.type}</div>
+                  <div style="font-size:.7rem;color:#94a3b8">${r.desc}</div>
                 </td>
                 <td style="font-size:.8rem;color:#64748b">${fmtDate(r.date)}</td>
                 <td><span class="badge b-ok">Concluído</span></td>
@@ -2321,10 +2356,10 @@ function renderService(){
           <div class="card-body">
             ${[['fa-phone','Linha de Apoio','+351 220 123 456','Seg–Sex, 9h–18h'],['fa-envelope','Email Assistência','assistencia@fleetwise.pt','Resposta em 2h úteis'],['fa-mobile-screen','Emergências 24h','+351 910 999 888','Avarias e acidentes']].map(([ico,lbl,val,hint])=>`
             <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid #f1f5f9">
-              <div style="width:34px;height:34px;border-radius:8px;background:#ecfdf5;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="fa-solid ${ico}" style="color:#10b981;font-size:.8rem"></i></div>
+              <div style="width:34px;height:34px;border-radius:6px;background:#ecfdf5;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="fa-solid ${ico}" style="color:#10b981;font-size:.8rem"></i></div>
               <div>
-                <div style="font-size:.82rem;font-weight:600;color:#0f172a">${lbl}</div>
-                <div style="font-size:.84rem;color:#334155">${val}</div>
+                <div style="font-size:.9rem;font-weight:600;color:#0f172a">${lbl}</div>
+                <div style="font-size:.9rem;color:#334155">${val}</div>
                 <div style="font-size:.7rem;color:#94a3b8">${hint}</div>
               </div>
             </div>`).join('')}
@@ -2336,7 +2371,7 @@ function renderService(){
 }
 
 function submitServiceRequest(){
-  openModal('Pedido Enviado!','<div style="text-align:center;padding:14px"><i class="fa-solid fa-circle-check" style="color:#10b981;font-size:2.5rem;margin-bottom:14px;display:block"></i><p style="font-size:.9rem;color:#334155;margin-bottom:6px"><strong>Pedido registado com sucesso!</strong></p><p style="font-size:.8rem;color:#64748b">A equipa FleetWise irá contactá-lo em breve para confirmação e agendamento.<br><br><span style="font-size:.75rem;color:#94a3b8">(Demonstração — sem persistência de dados)</span></p></div>','<button class="btn btn-primary" onclick="closeModal()">OK</button>');
+  openModal('Pedido Enviado!','<div style="text-align:center;padding:14px"><i class="fa-solid fa-circle-check" style="color:#10b981;font-size:2.6rem;margin-bottom:14px;display:block"></i><p style="font-size:1rem;color:#334155;margin-bottom:6px"><strong>Pedido registado com sucesso!</strong></p><p style="font-size:.8rem;color:#64748b">A equipa FleetWise irá contactá-lo em breve para confirmação e agendamento.<br><br><span style="font-size:.8rem;color:#94a3b8">(Demonstração — sem persistência de dados)</span></p></div>','<button class="btn btn-primary" onclick="closeModal()">OK</button>');
 }
 
 // ─────────────────────────────────────────────────────────────
