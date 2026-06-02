@@ -2162,7 +2162,7 @@ function renderSettings(){
         }
         <div style="display:flex;justify-content:flex-end;gap:10px">
           <button class="btn btn-sec" onclick="navigate('dashboard')"><i class="fa-solid fa-xmark"></i> ${t('common.cancel')}</button>
-          <button class="btn btn-primary" onclick="openModal('Confirmação','<div style=\"text-align:center;padding:10px\"><i class=\"fa-solid fa-check-circle\" style=\"color:#10b981;font-size:1.9rem;margin-bottom:12px;display:block\"></i><p style=\"font-size:1rem;color:#334155\">Definições guardadas com sucesso!<br><span style=\"font-size:.8rem;color:#94a3b8\">(Demonstração — sem persistência de dados)</span></p></div>','<button class=\"btn btn-primary\" onclick=\"closeModal()\">OK</button>')"><i class="fa-solid fa-floppy-disk"></i> ${t('settings.save')}</button>
+          <button class="btn btn-primary" onclick="confirmSettingsSave()"><i class="fa-solid fa-floppy-disk"></i> ${t('settings.save')}</button>
         </div>
       </div>
     </div>`;
@@ -2383,6 +2383,9 @@ function openModal(title,body,foot=''){
   const mf=document.getElementById('modal-foot');
   if(foot){mf.innerHTML=foot;mf.style.display='flex';}else{mf.style.display='none';}
   document.getElementById('modal-overlay').classList.add('open');
+}
+function confirmSettingsSave(){
+  openModal('Confirmação','<div style="text-align:center;padding:10px"><i class="fa-solid fa-check-circle" style="color:#10b981;font-size:1.8rem;margin-bottom:8px;display:block"></i><p style="font-size:1rem;color:#334155">Definições guardadas com sucesso!<br><span style="font-size:.8rem;color:#94a3b8">(Demonstração — sem persistência de dados)</span></p></div>','<button class="btn btn-primary" onclick="closeModal()">OK</button>');
 }
 function closeModal(){document.getElementById('modal-overlay').classList.remove('open');}
 function closeModalOutside(e){if(e.target===document.getElementById('modal-overlay'))closeModal();}
