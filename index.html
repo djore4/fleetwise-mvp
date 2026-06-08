@@ -745,16 +745,16 @@ const VEHICLES = [
 ];
 
 const MAINTENANCE = [
-  {id:1,vehicleId:1,clientId:1,type:'Revisão Periódica',date:'2026-03-15',provider:'Renault Oficial Porto',cost:285,status:'done'},
-  {id:2,vehicleId:2,clientId:1,type:'IPO',date:'2026-04-20',provider:'IPO Norte',cost:55,status:'overdue'},
-  {id:3,vehicleId:6,clientId:1,type:'IPO',date:'2026-05-25',provider:'IPO Lisboa',cost:55,status:'pending'},
-  {id:4,vehicleId:8,clientId:1,type:'IPO',date:'2026-06-08',provider:'IPO Porto',cost:55,status:'pending'},
-  {id:5,vehicleId:9,clientId:1,type:'Renovação Seguro',date:'2026-05-20',provider:'Fidelidade',cost:780,status:'pending'},
-  {id:6,vehicleId:3,clientId:1,type:'Revisão 30.000km',date:'2026-10-01',provider:'Mercedes Lisboa',cost:420,status:'pending'},
-  {id:7,vehicleId:21,clientId:2,type:'IPO',date:'2026-06-05',provider:'IPO Sul',cost:55,status:'pending'},
-  {id:8,vehicleId:1,clientId:1,type:'Troca de Pneus',date:'2026-02-10',provider:'ALD Automóvel',cost:620,status:'done'},
-  {id:9,vehicleId:7,clientId:1,type:'Revisão 60.000km',date:'2025-12-15',provider:'VW Autoeuropa',cost:580,status:'done'},
-  {id:10,vehicleId:11,clientId:1,type:'Revisão Periódica',date:'2026-07-12',provider:'Opel Porto',cost:240,status:'pending'},
+  {id:1,vehicleId:1,clientId:1,type:'Revisão Periódica',date:'2026-03-15',provider:'Renault Oficial Porto',cost:285,status:'done',invoices:['FAT-2026-0312.pdf'],laborCost:120,partsCost:165},
+  {id:2,vehicleId:2,clientId:1,type:'IPO',date:'2026-04-20',provider:'IPO Norte',cost:55,status:'overdue',invoices:[]},
+  {id:3,vehicleId:6,clientId:1,type:'IPO',date:'2026-05-25',provider:'IPO Lisboa',cost:55,status:'pending',invoices:[]},
+  {id:4,vehicleId:8,clientId:1,type:'IPO',date:'2026-06-08',provider:'IPO Porto',cost:55,status:'pending',invoices:[]},
+  {id:5,vehicleId:9,clientId:1,type:'Renovação Seguro',date:'2026-05-20',provider:'Fidelidade',cost:780,status:'pending',invoices:[]},
+  {id:6,vehicleId:3,clientId:1,type:'Revisão 30.000km',date:'2026-10-01',provider:'Mercedes Lisboa',cost:420,status:'pending',invoices:[]},
+  {id:7,vehicleId:21,clientId:2,type:'IPO',date:'2026-06-05',provider:'IPO Sul',cost:55,status:'pending',invoices:[]},
+  {id:8,vehicleId:1,clientId:1,type:'Troca de Pneus',date:'2026-02-10',provider:'ALD Automóvel',cost:620,status:'done',invoices:['FAT-2026-0198.pdf'],laborCost:80,partsCost:540},
+  {id:9,vehicleId:7,clientId:1,type:'Revisão 60.000km',date:'2025-12-15',provider:'VW Autoeuropa',cost:580,status:'done',invoices:['FAT-2025-1187.pdf'],laborCost:180,partsCost:400},
+  {id:10,vehicleId:11,clientId:1,type:'Revisão Periódica',date:'2026-07-12',provider:'Opel Porto',cost:240,status:'pending',invoices:[]},
 ];
 
 const FISCAL = {
@@ -779,16 +779,27 @@ const FISCAL = {
     {vehicleId:25,clientId:3,plate:'23-MN-90',vehicle:'Renault Captur E-Tech',due:'2026-07-08',amount:55,status:'atencao'},
   ],
   seguros:[
-    {vehicleId:9,clientId:1,plate:'24-RS-56',vehicle:'Ford Transit Custom',due:'2026-05-20',amount:780,provider:'Fidelidade',status:'urgente'},
-    {vehicleId:2,clientId:1,plate:'23-KP-87',vehicle:'VW Transporter',due:'2026-06-15',amount:720,provider:'Allianz',status:'urgente'},
-    {vehicleId:25,clientId:3,plate:'23-MN-90',vehicle:'Renault Captur E-Tech',due:'2026-06-30',amount:520,provider:'Tranquilidade',status:'urgente'},
-    {vehicleId:1,clientId:1,plate:'24-AB-12',vehicle:'Renault Trafic',due:'2026-07-05',amount:650,provider:'Tranquilidade',status:'atencao'},
-    {vehicleId:13,clientId:1,plate:'22-ZA-34',vehicle:'Peugeot Expert',due:'2026-07-28',amount:680,provider:'Generali',status:'atencao'},
-    {vehicleId:6,clientId:1,plate:'23-LM-90',vehicle:'Toyota Prius PHEV',due:'2026-07-15',amount:720,provider:'Médis Auto',status:'atencao'},
-    {vehicleId:21,clientId:2,plate:'22-EF-12',vehicle:'Mercedes GLC',due:'2026-08-15',amount:1100,provider:'Fidelidade',status:'ok'},
-    {vehicleId:4,clientId:1,plate:'24-EF-56',vehicle:'Renault Kangoo BEV',due:'2026-12-01',amount:580,provider:'Ok Teleseguros',status:'ok'},
+    {vehicleId:9,clientId:1,plate:'24-RS-56',vehicle:'Ford Transit Custom',due:'2026-05-20',amount:780,provider:'Fidelidade',status:'urgente',policyNumber:'AP-2025-00312',coverageType:'Todos os Riscos',start:'2025-05-20'},
+    {vehicleId:2,clientId:1,plate:'23-KP-87',vehicle:'VW Transporter',due:'2026-06-15',amount:720,provider:'Allianz',status:'urgente',policyNumber:'AP-2025-00478',coverageType:'Danos Próprios',start:'2025-06-15'},
+    {vehicleId:25,clientId:3,plate:'23-MN-90',vehicle:'Renault Captur E-Tech',due:'2026-06-30',amount:520,provider:'Tranquilidade',status:'urgente',policyNumber:'AP-2025-00533',coverageType:'Responsabilidade Civil',start:'2025-06-30'},
+    {vehicleId:1,clientId:1,plate:'24-AB-12',vehicle:'Renault Trafic',due:'2026-07-05',amount:650,provider:'Tranquilidade',status:'atencao',policyNumber:'AP-2025-00601',coverageType:'Todos os Riscos',start:'2025-07-05'},
+    {vehicleId:13,clientId:1,plate:'22-ZA-34',vehicle:'Peugeot Expert',due:'2026-07-28',amount:680,provider:'Generali',status:'atencao',policyNumber:'AP-2025-00644',coverageType:'Danos Próprios',start:'2025-07-28'},
+    {vehicleId:6,clientId:1,plate:'23-LM-90',vehicle:'Toyota Prius PHEV',due:'2026-07-15',amount:720,provider:'Médis Auto',status:'atencao',policyNumber:'AP-2025-00619',coverageType:'Todos os Riscos',start:'2025-07-15'},
+    {vehicleId:21,clientId:2,plate:'22-EF-12',vehicle:'Mercedes GLC',due:'2026-08-15',amount:1100,provider:'Fidelidade',status:'ok',policyNumber:'AP-2024-00891',coverageType:'Todos os Riscos',start:'2025-08-15'},
+    {vehicleId:4,clientId:1,plate:'24-EF-56',vehicle:'Renault Kangoo BEV',due:'2026-12-01',amount:580,provider:'Ok Teleseguros',status:'ok',policyNumber:'AP-2025-01247',coverageType:'Danos Próprios',start:'2025-12-01'},
   ]
 };
+
+const CLAIMS = [
+  {id:1,vehicleId:2,clientId:1,plate:'23-KP-87',vehicle:'VW Transporter',date:'2025-11-12',type:'Colisão',description:'Embate traseiro em paragem',damage:'Parachoque traseiro, faróis',status:'resolvido',insurer:'Allianz',amount:1850,ref:'SIN-2025-0847'},
+  {id:2,vehicleId:9,clientId:1,plate:'24-RS-56',vehicle:'Ford Transit Custom',date:'2026-01-08',type:'Furto Parcial',description:'Roubo de espelhos retrovisores',damage:'Espelhos laterais',status:'resolvido',insurer:'Fidelidade',amount:420,ref:'SIN-2026-0023'},
+  {id:3,vehicleId:7,clientId:1,plate:'22-NO-12',vehicle:'VW Passat',date:'2026-02-20',type:'Colisão',description:'Embate lateral em parque de estacionamento',damage:'Porta traseira direita, para-lamas',status:'em_reparacao',insurer:'CEPSA Auto',amount:2340,ref:'SIN-2026-0089'},
+  {id:4,vehicleId:21,clientId:2,plate:'22-EF-12',vehicle:'Mercedes GLC',date:'2026-03-15',type:'Vandalismo',description:'Vidro traseiro partido',damage:'Vidro traseiro',status:'aguarda_peritagem',insurer:'Fidelidade',amount:680,ref:'SIN-2026-0134'},
+  {id:5,vehicleId:13,clientId:1,plate:'22-ZA-34',vehicle:'Peugeot Expert',date:'2026-04-02',type:'Colisão',description:'Acidente em rotunda com veículo terceiro',damage:'Frente, airbags, longarina',status:'em_analise',insurer:'Generali',amount:5200,ref:'SIN-2026-0198'},
+  {id:6,vehicleId:3,clientId:1,plate:'22-CD-34',vehicle:'Mercedes Sprinter',date:'2026-04-18',type:'Danos Atmosféricos',description:'Granizo intenso',damage:'Capot, tejadilho, para-brisas',status:'aguarda_peritagem',insurer:'BP Auto',amount:3100,ref:'SIN-2026-0221'},
+  {id:7,vehicleId:6,clientId:1,plate:'23-LM-90',vehicle:'Toyota Prius',date:'2026-05-01',type:'Colisão',description:'Embate frontal a baixa velocidade',damage:'Para-choques dianteiro',status:'em_analise',insurer:'Médis Auto',amount:890,ref:'SIN-2026-0267'},
+  {id:8,vehicleId:20,clientId:2,plate:'24-CD-90',vehicle:'VW Amarok',date:'2026-05-10',type:'Quebra Isolada',description:'Risco em porta',damage:'Porta condutor',status:'em_analise',insurer:'BP Auto',amount:380,ref:'SIN-2026-0291'},
+];
 
 // ─────────────────────────────────────────────────────────────
 // UTILITIES
@@ -1275,7 +1286,7 @@ function renderFleet(){
         <thead><tr>
           <th>${t('fleet.plate')}</th><th>${t('fleet.vehicle')}</th><th>${t('fleet.driver')}</th>
           ${isAdmin?`<th>${t('fleet.client')}</th>`:''}
-          <th>${t('fleet.fuel')}</th><th>${t('fleet.km')}</th>
+          <th>${t('fleet.fuel')}</th><th>${t('fleet.km')}</th><th>Combustível</th>
           <th>${t('fleet.ipo')}</th><th>${t('fleet.seguro')}</th><th>${t('fleet.status')}</th><th></th>
         </tr></thead>
         <tbody id="fleet-tbody"></tbody>
@@ -1300,9 +1311,14 @@ function buildFleetTable(){
   if(countEl)countEl.textContent=vehicles.length+' '+t('common.vehicles');
   const tbody=document.getElementById('fleet-tbody');
   if(!tbody)return;
-  if(!vehicles.length){tbody.innerHTML=`<tr><td colspan="${isAdmin?10:9}" style="text-align:center;color:#94a3b8;padding:30px">Nenhuma viatura encontrada</td></tr>`;return;}
+  if(!vehicles.length){tbody.innerHTML=`<tr><td colspan="${isAdmin?11:10}" style="text-align:center;color:#94a3b8;padding:30px">Nenhuma viatura encontrada</td></tr>`;return;}
   tbody.innerHTML=vehicles.map(v=>{
     const st=vehicleStatus(v),ipoS=getStatus(v.ipo),segS=getStatus(v.seguro);
+    const fuelCell=v.fuel==='bev'
+      ?`<span style="font-size:.75rem;color:#10b981;display:flex;align-items:center;gap:3px"><i class="fa-solid fa-bolt"></i> Elétrico</span>`
+      :v.fuelCardProvider
+        ?`<div style="font-size:.75rem;color:#64748b">${v.consumption} l/100km</div><div style="font-size:.7rem;background:#fef9c3;color:#92400e;padding:1px 5px;border-radius:4px;margin-top:2px;display:inline-block">${v.fuelCardProvider}</div>`
+        :`<div style="font-size:.75rem;color:#64748b">${v.consumption} l/100km</div>`;
     return`<tr onclick="openVehicleModal(${v.id})" style="cursor:pointer">
       <td><span style="font-weight:600;color:#0f172a">${v.plate}</span></td>
       <td><span style="font-weight:500">${v.brand} ${v.model}</span></td>
@@ -1310,6 +1326,7 @@ function buildFleetTable(){
       ${isAdmin?`<td style="color:#64748b;font-size:.8rem">${clientName(v.clientId)}</td>`:''}
       <td>${fuelBadge(v.fuel)}</td>
       <td style="font-size:.9rem">${fmtNum(v.km)} km</td>
+      <td>${fuelCell}</td>
       <td><div style="font-size:.8rem">${fmtDate(v.ipo)}</div><div style="margin-top:2px">${badge(ipoS)}</div></td>
       <td><div style="font-size:.8rem">${fmtDate(v.seguro)}</div><div style="margin-top:2px">${badge(segS)}</div></td>
       <td>${badge(st)}</td>
@@ -1347,7 +1364,47 @@ function openVehicleModal(id){
     </div>
     ${ta>0
       ?`<div style="padding:11px 14px;background:#ecfdf5;border:1px solid #a7f3d0;border-radius:10px;display:flex;align-items:center;justify-content:space-between"><div style="display:flex;align-items:center;gap:8px"><i class="fa-solid fa-calculator" style="color:#10b981"></i><span style="font-size:.9rem;font-weight:500;color:#065f46">Tributação Autónoma estimada</span></div><span style="font-size:1rem;font-weight:700;color:#065f46">${fmtEur(ta)}/ano</span></div>`
-      :`<div style="padding:11px 14px;background:#ecfdf5;border:1px solid #a7f3d0;border-radius:10px;display:flex;align-items:center;gap:8px"><i class="fa-solid fa-bolt" style="color:#10b981"></i><span style="font-size:.9rem;color:#065f46;font-weight:500">Isento de Tributação Autónoma (BEV)</span></div>`}`;
+      :`<div style="padding:11px 14px;background:#ecfdf5;border:1px solid #a7f3d0;border-radius:10px;display:flex;align-items:center;gap:8px"><i class="fa-solid fa-bolt" style="color:#10b981"></i><span style="font-size:.9rem;color:#065f46;font-weight:500">Isento de Tributação Autónoma (BEV)</span></div>`}
+    <div style="margin-top:14px">
+      <div style="font-size:.7rem;font-weight:600;color:#475569;margin-bottom:8px;letter-spacing:.04em">CONTRATO & CARTÃO COMBUSTÍVEL</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
+        <div style="padding:11px;background:#f8fafc;border-radius:10px">
+          <div style="font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#94a3b8;margin-bottom:3px">Tipo Contrato</div>
+          <div style="font-size:.9rem;font-weight:600;color:#0f172a"><span style="background:#e0f2fe;color:#0369a1;padding:2px 8px;border-radius:9999px;font-size:.75rem;font-weight:700;text-transform:uppercase">${v.contractType}</span></div>
+        </div>
+        <div style="padding:11px;background:#f8fafc;border-radius:10px">
+          <div style="font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#94a3b8;margin-bottom:3px">Fim Contrato</div>
+          <div style="font-size:.9rem;font-weight:600;color:#0f172a">${fmtDate(v.contractEnd)}</div>
+        </div>
+      </div>
+      ${v.fuelCardProvider?`
+      <div style="padding:12px 14px;background:#fefce8;border:1px solid #fef08a;border-radius:10px;margin-bottom:8px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+          <div style="display:flex;align-items:center;gap:6px"><i class="fa-solid fa-credit-card" style="color:#ca8a04;font-size:.85rem"></i><span style="font-size:.85rem;font-weight:700;color:#854d0e">Cartão ${v.fuelCardProvider}</span></div>
+          <span style="font-size:.75rem;color:#92400e">Plafond: <b>${fmtEur(v.fuelCardPlafond)}/mês</b></span>
+        </div>
+        <div style="height:6px;background:#fef9c3;border-radius:3px;overflow:hidden;margin-bottom:6px">
+          <div style="height:100%;width:${Math.min(100,Math.round(v.fuelCardUsed/v.fuelCardPlafond*100))}%;background:${v.fuelCardUsed/v.fuelCardPlafond>.85?'#ef4444':v.fuelCardUsed/v.fuelCardPlafond>.6?'#f59e0b':'#10b981'};border-radius:3px;transition:width .4s"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:.75rem;color:#92400e">
+          <span>Usado: <b>${fmtEur(v.fuelCardUsed)}</b></span>
+          <span>Restante: <b>${fmtEur(v.fuelCardPlafond-v.fuelCardUsed)}</b></span>
+        </div>
+      </div>`:'<div style="padding:11px 14px;background:#f8fafc;border-radius:10px;font-size:.8rem;color:#64748b;margin-bottom:8px"><i class="fa-solid fa-bolt" style="margin-right:6px;color:#10b981"></i>Viatura elétrica — sem cartão combustível</div>'}
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <div style="padding:11px;background:#f8fafc;border-radius:10px">
+          <div style="font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#94a3b8;margin-bottom:3px">Consumo Médio</div>
+          <div style="font-size:.95rem;font-weight:700;color:#0f172a">${v.consumption} ${v.fuel==='bev'?'kWh/100km':'l/100km'}</div>
+        </div>
+        <div style="padding:0;border-radius:10px;overflow:hidden;background:#f1f5f9;display:flex;align-items:center;justify-content:center;min-height:52px;position:relative">
+          <div style="text-align:center">
+            <i class="fa-solid fa-car" style="color:#94a3b8;font-size:1.4rem;display:block;margin-bottom:2px"></i>
+            <div style="font-size:.65rem;color:#94a3b8">Sem foto</div>
+          </div>
+          <div style="position:absolute;top:4px;right:4px">${fuelBadge(v.fuel)}</div>
+        </div>
+      </div>
+    </div>`;
   openModal(`${v.brand} ${v.model} — ${v.plate}`,body,`<button class="btn btn-sec" onclick="closeModal()">${t('common.close')}</button>`);
 }
 
@@ -1536,6 +1593,15 @@ function openAddMaintModal(){
         <div><label class="form-label">Custo (€)</label><input type="number" class="form-input" placeholder="Ex: 350"></div>
       </div>
       <div><label class="form-label">Prestador de Serviço</label><input type="text" class="form-input" placeholder="Ex: Auto-Sueco Porto"></div>
+      <div class="form-group">
+        <label class="form-label">Fatura (PDF)</label>
+        <div style="border:2px dashed #e2e8f0;border-radius:6px;padding:12px;text-align:center;cursor:pointer;background:#f8fafc" onclick="document.getElementById('invoice-upload').click()">
+          <i class="fa-solid fa-file-invoice" style="color:#94a3b8;font-size:1.2rem;margin-bottom:4px;display:block"></i>
+          <div style="font-size:.8rem;color:#64748b">Clique para anexar fatura</div>
+          <div id="invoice-name" style="font-size:.75rem;color:#10b981;margin-top:2px"></div>
+        </div>
+        <input type="file" id="invoice-upload" accept=".pdf,.jpg,.png" style="display:none" onchange="document.getElementById('invoice-name').textContent=this.files[0]?.name||''">
+      </div>
       <div style="padding:10px 13px;background:#eff6ff;border-radius:6px;font-size:.8rem;color:#1e40af"><i class="fa-solid fa-circle-info" style="margin-right:6px"></i>Demonstração &mdash; dados não persistidos.</div>
     </div>`;
   openModal(t('maint.add'),body,`<button class="btn btn-sec" onclick="closeModal()">${t('common.cancel')}</button><button class="btn btn-primary" onclick="closeModal()"><i class="fa-solid fa-plus"></i> Registar</button>`);
@@ -1555,6 +1621,7 @@ function renderFiscal(){
   const taByFuel={bev:0,phev:0,diesel:0,gasolina:0};
   allVeh.forEach(v=>{if(taByFuel[v.fuel]!==undefined)taByFuel[v.fuel]+=calcTA(v);});
   const taTotal=Object.values(taByFuel).reduce((s,v)=>s+v,0);
+  const claimsData=flt(CLAIMS).sort((a,b)=>new Date(b.date)-new Date(a.date));
   function fRow(item,showProv){
     const days=daysUntil(item.due),st=days<0?'expirado':days<=30?'urgente':days<=60?'atencao':'ok';
     return`<tr>
@@ -1565,6 +1632,29 @@ function renderFiscal(){
       <td>${badge(st)}</td>
     </tr>`;
   }
+  function iucRow(item){
+    const days=daysUntil(item.due),st=days<0?'expirado':days<=30?'urgente':days<=60?'atencao':'ok';
+    return`<tr>
+      <td><div style="font-weight:600;font-size:.9rem">${item.plate}</div><div style="font-size:.74rem;color:#64748b">${item.vehicle}</div></td>
+      <td>${fmtDate(item.due)}${days>0?`<div style="font-size:.7rem;color:#94a3b8">em ${days}d</div>`:''}</td>
+      <td style="font-weight:600">${fmtEur(item.amount)}</td>
+      <td>${badge(st)}</td>
+      <td><button class="btn btn-sec btn-sm" title="Histórico" onclick="openIUCHistory('${item.plate}',${item.amount})"><i class="fa-solid fa-clock-rotate-left"></i></button></td>
+    </tr>`;
+  }
+  function segRow(item){
+    const days=daysUntil(item.due),st=days<0?'expirado':days<=30?'urgente':days<=60?'atencao':'ok';
+    return`<tr>
+      <td><div style="font-weight:600;font-size:.9rem">${item.plate}</div><div style="font-size:.74rem;color:#64748b">${item.vehicle}</div></td>
+      <td>${fmtDate(item.due)}</td>
+      <td style="font-weight:600">${fmtEur(item.amount)}</td>
+      <td style="font-size:.8rem;color:#64748b">${item.provider||'—'}</td>
+      <td style="font-size:.8rem;color:#334155">${item.policyNumber||'—'}</td>
+      <td style="font-size:.8rem"><span style="background:#e0f2fe;color:#0369a1;padding:2px 7px;border-radius:9999px;font-size:.72rem;white-space:nowrap">${item.coverageType||'—'}</span></td>
+      <td>${badge(st)}</td>
+    </tr>`;
+  }
+  function claimBadge(status){const m={'em_analise':'b-atencao','aguarda_peritagem':'b-atencao','em_reparacao':'b-urgente','resolvido':'b-ok'};const l={'em_analise':'Em análise','aguarda_peritagem':'Aguarda peritagem','em_reparacao':'Em reparação','resolvido':'Resolvido'};return`<span class="badge ${m[status]||'b-ok'}">${l[status]||status}</span>`;}
   const html=`
     <div class="pg-hdr">
       <h1 class="pg-title">${t('fiscal.title')}</h1>
@@ -1574,16 +1664,30 @@ function renderFiscal(){
       <button class="tab-btn ${S.fiscalTab==='iuc'?'active':''}" onclick="switchFiscalTab('iuc')"><i class="fa-solid fa-car" style="margin-right:5px"></i>${t('fiscal.iuc')} <span style="background:#f1f5f9;color:#475569;border-radius:10px;padding:1px 7px;font-size:.7rem;margin-left:4px">${iucData.length}</span></button>
       <button class="tab-btn ${S.fiscalTab==='ipo'?'active':''}" onclick="switchFiscalTab('ipo')"><i class="fa-solid fa-id-card" style="margin-right:5px"></i>${t('fiscal.ipo')} <span style="background:#f1f5f9;color:#475569;border-radius:10px;padding:1px 7px;font-size:.7rem;margin-left:4px">${ipoData.length}</span></button>
       <button class="tab-btn ${S.fiscalTab==='seguros'?'active':''}" onclick="switchFiscalTab('seguros')"><i class="fa-solid fa-shield-halved" style="margin-right:5px"></i>${t('fiscal.seguros')} <span style="background:#f1f5f9;color:#475569;border-radius:10px;padding:1px 7px;font-size:.7rem;margin-left:4px">${segData.length}</span></button>
+      <button class="tab-btn ${S.fiscalTab==='sinistros'?'active':''}" onclick="switchFiscalTab('sinistros')"><i class="fa-solid fa-car-burst" style="margin-right:5px"></i>Sinistros <span style="background:#fee2e2;color:#991b1b;border-radius:10px;padding:1px 7px;font-size:.7rem;margin-left:4px">${claimsData.length}</span></button>
       <button class="tab-btn ${S.fiscalTab==='ta'?'active':''}" onclick="switchFiscalTab('ta')"><i class="fa-solid fa-calculator" style="margin-right:5px"></i>${t('fiscal.ta_calc')}</button>
     </div>
     <div id="fiscal-tab-iuc" class="tab-pane ${S.fiscalTab==='iuc'?'active':''}">
-      <div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>Viatura</th><th>Vencimento</th><th>Montante</th><th>Estado</th></tr></thead><tbody>${iucData.length?iucData.map(x=>fRow(x,false)).join(''):'<tr><td colspan="4" style="text-align:center;color:#94a3b8;padding:30px">Sem registos</td></tr>'}</tbody></table></div>
+      <div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>Viatura</th><th>Vencimento</th><th>Montante</th><th>Estado</th><th></th></tr></thead><tbody>${iucData.length?iucData.map(x=>iucRow(x)).join(''):'<tr><td colspan="5" style="text-align:center;color:#94a3b8;padding:30px">Sem registos</td></tr>'}</tbody></table></div>
     </div>
     <div id="fiscal-tab-ipo" class="tab-pane ${S.fiscalTab==='ipo'?'active':''}">
       <div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>Viatura</th><th>Vencimento</th><th>Montante</th><th>Estado</th></tr></thead><tbody>${ipoData.length?ipoData.map(x=>fRow(x,false)).join(''):'<tr><td colspan="4" style="text-align:center;color:#94a3b8;padding:30px">Sem registos</td></tr>'}</tbody></table></div>
     </div>
     <div id="fiscal-tab-seguros" class="tab-pane ${S.fiscalTab==='seguros'?'active':''}">
-      <div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>Viatura</th><th>Vencimento</th><th>Prémio Anual</th><th>Seguradora</th><th>Estado</th></tr></thead><tbody>${segData.length?segData.map(x=>fRow(x,true)).join(''):'<tr><td colspan="5" style="text-align:center;color:#94a3b8;padding:30px">Sem registos</td></tr>'}</tbody></table></div>
+      <div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>Viatura</th><th>Vencimento</th><th>Prémio Anual</th><th>Seguradora</th><th>Apólice</th><th>Cobertura</th><th>Estado</th></tr></thead><tbody>${segData.length?segData.map(x=>segRow(x)).join(''):'<tr><td colspan="7" style="text-align:center;color:#94a3b8;padding:30px">Sem registos</td></tr>'}</tbody></table></div>
+    </div>
+    <div id="fiscal-tab-sinistros" class="tab-pane ${S.fiscalTab==='sinistros'?'active':''}">
+      <div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>Viatura</th><th>Data</th><th>Tipo</th><th>Descrição</th><th>Dano</th><th>Seguradora</th><th>Montante</th><th>Estado</th><th>Referência</th></tr></thead><tbody>${claimsData.length?claimsData.map(c=>`<tr>
+        <td><div style="font-weight:600;font-size:.9rem">${c.plate}</div><div style="font-size:.74rem;color:#64748b">${c.vehicle}</div></td>
+        <td style="font-size:.8rem">${fmtDate(c.date)}</td>
+        <td style="font-size:.85rem;font-weight:500">${c.type}</td>
+        <td style="font-size:.8rem;color:#475569;max-width:140px">${c.description}</td>
+        <td style="font-size:.75rem;color:#64748b;max-width:120px">${c.damage}</td>
+        <td style="font-size:.8rem;color:#64748b">${c.insurer}</td>
+        <td style="font-weight:600;color:#0f172a">${fmtEur(c.amount)}</td>
+        <td>${claimBadge(c.status)}</td>
+        <td style="font-size:.75rem;color:#94a3b8;font-family:monospace">${c.ref}</td>
+      </tr>`).join(''):'<tr><td colspan="9" style="text-align:center;color:#94a3b8;padding:30px">Sem sinistros registados</td></tr>'}</tbody></table></div>
     </div>
     <div id="fiscal-tab-ta" class="tab-pane ${S.fiscalTab==='ta'?'active':''}">
       <div class="g2">
@@ -1622,10 +1726,20 @@ function renderFiscal(){
 
 function switchFiscalTab(tab){
   S.fiscalTab=tab;
-  const tabs=['iuc','ipo','seguros','ta'];
+  const tabs=['iuc','ipo','seguros','sinistros','ta'];
   document.querySelectorAll('#fiscal-tabs .tab-btn').forEach((b,i)=>b.classList.toggle('active',tabs[i]===tab));
   tabs.forEach(k=>{const el=document.getElementById('fiscal-tab-'+k);if(el)el.classList.toggle('active',k===tab);});
   if(tab==='ta')calcTAForm();
+}
+
+function openIUCHistory(plate,amount){
+  const year=TODAY.getFullYear();
+  const rows=[year-2,year-1,year].map(y=>{
+    const a=Math.round(amount*(1+(Math.random()*.1-.05)));
+    const paid=y<year;
+    return`<tr><td style="font-weight:600">${y}</td><td style="font-weight:600">${fmtEur(a)}</td><td><span class="badge ${paid?'b-ok':'b-atencao'}">${paid?'Pago':'Pendente'}</span></td><td style="font-size:.8rem;color:#64748b">${paid?`${Math.floor(Math.random()*28)+1}/${Math.floor(Math.random()*5)+5}/${y}`:'—'}</td></tr>`;
+  });
+  openModal(`Histórico IUC — ${plate}`,`<table class="data-tbl" style="margin-top:4px"><thead><tr><th>Ano</th><th>Montante</th><th>Estado</th><th>Data Pagamento</th></tr></thead><tbody>${rows.join('')}</tbody></table>`,'<button class="btn btn-sec" onclick="closeModal()">Fechar</button>');
 }
 
 function calcTAForm(){
