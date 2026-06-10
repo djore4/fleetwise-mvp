@@ -229,11 +229,13 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
   #topbar-search{display:none}
   #lang-btn{display:none}
   #topbar-name{display:none}
-  #content{padding:var(--sp-4)}
+  #content{padding:var(--sp-3)}
   .kpi-5,.kpi-4{grid-template-columns:repeat(2,1fr);gap:var(--sp-2)}
-  .kpi-3{grid-template-columns:repeat(2,1fr);gap:var(--sp-2)}
-  .kpi-card{padding:var(--sp-3)}
-  .kpi-value{font-size:var(--fs-lg)}
+  .kpi-3{grid-template-columns:repeat(3,1fr);gap:var(--sp-2)}
+  .kpi-card{padding:var(--sp-2) var(--sp-2)}
+  .kpi-value{font-size:var(--fs-base)}
+  .kpi-label{font-size:.72rem}
+  .kpi-change{font-size:.68rem}
   .g2,.g3,.g21{grid-template-columns:1fr;gap:var(--sp-3)}
   .tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
   .data-tbl{min-width:520px}
@@ -244,29 +246,46 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
   .chart-wrap{height:180px}
   .chart-tall{height:220px}
   .chart-sm{height:140px}
-  .pg-hdr{margin-bottom:var(--sp-4)}
-  .pg-title{font-size:var(--fs-xl)}
-  .card-body{padding:var(--sp-4)}
+  .pg-hdr{margin-bottom:var(--sp-3)}
+  .pg-title{font-size:var(--fs-lg)}
+  .card-body{padding:var(--sp-3)}
   .fbar{gap:var(--sp-2)}
   .fbar .form-input{min-width:0;flex:1}
   .fbar .form-select{min-width:0;flex:1;font-size:var(--fs-md)}
   .savings-item{padding:var(--sp-3)}
-  .v-hero{padding:var(--sp-5)}
+  .v-hero{padding:var(--sp-4)}
   #app{height:100dvh}
-  .v-hero-stats{grid-template-columns:repeat(3,1fr)!important}
+  .v-hero-stats{grid-template-columns:repeat(3,1fr)!important;gap:8px!important}
+  .v-hero-stats-4{grid-template-columns:repeat(2,1fr)!important;gap:8px!important}
   #topbar-user-name{display:none}
+  .pg-hdr.pg-hdr-row{flex-direction:column;align-items:stretch;gap:var(--sp-2)}
+  .pg-hdr.pg-hdr-row .btn{align-self:flex-start}
+  .mob-btn-wrap{display:flex;flex-wrap:wrap;gap:var(--sp-2)}
+  .mob-btn-wrap .btn{flex:1;justify-content:center;min-width:0}
+  .info-row{display:flex;align-items:baseline;justify-content:space-between;padding:9px 0;border-bottom:1px solid #f1f5f9;gap:8px}
+  .info-row-lbl{font-size:.78rem;color:#64748b;flex-shrink:0;max-width:50%}
+  .info-row-val{font-size:.85rem;font-weight:600;color:#0f172a;text-align:right;word-break:break-word;min-width:0}
 }
 @media(max-width:480px){
   .kpi-5,.kpi-4,.kpi-3{grid-template-columns:1fr 1fr}
-  .kpi-value{font-size:var(--fs-lg)}
-  .kpi-icon{width:32px;height:32px;font-size:var(--fs-md)}
-  #content{padding:10px}
-  .card-body{padding:var(--sp-4)}
-  .data-tbl th,.data-tbl td{padding:var(--sp-2) var(--sp-3)}
-  .pg-title{font-size:var(--fs-lg)}
+  .kpi-value{font-size:var(--fs-base)}
+  .kpi-label{font-size:.7rem}
+  .kpi-change{font-size:.65rem}
+  .kpi-icon{width:26px;height:26px;font-size:var(--fs-sm)}
+  .kpi-card{padding:var(--sp-2)}
+  #content{padding:var(--sp-2)}
+  .card-body{padding:var(--sp-3)}
+  .data-tbl th,.data-tbl td{padding:var(--sp-1) var(--sp-2)}
+  .pg-title{font-size:var(--fs-base)}
   .login-left{padding:var(--sp-5) var(--sp-4)}
   .login-right{padding:var(--sp-4)}
   .btn{font-size:var(--fs-md);padding:var(--sp-2) var(--sp-3)}
+  .v-hero-stats{grid-template-columns:repeat(2,1fr)!important;gap:6px!important}
+  .v-hero-stats-4{grid-template-columns:repeat(2,1fr)!important;gap:6px!important}
+  .v-hero{padding:var(--sp-3)}
+  .v-hero-brand{font-size:1.15rem!important}
+  .v-hero-plate{font-size:.85rem!important}
+  .v-hero-stat-val{font-size:.9rem!important}
 }
 </style>
 </head>
@@ -1199,26 +1218,26 @@ function renderDashboardDriver(){
       <p class="pg-sub">${t('dash.subtitle.driver',{date:dateStr})}</p>
     </div>
     <div class="v-hero">
-      <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px">
-        <div>
-          <div style="font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#64748b;margin-bottom:4px">A Minha Viatura</div>
-          <div style="font-size:1.5rem;font-weight:700">${v.brand} ${v.model}</div>
-          <div style="font-size:1rem;color:#94a3b8;margin-top:2px">${v.plate}</div>
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;gap:8px">
+        <div style="min-width:0">
+          <div style="font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#64748b;margin-bottom:3px">A Minha Viatura</div>
+          <div class="v-hero-brand" style="font-size:1.4rem;font-weight:700;word-break:break-word">${v.brand} ${v.model}</div>
+          <div class="v-hero-plate" style="font-size:.9rem;color:#94a3b8;margin-top:2px">${v.plate}</div>
         </div>
-        <div style="text-align:right">${fuelBadge(v.fuel)}</div>
+        <div style="flex-shrink:0">${fuelBadge(v.fuel)}</div>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px" class="v-hero-stats">
-        <div style="background:rgba(255,255,255,.06);border-radius:10px;padding:12px">
-          <div style="font-size:.7rem;color:#94a3b8;margin-bottom:4px">km Atual</div>
-          <div style="font-size:1rem;font-weight:700">${fmtNum(v.km)} km</div>
+      <div class="v-hero-stats" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+        <div style="background:rgba(255,255,255,.06);border-radius:8px;padding:10px">
+          <div style="font-size:.65rem;color:#94a3b8;margin-bottom:3px">km Atual</div>
+          <div class="v-hero-stat-val" style="font-size:.95rem;font-weight:700">${fmtNum(v.km)} km</div>
         </div>
-        <div style="background:rgba(255,255,255,.06);border-radius:10px;padding:12px">
-          <div style="font-size:.7rem;color:#94a3b8;margin-bottom:4px">Renting Mensal</div>
-          <div style="font-size:1rem;font-weight:700">${fmtEur(v.monthly)}/mês</div>
+        <div style="background:rgba(255,255,255,.06);border-radius:8px;padding:10px">
+          <div style="font-size:.65rem;color:#94a3b8;margin-bottom:3px">Renting/mês</div>
+          <div class="v-hero-stat-val" style="font-size:.95rem;font-weight:700">${fmtEur(v.monthly)}</div>
         </div>
-        <div style="background:rgba(255,255,255,.06);border-radius:10px;padding:12px">
-          <div style="font-size:.7rem;color:#94a3b8;margin-bottom:4px">Valor Aquisição</div>
-          <div style="font-size:1rem;font-weight:700">${fmtEur(v.value)}</div>
+        <div style="background:rgba(255,255,255,.06);border-radius:8px;padding:10px">
+          <div style="font-size:.65rem;color:#94a3b8;margin-bottom:3px">Valor Aquisição</div>
+          <div class="v-hero-stat-val" style="font-size:.95rem;font-weight:700">${fmtEur(v.value)}</div>
         </div>
       </div>
     </div>
@@ -1245,8 +1264,8 @@ function renderDashboardDriver(){
         ${daysUntil(v.revisao)>0?`<div class="kpi-change neu" style="margin-top:4px">em ${daysUntil(v.revisao)} dias</div>`:''}
       </div>
     </div>
-    <div style="margin-top:8px">
-      <button class="btn btn-primary" onclick="navigate('service')" style="margin-right:8px"><i class="fa-solid fa-wrench"></i> Pedido de Serviço</button>
+    <div class="mob-btn-wrap" style="margin-top:10px">
+      <button class="btn btn-primary" onclick="navigate('service')"><i class="fa-solid fa-wrench"></i> Pedido de Serviço</button>
       <button class="btn btn-sec" onclick="navigate('myvehicle')"><i class="fa-solid fa-car"></i> Ver Detalhes da Viatura</button>
     </div>`;
 }
@@ -1259,12 +1278,12 @@ function renderFleet(){
   const baseVehicles=isAdmin?VEHICLES:VEHICLES.filter(v=>v.clientId===u.clientId);
   const clientOpts=isAdmin?'<option value="all">'+t('fleet.all_clients')+'</option>'+CLIENTS.map(c=>`<option value="${c.id}">${c.name}</option>`).join(''):'';
   const html=`
-    <div class="pg-hdr" style="display:flex;align-items:flex-start;justify-content:space-between">
-      <div>
+    <div class="pg-hdr pg-hdr-row" style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--sp-3)">
+      <div style="min-width:0">
         <h1 class="pg-title">${t('fleet.title')}</h1>
         <p class="pg-sub">${baseVehicles.length} ${t('common.vehicles')} ${isAdmin?'· '+CLIENTS.length+' clientes':'· '+(CLIENTS.find(c=>c.id===u.clientId)||{name:''}).name}</p>
       </div>
-      <button class="btn btn-primary" onclick="openAddVehicleModal()"><i class="fa-solid fa-plus"></i> ${t('fleet.add')}</button>
+      <button class="btn btn-primary" style="flex-shrink:0" onclick="openAddVehicleModal()"><i class="fa-solid fa-plus"></i> ${t('fleet.add')}</button>
     </div>
     <div class="fbar">
       <input type="text" class="form-input" id="fleet-search" placeholder="${t('fleet.search')}" oninput="S.fleetFilter.search=this.value;buildFleetTable()" value="${S.fleetFilter.search}">
@@ -1454,7 +1473,7 @@ function renderTCO(){
     {icon:'fa-shield-halved',color:'#f59e0b',title:'Revisão de Seguros',desc:'Cobertura excessiva em viaturas identificada',saving:segurosCost*0.08},
   ].sort((a,b)=>b.saving-a.saving);
   const html=`
-    <div class="pg-hdr" style="display:flex;align-items:flex-start;justify-content:space-between">
+    <div class="pg-hdr pg-hdr-row" style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--sp-3)">
       <div>
         <h1 class="pg-title">${t('tco.title')}</h1>
         <p class="pg-sub">${client?client.name:''} &middot; ${vlist.length} ${t('common.vehicles')}</p>
@@ -1552,7 +1571,7 @@ function renderMaintenance(){
   }
   const colHdr=`<thead><tr><th>${t('maint.vehicle')}</th><th>${t('maint.type')}</th><th>${t('maint.date')}</th><th>${t('maint.provider')}</th><th>${t('maint.cost')}</th><th>${t('maint.status')}</th></tr></thead>`;
   const html=`
-    <div class="pg-hdr" style="display:flex;align-items:flex-start;justify-content:space-between">
+    <div class="pg-hdr pg-hdr-row" style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--sp-3)">
       <div>
         <h1 class="pg-title">${t('maint.title')}</h1>
         <p class="pg-sub">${pending.length} pendentes &middot; ${done.length} concluídas</p>
@@ -1979,7 +1998,7 @@ function renderReports(){
   const co2Saved=(diesel+gas)*45200*0.162/1000-co2Total;
   const taCost=vlist.reduce((s,v)=>s+calcTA(v),0);
   const html=`
-    <div class="pg-hdr" style="display:flex;align-items:flex-start;justify-content:space-between">
+    <div class="pg-hdr pg-hdr-row" style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--sp-3)">
       <div>
         <h1 class="pg-title">${t('reports.title')}</h1>
         <p class="pg-sub">${total} ${t('common.vehicles')} &middot; Dados YTD 2026</p>
@@ -2076,7 +2095,7 @@ function renderReports(){
 // ─────────────────────────────────────────────────────────────
 function renderClients(){
   const html=`
-    <div class="pg-hdr" style="display:flex;align-items:flex-start;justify-content:space-between">
+    <div class="pg-hdr pg-hdr-row" style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--sp-3)">
       <div>
         <h1 class="pg-title">${t('clients.title')}</h1>
         <p class="pg-sub">${CLIENTS.length} clientes ativos &middot; ${VEHICLES.length} viaturas geridas</p>
@@ -2297,20 +2316,20 @@ function renderMyVehicle(){
       <h1 class="pg-title">${t('myvehicle.title')}</h1>
       <p class="pg-sub">${v.brand} ${v.model} &middot; ${v.plate}</p>
     </div>
-    <div class="v-hero" style="margin-bottom:20px">
-      <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:20px">
-        <div>
-          <div style="font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#475569;margin-bottom:6px">A Minha Viatura Atual</div>
-          <div style="font-size:1.5rem;font-weight:800;line-height:1.1">${v.brand} ${v.model}</div>
-          <div style="font-size:1rem;color:#94a3b8;margin-top:4px">${v.plate}</div>
+    <div class="v-hero" style="margin-bottom:16px">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px;gap:8px">
+        <div style="min-width:0">
+          <div style="font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#475569;margin-bottom:4px">A Minha Viatura Atual</div>
+          <div class="v-hero-brand" style="font-size:1.5rem;font-weight:800;line-height:1.1;word-break:break-word">${v.brand} ${v.model}</div>
+          <div class="v-hero-plate" style="font-size:.95rem;color:#94a3b8;margin-top:3px">${v.plate}</div>
         </div>
-        <div style="text-align:right">${fuelBadge(v.fuel)}</div>
+        <div style="flex-shrink:0">${fuelBadge(v.fuel)}</div>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
-        ${[['fa-route','km Atual',fmtNum(v.km)+' km'],['fa-euro-sign','Renting/mês',fmtEur(v.monthly)+'/mês'],['fa-tag','Valor Aquisição',fmtEur(v.value)],['fa-calendar-check','Em serviço desde','Jan 2025']].map(([ico,lbl,val])=>`
-        <div style="background:rgba(255,255,255,.07);border-radius:10px;padding:12px">
-          <div style="font-size:.7rem;color:#94a3b8;margin-bottom:3px;display:flex;align-items:center;gap:5px"><i class="fa-solid ${ico}"></i>${lbl}</div>
-          <div style="font-size:1rem;font-weight:700">${val}</div>
+      <div class="v-hero-stats-4" style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">
+        ${[['fa-route','km Atual',fmtNum(v.km)+' km'],['fa-euro-sign','Renting/mês',fmtEur(v.monthly)+'/mês'],['fa-tag','Valor Aquisição',fmtEur(v.value)],['fa-calendar-check','Em serviço','Jan 2025']].map(([ico,lbl,val])=>`
+        <div style="background:rgba(255,255,255,.07);border-radius:8px;padding:10px">
+          <div style="font-size:.65rem;color:#94a3b8;margin-bottom:3px;display:flex;align-items:center;gap:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis"><i class="fa-solid ${ico}" style="flex-shrink:0"></i><span style="overflow:hidden;text-overflow:ellipsis">${lbl}</span></div>
+          <div class="v-hero-stat-val" style="font-size:.95rem;font-weight:700;word-break:break-word">${val}</div>
         </div>`).join('')}
       </div>
     </div>
@@ -2362,9 +2381,9 @@ function renderMyVehicle(){
         <div class="card-header"><span class="card-title"><i class="fa-solid fa-circle-info" style="color:#3b82f6;margin-right:6px"></i>Informações Técnicas</span></div>
         <div class="card-body">
           ${[['Combustível',fuelBadge(v.fuel)],['Condutor Atual',u.name],['N.º km Registados',fmtNum(v.km)+' km'],['Renting Mensal',fmtEur(v.monthly)+'/mês'],['Valor de Aquisição',fmtEur(v.value)],['Empresa',clientName(v.clientId)]].map(([lbl,val])=>`
-          <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid #f1f5f9">
-            <span style="font-size:.8rem;color:#64748b">${lbl}</span>
-            <span style="font-size:.9rem;font-weight:600;color:#0f172a">${val}</span>
+          <div class="info-row" style="display:flex;align-items:baseline;justify-content:space-between;padding:9px 0;border-bottom:1px solid #f1f5f9;gap:8px">
+            <span class="info-row-lbl" style="font-size:.8rem;color:#64748b;flex-shrink:0">${lbl}</span>
+            <span class="info-row-val" style="font-size:.85rem;font-weight:600;color:#0f172a;text-align:right;word-break:break-word;min-width:0">${val}</span>
           </div>`).join('')}
           <div style="margin-top:14px">
             <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="navigate('service')"><i class="fa-solid fa-wrench"></i> Pedir Assistência</button>
