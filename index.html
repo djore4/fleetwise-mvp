@@ -413,9 +413,9 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
     <!-- TOPBAR -->
     <header id="topbar">
       <button id="hamburger" onclick="toggleSidebar()"><i class="fa-solid fa-bars" style="font-size:1rem"></i></button>
-      <div style="flex:1;display:flex;align-items:center;gap:10px">
-        <h2 id="topbar-title" style="font-size:1rem;font-weight:600;color:#0f172a;margin:0"></h2>
-        <div id="topbar-badge"></div>
+      <div id="topbar-left" style="flex:1;display:flex;align-items:center;gap:10px;min-width:0;overflow:hidden">
+        <h2 id="topbar-title" style="font-size:1rem;font-weight:600;color:#0f172a;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis"></h2>
+        <div id="topbar-badge" style="flex-shrink:0"></div>
       </div>
       <!-- Search -->
       <div id="topbar-search" style="position:relative;display:flex;align-items:center">
@@ -427,12 +427,12 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
         🌐 PT
       </button>
       <!-- Notifications -->
-      <button class="btn btn-icon" style="position:relative" onclick="openNotifications()">
+      <button class="btn btn-icon" style="position:relative;flex-shrink:0" onclick="openNotifications()">
         <i class="fa-solid fa-bell" style="font-size:.9rem"></i>
         <span id="notif-dot" style="width:8px;height:8px;background:#ef4444;border-radius:50%;position:absolute;top:5px;right:5px;display:none"></span>
       </button>
       <!-- User menu -->
-      <div style="display:flex;align-items:center;gap:8px;padding:5px 10px;border:1px solid #e2e8f0;border-radius:6px;cursor:pointer;background:#fff" onclick="navigate('settings')">
+      <div style="display:flex;align-items:center;gap:8px;padding:5px 10px;border:1px solid #e2e8f0;border-radius:6px;cursor:pointer;background:#fff;flex-shrink:0" onclick="navigate('settings')">
         <div id="topbar-avatar" style="width:26px;height:26px;border-radius:6px;background:#10b981;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:#fff"></div>
         <span id="topbar-name" style="font-size:.8rem;font-weight:500;color:#334155"></span>
         <i class="fa-solid fa-chevron-down" style="font-size:.7rem;color:#94a3b8"></i>
