@@ -9,3 +9,2590 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+tailwind.config={theme:{extend:{colors:{fw:{'green':'#10b981','green-d':'#059669','green-l':'#d1fae5','green-bg':'#ecfdf5','navy':'#0f172a','navy-m':'#1e293b','navy-l':'#334155'}},fontFamily:{sans:['Poppins','sans-serif']}}}}
+</script>
+<style>
+/* ════════════════════════════════════════════════════════════
+   FLEETWISE — DESIGN TOKENS
+   Tipografia base 10px · Espaçamento grelha 4px · Radius 4/6/10/16
+   ════════════════════════════════════════════════════════════ */
+:root{
+  /* TYPE */
+  --fs-xs:.7rem; --fs-sm:.8rem; --fs-md:.9rem; --fs-base:1rem;
+  --fs-lg:1.2rem; --fs-xl:1.5rem; --fs-2xl:1.9rem; --fs-3xl:2.6rem;
+  --fw-reg:400; --fw-med:500; --fw-semi:600; --fw-bold:700; --fw-xbold:800;
+  --lh-tight:1.15; --lh-snug:1.35; --lh-normal:1.5;
+  /* SPACE (4px grid) */
+  --sp-0:0; --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-5:20px;
+  --sp-6:24px; --sp-8:32px; --sp-10:40px; --sp-12:48px; --sp-16:64px;
+  /* RADIUS */
+  --r-sm:4px; --r-md:6px; --r-lg:10px; --r-xl:16px; --r-full:9999px;
+  /* SHADOWS */
+  --sh-sm:0 1px 2px rgba(15,23,42,.06);
+  --sh-md:0 4px 12px rgba(15,23,42,.08);
+  --sh-lg:0 12px 32px rgba(15,23,42,.10);
+  /* COLORS — Brand */
+  --c-navy:#0f172a; --c-navy-2:#1e293b; --c-navy-3:#334155;
+  --c-green:#10b981; --c-green-d:#059669; --c-green-l:#d1fae5; --c-green-bg:#ecfdf5;
+  /* COLORS — Text */
+  --c-text:#0f172a; --c-text-2:#475569; --c-text-3:#64748b; --c-text-4:#94a3b8;
+  /* COLORS — Surfaces */
+  --c-bg:#f8fafc; --c-card:#fff; --c-border:#e2e8f0; --c-border-2:#f1f5f9;
+  /* COLORS — Status */
+  --c-warn:#f59e0b; --c-danger:#ef4444; --c-info:#3b82f6;
+  /* TRANSITION */
+  --t-fast:.15s ease; --t-base:.2s ease;
+}
+
+*{font-family:'Poppins',sans-serif;box-sizing:border-box}
+html,body{height:100%;margin:0;padding:0}
+html{font-size:13px}
+body{color:var(--c-text);font-size:var(--fs-base);line-height:var(--lh-snug)}
+
+/* ── LAYOUT ── */
+#login-screen{min-height:100vh;display:flex}
+#app{height:100vh;display:flex;overflow:hidden}
+#sidebar{width:172px;min-width:172px;background:var(--c-navy);display:flex;flex-direction:column;overflow-y:auto;transition:width var(--t-base)}
+#main-area{flex:1;display:flex;flex-direction:column;overflow:hidden}
+#topbar{height:48px;min-height:48px;background:var(--c-card);border-bottom:1px solid var(--c-border);display:flex;align-items:center;padding:0 var(--sp-3);gap:var(--sp-2);z-index:10}
+#content{flex:1;overflow-y:auto;padding:var(--sp-4);background:var(--c-bg)}
+.page{display:none}.page.active{display:block}
+
+/* ── SIDEBAR ── */
+.nav-item{display:flex;align-items:center;gap:var(--sp-2);padding:var(--sp-2) var(--sp-3);color:#94a3b8;border-radius:var(--r-sm);cursor:pointer;transition:all var(--t-fast);margin:2px var(--sp-2);font-size:var(--fs-md);font-weight:var(--fw-med);user-select:none}
+.nav-item:hover{background:rgba(255,255,255,.06);color:#cbd5e1}
+.nav-item.active{background:rgba(16,185,129,.14);color:var(--c-green)}
+.nav-item i{width:16px;text-align:center;font-size:var(--fs-md);opacity:.8}
+.nav-item.active i{opacity:1}
+.nav-sep{height:1px;background:var(--c-navy-2);margin:var(--sp-2) 0}
+.nav-section{font-size:var(--fs-xs);font-weight:var(--fw-semi);text-transform:uppercase;letter-spacing:.08em;color:#475569;padding:var(--sp-2) var(--sp-3) var(--sp-1)}
+
+/* ── KPI CARDS ── */
+.kpi-grid{display:grid;gap:var(--sp-3);margin-bottom:var(--sp-4)}
+.kpi-5{grid-template-columns:repeat(5,1fr)}
+.kpi-4{grid-template-columns:repeat(4,1fr)}
+.kpi-3{grid-template-columns:repeat(3,1fr)}
+.kpi-card{background:var(--c-card);border-radius:var(--r-md);padding:var(--sp-3) var(--sp-3);border:1px solid var(--c-border);transition:box-shadow var(--t-base)}
+.kpi-card:hover{box-shadow:var(--sh-sm)}
+.kpi-icon{width:28px;height:28px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;margin-bottom:var(--sp-2);font-size:var(--fs-md)}
+.kpi-label{font-size:var(--fs-sm);color:var(--c-text-3);font-weight:var(--fw-med);margin-bottom:var(--sp-1)}
+.kpi-value{font-size:var(--fs-xl);font-weight:var(--fw-bold);color:var(--c-text);line-height:var(--lh-tight)}
+.kpi-change{font-size:var(--fs-xs);font-weight:var(--fw-semi);margin-top:var(--sp-1)}
+.kpi-change.pos{color:var(--c-green)}.kpi-change.neg{color:var(--c-danger)}.kpi-change.neu{color:var(--c-text-3)}
+
+/* ── CARDS ── */
+.card{background:var(--c-card);border-radius:var(--r-md);border:1px solid var(--c-border);overflow:hidden}
+.card-header{padding:var(--sp-3) var(--sp-3);border-bottom:1px solid var(--c-border-2);display:flex;align-items:center;justify-content:space-between}
+.card-title{font-size:var(--fs-md);font-weight:var(--fw-semi);color:var(--c-text)}
+.card-body{padding:var(--sp-3) var(--sp-3)}
+
+/* ── TABLE ── */
+.tbl-wrap{background:var(--c-card);border-radius:var(--r-md);border:1px solid var(--c-border);overflow:hidden}
+.data-tbl{width:100%;border-collapse:collapse}
+.data-tbl th{text-align:left;padding:var(--sp-2) var(--sp-3);background:var(--c-bg);font-size:var(--fs-xs);font-weight:var(--fw-semi);text-transform:uppercase;letter-spacing:.05em;color:var(--c-text-3);border-bottom:1px solid var(--c-border)}
+.data-tbl td{padding:var(--sp-2) var(--sp-3);font-size:var(--fs-md);color:var(--c-navy-3);border-bottom:1px solid var(--c-border-2)}
+.data-tbl tr:last-child td{border-bottom:none}
+.data-tbl tbody tr:hover td{background:#fafafa;cursor:pointer}
+
+/* ── BADGES ── */
+.badge{display:inline-flex;align-items:center;gap:var(--sp-1);padding:2px var(--sp-2);border-radius:var(--r-full);font-size:var(--fs-xs);font-weight:var(--fw-semi);white-space:nowrap}
+.b-ok{background:#d1fae5;color:#065f46}
+.b-atencao{background:#fef3c7;color:#92400e}
+.b-urgente{background:#fee2e2;color:#991b1b}
+.b-expirado{background:#fce7f3;color:#9d174d}
+.b-bev{background:#dbeafe;color:#1e40af}
+.b-phev{background:#ede9fe;color:#4c1d95}
+.b-diesel{background:#f1f5f9;color:#334155}
+.b-gasolina{background:#fff7ed;color:#9a3412}
+.b-admin{background:#fef3c7;color:#92400e}
+.b-manager{background:#d1fae5;color:#065f46}
+.b-driver{background:#dbeafe;color:#1e40af}
+.b-micro{background:#f1f5f9;color:#475569}
+.b-media{background:#dbeafe;color:#1e40af}
+.b-grande{background:#ede9fe;color:#4c1d95}
+.b-self{background:#f1f5f9;color:#475569}
+.b-hibrido{background:#d1fae5;color:#065f46}
+.b-outsourcing{background:#fef3c7;color:#92400e}
+/* ── BUTTONS ── */
+.btn{display:inline-flex;align-items:center;gap:var(--sp-1);border:none;border-radius:var(--r-sm);padding:var(--sp-2) var(--sp-3);font-size:var(--fs-md);font-weight:var(--fw-semi);cursor:pointer;transition:all var(--t-fast);font-family:'Poppins',sans-serif;line-height:1}
+.btn-primary{background:var(--c-green);color:#fff}.btn-primary:hover{background:var(--c-green-d)}
+.btn-sec{background:var(--c-card);color:var(--c-navy-3);border:1px solid var(--c-border)}.btn-sec:hover{background:var(--c-bg);border-color:#cbd5e1}
+.btn-sm{padding:var(--sp-1) var(--sp-2);font-size:var(--fs-sm)}
+.btn-icon{width:32px;height:32px;padding:0;border-radius:var(--r-sm);justify-content:center;border:1px solid var(--c-border);background:var(--c-card);color:var(--c-text-3)}.btn-icon:hover{background:var(--c-bg);color:var(--c-navy-3)}
+
+/* ── FORMS ── */
+.form-label{display:block;font-size:var(--fs-sm);font-weight:var(--fw-semi);color:var(--c-text-2);margin-bottom:var(--sp-1)}
+.form-input,.form-select{width:100%;padding:var(--sp-2) var(--sp-3);border:1px solid var(--c-border);border-radius:var(--r-sm);font-size:var(--fs-md);color:var(--c-navy-2);background:var(--c-card);outline:none;font-family:'Poppins',sans-serif;transition:border-color var(--t-fast)}
+.form-input:focus,.form-select:focus{border-color:var(--c-green);box-shadow:0 0 0 3px rgba(16,185,129,.1)}
+
+/* ── ALERTS ── */
+.alert-row{display:flex;align-items:flex-start;gap:var(--sp-2);padding:var(--sp-2) var(--sp-3);border-radius:var(--r-sm);margin-bottom:var(--sp-1);font-size:var(--fs-md)}
+.al-urgente{background:#fff5f5;border:1px solid #fecaca;color:#991b1b}
+.al-atencao{background:#fffbeb;border:1px solid #fde68a;color:#92400e}
+.al-info{background:#eff6ff;border:1px solid #bfdbfe;color:#1e40af}
+.al-ok{background:#ecfdf5;border:1px solid #a7f3d0;color:#065f46}
+
+/* ── MODAL ── */
+#modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:1000;align-items:center;justify-content:center}
+#modal-overlay.open{display:flex}
+.modal-box{background:var(--c-card);border-radius:var(--r-lg);width:88%;max-width:480px;max-height:88vh;overflow-y:auto;box-shadow:var(--sh-lg)}
+.modal-hdr{padding:var(--sp-3) var(--sp-4);border-bottom:1px solid var(--c-border-2);display:flex;align-items:center;justify-content:space-between}
+.modal-title{font-size:var(--fs-lg);font-weight:var(--fw-semi);color:var(--c-text)}
+.modal-body{padding:var(--sp-4)}
+.modal-foot{padding:var(--sp-3) var(--sp-4);border-top:1px solid var(--c-border-2);display:flex;justify-content:flex-end;gap:var(--sp-2)}
+
+/* ── CHARTS ── */
+.chart-wrap{position:relative;height:160px}
+.chart-tall{position:relative;height:200px}
+.chart-sm{position:relative;height:120px}
+
+/* ── GRID ── */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-3)}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp-3)}
+.g21{display:grid;grid-template-columns:2fr 1fr;gap:var(--sp-3)}
+
+/* ── PAGE HEADER ── */
+.pg-hdr{margin-bottom:var(--sp-4)}
+.pg-title{font-size:var(--fs-xl);font-weight:var(--fw-bold);color:var(--c-text);margin:0;line-height:var(--lh-tight)}
+.pg-sub{font-size:var(--fs-md);color:var(--c-text-3);margin:var(--sp-1) 0 0}
+
+/* ── FILTERS BAR ── */
+.fbar{display:flex;align-items:center;gap:var(--sp-2);margin-bottom:var(--sp-3);flex-wrap:wrap}
+.fbar .form-input,.fbar .form-select{width:auto;padding:var(--sp-1) var(--sp-2)}
+.fbar .form-input{min-width:160px}
+.fbar .form-select{min-width:120px}
+
+/* ── TABS ── */
+.tabs{display:flex;border-bottom:1px solid var(--c-border);margin-bottom:var(--sp-4);gap:var(--sp-1)}
+.tab-btn{padding:var(--sp-2) var(--sp-3);font-size:var(--fs-md);font-weight:var(--fw-med);color:var(--c-text-3);border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;transition:all var(--t-fast);font-family:'Poppins',sans-serif;margin-bottom:-1px}
+.tab-btn:hover{color:var(--c-navy-3)}
+.tab-btn.active{color:var(--c-green);border-bottom-color:var(--c-green)}
+.tab-pane{display:none}.tab-pane.active{display:block}
+
+/* ── MISC ── */
+.health-bar{height:4px;border-radius:var(--r-sm);background:var(--c-border);overflow:hidden;margin-top:var(--sp-1)}
+.health-fill{height:100%;border-radius:var(--r-sm);background:var(--c-green)}
+.health-fill.warn{background:var(--c-warn)}.health-fill.danger{background:var(--c-danger)}
+.empty-state{text-align:center;padding:var(--sp-6) var(--sp-4);color:var(--c-text-4)}
+.empty-state i{font-size:var(--fs-2xl);margin-bottom:var(--sp-2);display:block;color:#cbd5e1}
+.divider{height:1px;background:var(--c-border-2);margin:var(--sp-2) 0}
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:var(--r-sm)}
+::-webkit-scrollbar-thumb:hover{background:#94a3b8}
+
+/* ── LOGIN ── */
+.login-left{width:38%;background:linear-gradient(150deg,#0f172a 0%,#1e3a5f 50%,#064e3b 100%);display:flex;flex-direction:column;justify-content:center;padding:var(--sp-10);position:relative;overflow:hidden}
+.login-left::before{content:'';position:absolute;width:260px;height:260px;border-radius:var(--r-full);background:rgba(16,185,129,.07);bottom:-60px;left:-60px}
+.login-left::after{content:'';position:absolute;width:140px;height:140px;border-radius:var(--r-full);background:rgba(16,185,129,.05);top:-30px;right:-20px}
+.login-right{flex:1;display:flex;align-items:center;justify-content:center;background:var(--c-card);padding:var(--sp-6)}
+.login-form{width:100%;max-width:360px}
+.demo-btn{width:100%;text-align:left;padding:var(--sp-3);border:1px solid var(--c-border);border-radius:var(--r-md);background:var(--c-card);cursor:pointer;transition:all var(--t-fast);margin-bottom:var(--sp-2);display:flex;align-items:center;gap:var(--sp-3);font-family:'Poppins',sans-serif}
+.demo-btn:hover{border-color:var(--c-green);background:#f0fdf9}
+.demo-dot{width:32px;height:32px;border-radius:var(--r-sm);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:var(--fs-sm);font-weight:var(--fw-bold);color:#fff}
+
+/* ── VEHICLE HERO CARD ── */
+.v-hero{background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 100%);border-radius:var(--r-lg);padding:var(--sp-5);color:#fff;margin-bottom:var(--sp-4)}
+
+/* ── RANGE INPUT ── */
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:4px;border-radius:var(--r-sm);background:var(--c-border);outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:var(--r-full);background:var(--c-green);cursor:pointer;box-shadow:0 1px 3px rgba(16,185,129,.4)}
+
+/* ── TCO SPECIFIC ── */
+.savings-item{display:flex;align-items:center;gap:var(--sp-2);padding:var(--sp-2) var(--sp-3);border-radius:var(--r-sm);background:var(--c-bg);border:1px solid var(--c-border-2);margin-bottom:var(--sp-1)}
+.savings-amount{font-size:var(--fs-md);font-weight:var(--fw-bold);color:var(--c-green);white-space:nowrap}
+
+/* ── SIM RESULT ── */
+.sim-result-card{border-radius:var(--r-md);padding:var(--sp-3);margin-bottom:var(--sp-2)}
+.sim-green{background:var(--c-green-bg);border:1px solid #a7f3d0}
+.sim-blue{background:#eff6ff;border:1px solid #bfdbfe}
+.sim-gray{background:var(--c-bg);border:1px solid var(--c-border)}
+.sim-big{font-size:var(--fs-xl);font-weight:var(--fw-xbold);color:var(--c-green)}
+
+/* ── MOBILE ── */
+#sidebar-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:99}
+#hamburger{display:none;width:36px;height:36px;border:1px solid var(--c-border);border-radius:var(--r-md);background:var(--c-card);align-items:center;justify-content:center;cursor:pointer;color:var(--c-text-2);flex-shrink:0;transition:all var(--t-fast)}
+#hamburger:hover{background:var(--c-bg)}
+
+@media(max-width:768px){
+  #login-screen{flex-direction:column}
+  .login-left{width:100%;padding:var(--sp-6) var(--sp-5);min-height:auto}
+  .login-left-stats{display:none}
+  .login-right{padding:var(--sp-6) var(--sp-5)}
+  #sidebar{position:fixed;left:0;top:0;bottom:0;z-index:100;transform:translateX(-100%);transition:transform .25s ease;width:260px!important;min-width:260px!important}
+  #sidebar.mob-open{transform:translateX(0)}
+  #sidebar-overlay{display:block;opacity:0;pointer-events:none;transition:opacity .25s}
+  #sidebar-overlay.mob-open{opacity:1;pointer-events:auto}
+  #hamburger{display:flex!important}
+  #topbar{padding:0 12px!important;gap:8px!important;overflow:hidden!important}
+  #topbar-search{display:none!important;visibility:hidden!important;width:0!important}
+  #lang-btn{display:none!important;visibility:hidden!important}
+  #topbar-name{display:none!important;visibility:hidden!important}
+  #topbar-badge{display:none!important;visibility:hidden!important}
+  #topbar-left{min-width:0!important;overflow:hidden!important}
+  #topbar-title{white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
+  #content{padding:var(--sp-3)}
+  .kpi-5,.kpi-4{grid-template-columns:repeat(2,1fr);gap:var(--sp-2)}
+  .kpi-3{grid-template-columns:repeat(3,1fr);gap:var(--sp-2)}
+  .kpi-card{padding:var(--sp-2) var(--sp-2)}
+  .kpi-value{font-size:var(--fs-base)}
+  .kpi-label{font-size:.72rem}
+  .kpi-change{font-size:.68rem}
+  .g2,.g3,.g21{grid-template-columns:1fr;gap:var(--sp-3)}
+  .tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .data-tbl{min-width:520px}
+  .tabs{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .tabs::-webkit-scrollbar{display:none}
+  .tab-btn{white-space:nowrap;flex-shrink:0;padding:var(--sp-2) var(--sp-3);font-size:var(--fs-md)}
+  .modal-box{width:96%;max-height:92vh;margin:0 auto}
+  .chart-wrap{height:180px}
+  .chart-tall{height:220px}
+  .chart-sm{height:140px}
+  .pg-hdr{margin-bottom:var(--sp-3)}
+  .pg-title{font-size:var(--fs-lg)}
+  .card-body{padding:var(--sp-3)}
+  .fbar{gap:var(--sp-2)}
+  .fbar .form-input{min-width:0;flex:1}
+  .fbar .form-select{min-width:0;flex:1;font-size:var(--fs-md)}
+  .savings-item{padding:var(--sp-3)}
+  .v-hero{padding:var(--sp-4)}
+  #app{height:100dvh}
+  .v-hero-stats{grid-template-columns:repeat(3,1fr)!important;gap:8px!important}
+  .v-hero-stats-4{grid-template-columns:repeat(2,1fr)!important;gap:8px!important}
+  .pg-hdr.pg-hdr-row{flex-direction:column;align-items:stretch;gap:var(--sp-2)}
+  .pg-hdr.pg-hdr-row .btn{align-self:flex-start}
+  .mob-btn-wrap{display:flex;flex-wrap:wrap;gap:var(--sp-2)}
+  .mob-btn-wrap .btn{flex:1;justify-content:center;min-width:0}
+  .info-row{display:flex;align-items:baseline;justify-content:space-between;padding:9px 0;border-bottom:1px solid #f1f5f9;gap:8px}
+  .info-row-lbl{font-size:.78rem;color:#64748b;flex-shrink:0;max-width:50%}
+  .info-row-val{font-size:.85rem;font-weight:600;color:#0f172a;text-align:right;word-break:break-word;min-width:0}
+}
+@media(max-width:480px){
+  .kpi-5,.kpi-4,.kpi-3{grid-template-columns:1fr 1fr}
+  .kpi-value{font-size:var(--fs-base)}
+  .kpi-label{font-size:.7rem}
+  .kpi-change{font-size:.65rem}
+  .kpi-icon{width:26px;height:26px;font-size:var(--fs-sm)}
+  .kpi-card{padding:var(--sp-2)}
+  #content{padding:var(--sp-2)}
+  .card-body{padding:var(--sp-3)}
+  .data-tbl th,.data-tbl td{padding:var(--sp-1) var(--sp-2)}
+  .pg-title{font-size:var(--fs-base)}
+  .login-left{padding:var(--sp-5) var(--sp-4)}
+  .login-right{padding:var(--sp-4)}
+  .btn{font-size:var(--fs-md);padding:var(--sp-2) var(--sp-3)}
+  .v-hero-stats{grid-template-columns:repeat(2,1fr)!important;gap:6px!important}
+  .v-hero-stats-4{grid-template-columns:repeat(2,1fr)!important;gap:6px!important}
+  .v-hero{padding:var(--sp-3)}
+  .v-hero-brand{font-size:1.15rem!important}
+  .v-hero-plate{font-size:.85rem!important}
+  .v-hero-stat-val{font-size:.9rem!important}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════
+     LOGIN SCREEN
+═══════════════════════════════════════════════════════════ -->
+<div id="login-screen">
+  <div class="login-left">
+    <div style="position:relative;z-index:1">
+      <div style="font-size:1.9rem;font-weight:800;letter-spacing:-.02em;margin-bottom:8px">
+        <span style="color:#10b981">Fleet</span><span style="color:#fff">Wise</span>
+      </div>
+      <p style="color:#94a3b8;font-size:1rem;margin:0 0 40px;font-style:italic">Simplifique, Otimize, Rentabilize!</p>
+      <div style="display:flex;flex-direction:column;gap:16px;margin-bottom:48px">
+        <div style="display:flex;align-items:flex-start;gap:12px">
+          <div style="width:32px;height:32px;border-radius:6px;background:rgba(16,185,129,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px"><i class="fa-solid fa-shield-halved" style="color:#10b981;font-size:.8rem"></i></div>
+          <div><p style="color:#e2e8f0;font-size:.9rem;font-weight:600;margin:0 0 2px">Independência Total</p><p style="color:#64748b;font-size:.8rem;margin:0">Sem conflito de interesses — defendemos exclusivamente o Cliente</p></div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:12px">
+          <div style="width:32px;height:32px;border-radius:6px;background:rgba(16,185,129,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px"><i class="fa-solid fa-calculator" style="color:#10b981;font-size:.8rem"></i></div>
+          <div><p style="color:#e2e8f0;font-size:.9rem;font-weight:600;margin:0 0 2px">Domínio Fiscal</p><p style="color:#64748b;font-size:.8rem;margin:0">Tributação Autónoma, BEV/PHEV, IRC — otimização em tempo real</p></div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:12px">
+          <div style="width:32px;height:32px;border-radius:6px;background:rgba(16,185,129,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px"><i class="fa-solid fa-sliders" style="color:#10b981;font-size:.8rem"></i></div>
+          <div><p style="color:#e2e8f0;font-size:.9rem;font-weight:600;margin:0 0 2px">Espectro de Autonomia</p><p style="color:#64748b;font-size:.8rem;margin:0">Do self-service ao outsourcing integral — à medida de cada Cliente</p></div>
+        </div>
+      </div>
+      <div class="login-left-stats" style="display:flex;gap:24px;padding-top:24px;border-top:1px solid #1e293b">
+        <div><p style="color:#10b981;font-size:1.5rem;font-weight:800;margin:0">261</p><p style="color:#64748b;font-size:.7rem;margin:0">Viaturas geridas</p></div>
+        <div><p style="color:#10b981;font-size:1.5rem;font-weight:800;margin:0">12</p><p style="color:#64748b;font-size:.7rem;margin:0">Clientes ativos</p></div>
+        <div><p style="color:#10b981;font-size:1.5rem;font-weight:800;margin:0">€86k</p><p style="color:#64748b;font-size:.7rem;margin:0">Poupança TCO gerada</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="login-right">
+    <div class="login-form">
+      <div style="margin-bottom:28px">
+        <h1 style="font-size:1.5rem;font-weight:700;color:#0f172a;margin:0 0 6px" data-i18n="login.title">Iniciar Sessão</h1>
+        <p style="color:#64748b;font-size:.9rem;margin:0">Bem-vindo à plataforma FleetWise</p>
+      </div>
+
+      <form id="login-form" onsubmit="loginSubmit(event)" style="margin-bottom:24px">
+        <div style="margin-bottom:14px">
+          <label class="form-label" data-i18n="login.email">Email</label>
+          <input id="login-email" type="email" class="form-input" placeholder="email@empresa.pt" required>
+        </div>
+        <div style="margin-bottom:18px">
+          <label class="form-label" data-i18n="login.password">Password</label>
+          <input id="login-pwd" type="password" class="form-input" placeholder="••••••••" required>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;padding:10px" data-i18n="login.enter">Entrar</button>
+      </form>
+
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
+        <div style="flex:1;height:1px;background:#e2e8f0"></div>
+        <span style="font-size:.8rem;color:#94a3b8;font-weight:500" data-i18n="login.demo">Contas de demonstração</span>
+        <div style="flex:1;height:1px;background:#e2e8f0"></div>
+      </div>
+
+      <button class="demo-btn" onclick="loginAs(1)">
+        <div class="demo-dot" style="background:#f59e0b"><i class="fa-solid fa-star" style="font-size:.7rem"></i></div>
+        <div>
+          <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#92400e" data-i18n="login.role.admin">FleetWise Admin</div>
+          <div style="font-size:.9rem;font-weight:600;color:#0f172a">João Duarte</div>
+          <div style="font-size:.7rem;color:#64748b">joao@fleetwise.pt</div>
+        </div>
+      </button>
+      <button class="demo-btn" onclick="loginAs(2)">
+        <div class="demo-dot" style="background:#10b981"><i class="fa-solid fa-building" style="font-size:.7rem"></i></div>
+        <div>
+          <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#065f46" data-i18n="login.role.manager">Gestor Cliente</div>
+          <div style="font-size:.9rem;font-weight:600;color:#0f172a">Ana Costa</div>
+          <div style="font-size:.7rem;color:#64748b">ana@logisticanorte.pt · Logística Norte</div>
+        </div>
+      </button>
+      <button class="demo-btn" onclick="loginAs(3)">
+        <div class="demo-dot" style="background:#3b82f6"><i class="fa-solid fa-user" style="font-size:.7rem"></i></div>
+        <div>
+          <div style="font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:#1e40af" data-i18n="login.role.driver">Condutor</div>
+          <div style="font-size:.9rem;font-weight:600;color:#0f172a">Pedro Ferreira</div>
+          <div style="font-size:.7rem;color:#64748b">pedro@logisticanorte.pt · Toyota Prius</div>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     APP SHELL
+═══════════════════════════════════════════════════════════ -->
+<div id="sidebar-overlay" onclick="closeSidebar()"></div>
+<div id="app" style="display:none">
+
+  <!-- SIDEBAR -->
+  <aside id="sidebar">
+    <!-- Logo -->
+    <div style="padding:20px 16px 12px;border-bottom:1px solid #1e293b">
+      <div style="font-size:1.2rem;font-weight:800;letter-spacing:-.01em;line-height:1">
+        <span style="color:#10b981">Fleet</span><span style="color:#fff">Wise</span>
+      </div>
+      <div style="font-size:.7rem;color:#475569;font-weight:500;letter-spacing:.03em;margin-top:2px">PLATFORM</div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="sidebar-nav" style="flex:1;padding:10px 0">
+      <!-- Filled by JS based on role -->
+    </nav>
+
+    <!-- User strip -->
+    <div id="sidebar-user" style="padding:12px 16px;border-top:1px solid #1e293b;display:flex;align-items:center;gap:10px;cursor:pointer" onclick="navigate('settings')">
+      <div id="user-avatar" style="width:34px;height:34px;border-radius:6px;background:#10b981;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700;color:#fff;flex-shrink:0"></div>
+      <div style="flex:1;min-width:0">
+        <div id="user-name" style="font-size:.8rem;font-weight:600;color:#e2e8f0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis"></div>
+        <div id="user-role-label" style="font-size:.7rem;color:#64748b"></div>
+      </div>
+      <i class="fa-solid fa-ellipsis-vertical" style="color:#475569;font-size:.8rem"></i>
+    </div>
+  </aside>
+
+  <!-- MAIN AREA -->
+  <div id="main-area">
+    <!-- TOPBAR -->
+    <header id="topbar">
+      <button id="hamburger" onclick="toggleSidebar()"><i class="fa-solid fa-bars" style="font-size:1rem"></i></button>
+      <div id="topbar-left" style="flex:1;display:flex;align-items:center;gap:10px;min-width:0;overflow:hidden">
+        <h2 id="topbar-title" style="font-size:1rem;font-weight:600;color:#0f172a;margin:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis"></h2>
+        <div id="topbar-badge" style="flex-shrink:0"></div>
+      </div>
+      <!-- Search -->
+      <div id="topbar-search" style="position:relative;display:flex;align-items:center">
+        <i class="fa-solid fa-magnifying-glass" style="position:absolute;left:10px;color:#94a3b8;font-size:.8rem"></i>
+        <input type="text" placeholder="Pesquisar..." data-i18n-placeholder="common.search" style="padding:7px 11px 7px 30px;border:1px solid #e2e8f0;border-radius:6px;font-size:.9rem;outline:none;width:200px;font-family:'Poppins',sans-serif;color:#334155">
+      </div>
+      <!-- Lang toggle -->
+      <button id="lang-btn" onclick="toggleLang()" style="padding:6px 12px;border:1px solid #e2e8f0;border-radius:6px;font-size:.8rem;font-weight:600;background:#fff;cursor:pointer;color:#475569;transition:all .15s;font-family:'Poppins',sans-serif">
+        🌐 PT
+      </button>
+      <!-- Notifications -->
+      <button class="btn btn-icon" style="position:relative;flex-shrink:0" onclick="openNotifications()">
+        <i class="fa-solid fa-bell" style="font-size:.9rem"></i>
+        <span id="notif-dot" style="width:8px;height:8px;background:#ef4444;border-radius:50%;position:absolute;top:5px;right:5px;display:none"></span>
+      </button>
+      <!-- User menu -->
+      <div style="display:flex;align-items:center;gap:8px;padding:5px 10px;border:1px solid #e2e8f0;border-radius:6px;cursor:pointer;background:#fff;flex-shrink:0" onclick="navigate('settings')">
+        <div id="topbar-avatar" style="width:26px;height:26px;border-radius:6px;background:#10b981;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:#fff"></div>
+        <span id="topbar-name" style="font-size:.8rem;font-weight:500;color:#334155"></span>
+        <i class="fa-solid fa-chevron-down" style="font-size:.7rem;color:#94a3b8"></i>
+      </div>
+    </header>
+
+    <!-- CONTENT AREA -->
+    <div id="content">
+
+      <!-- ── DASHBOARD ── -->
+      <div id="pg-dashboard" class="page active">
+        <div id="dash-content"></div>
+      </div>
+
+      <!-- ── FLEET ── -->
+      <div id="pg-fleet" class="page">
+        <div id="fleet-content">
+          <div class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i><p>A carregar...</p></div>
+        </div>
+      </div>
+
+      <!-- ── TCO ── -->
+      <div id="pg-tco" class="page">
+        <div id="tco-content">
+          <div class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i><p>A carregar...</p></div>
+        </div>
+      </div>
+
+      <!-- ── MAINTENANCE ── -->
+      <div id="pg-maintenance" class="page">
+        <div id="maint-content">
+          <div class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i><p>A carregar...</p></div>
+        </div>
+      </div>
+
+      <!-- ── FISCAL ── -->
+      <div id="pg-fiscal" class="page">
+        <div id="fiscal-content">
+          <div class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i><p>A carregar...</p></div>
+        </div>
+      </div>
+
+      <!-- ── SIMULATOR ── -->
+      <div id="pg-simulator" class="page">
+        <div id="sim-content">
+          <div class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i><p>A carregar...</p></div>
+        </div>
+      </div>
+
+      <!-- ── REPORTS ── -->
+      <div id="pg-reports" class="page">
+        <div id="reports-content">
+          <div class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i><p>A carregar...</p></div>
+        </div>
+      </div>
+
+      <!-- ── CLIENTS ── -->
+      <div id="pg-clients" class="page">
+        <div id="clients-content">
+          <div class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i><p>A carregar...</p></div>
+        </div>
+      </div>
+
+      <!-- ── SETTINGS ── -->
+      <div id="pg-settings" class="page">
+        <div id="settings-content">
+          <div class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i><p>A carregar...</p></div>
+        </div>
+      </div>
+
+      <!-- ── DRIVER: MY VEHICLE ── -->
+      <div id="pg-myvehicle" class="page">
+        <div id="myvehicle-content">
+          <div class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i><p>A carregar...</p></div>
+        </div>
+      </div>
+
+      <!-- ── DRIVER: SERVICE REQUEST ── -->
+      <div id="pg-service" class="page">
+        <div id="service-content">
+          <div class="empty-state"><i class="fa-solid fa-spinner fa-spin"></i><p>A carregar...</p></div>
+        </div>
+      </div>
+
+    </div><!-- end #content -->
+  </div><!-- end #main-area -->
+</div><!-- end #app -->
+
+<!-- MODAL -->
+<div id="modal-overlay" onclick="closeModalOutside(event)">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <div class="modal-hdr">
+      <span class="modal-title" id="modal-title"></span>
+      <button class="btn btn-icon" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+    <div class="modal-foot" id="modal-foot" style="display:none"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     JAVASCRIPT
+═══════════════════════════════════════════════════════════ -->
+<script>
+// ─────────────────────────────────────────────────────────────
+// TRANSLATIONS
+// ─────────────────────────────────────────────────────────────
+const TR = {
+  pt: {
+    'login.title':'Iniciar Sessão','login.email':'Email','login.password':'Password',
+    'login.enter':'Entrar','login.demo':'Contas de demonstração',
+    'login.role.admin':'FleetWise Admin','login.role.manager':'Gestor Cliente','login.role.driver':'Condutor',
+    'nav.dashboard':'Dashboard','nav.fleet':'Frota','nav.tco':'Radiografia TCO',
+    'nav.maintenance':'Manutenção','nav.fiscal':'Fiscal & Documentos',
+    'nav.simulator':'Simulador BEV/PHEV','nav.reports':'Relatórios ESG',
+    'nav.clients':'Clientes','nav.settings':'Configurações',
+    'nav.myvehicle':'A Minha Viatura','nav.service':'Pedido de Serviço',
+    'nav.profile':'Perfil','nav.logout':'Terminar Sessão',
+    'dash.welcome.m':'Bom dia','dash.welcome.f':'Bom dia',
+    'dash.subtitle.admin':'Resumo da operação FleetWise · {date}',
+    'dash.subtitle.manager':'Resumo da frota {client} · {date}',
+    'dash.subtitle.driver':'O estado da sua viatura hoje · {date}',
+    'dash.active_clients':'Clientes Ativos','dash.vehicles':'Viaturas Geridas',
+    'dash.km':'km Geridos (YTD)','dash.savings':'Poupança TCO Gerada','dash.nps':'NPS Score',
+    'dash.alerts':'Alertas','dash.fleet_comp':'Composição da Frota',
+    'dash.cost_ev':'Evolução de Custos (€/mês)','dash.top_clients':'Top Clientes',
+    'dash.recent':'Atividade Recente','dash.upcoming_maint':'Próximas Manutenções',
+    'dash.view_all':'Ver todos',
+    'fleet.title':'Gestão de Frota','fleet.add':'Adicionar Viatura',
+    'fleet.search':'Pesquisar viatura...','fleet.all_clients':'Todos os clientes',
+    'fleet.all_fuel':'Combustível','fleet.all_status':'Estado',
+    'fleet.plate':'Matrícula','fleet.vehicle':'Viatura','fleet.driver':'Condutor',
+    'fleet.client':'Cliente','fleet.fuel':'Comb.','fleet.km':'km Atual',
+    'fleet.ipo':'IPO','fleet.seguro':'Seguro','fleet.status':'Estado',
+    'fleet.value':'Valor Aq.','fleet.monthly':'Renting/mês',
+    'tco.title':'Radiografia TCO','tco.client':'Cliente','tco.select':'Selecionar cliente',
+    'tco.annual':'TCO Anual Total','tco.ta':'Tributação Autónoma','tco.savings':'Poupança Identificada',
+    'tco.breakdown':'Decomposição de Custos','tco.opportunities':'Oportunidades de Poupança',
+    'tco.per_vehicle':'por viatura/ano',
+    'maint.title':'Manutenção','maint.pending':'Pendente','maint.done':'Concluído',
+    'maint.vehicle':'Viatura','maint.type':'Tipo','maint.date':'Data',
+    'maint.provider':'Prestador','maint.cost':'Custo','maint.status':'Estado',
+    'maint.add':'Registar Manutenção',
+    'fiscal.title':'Fiscal & Documentos','fiscal.iuc':'IUC','fiscal.ipo':'IPO',
+    'fiscal.seguros':'Seguros','fiscal.ta_calc':'Calc. Tributação Autónoma',
+    'fiscal.vehicle':'Viatura','fiscal.due':'Vencimento','fiscal.amount':'Montante',
+    'fiscal.provider':'Seguradora','fiscal.status':'Estado',
+    'sim.title':'Simulador BEV/PHEV',
+    'sim.subtitle':'Compare o TCO de viaturas elétricas e híbridas para a sua frota. Descubra o impacto real da Tributação Autónoma.',
+    'sim.km':'km por ano (por viatura)','sim.nveh':'N.º de viaturas a avaliar',
+    'sim.fuel':'Combustível atual','sim.value':'Valor de aquisição (€)',
+    'sim.renting':'Renting mensal (€/mês)','sim.irc':'Taxa IRC (%)',
+    'sim.calc':'Calcular Simulação','sim.results':'Resultados da Simulação',
+    'sim.saving_bev':'Poupança Anual (BEV)','sim.saving_phev':'Poupança Anual (PHEV)',
+    'sim.ta_saving':'Poupança Tributação Autónoma',
+    'sim.fuel_saving':'Poupança Combustível','sim.maint_saving':'Poupança Manutenção',
+    'sim.curr_tco':'TCO Atual','sim.bev_tco':'TCO Elétrico','sim.phev_tco':'TCO PHEV',
+    'sim.cta':'Falar com um Especialista',
+    'reports.title':'Relatórios ESG','reports.co2':'Emissões CO₂ (toneladas)',
+    'reports.electrif':'Eletrificação da Frota','reports.savings':'Custos vs Poupanças',
+    'reports.export':'Exportar Relatório',
+    'clients.title':'Gestão de Clientes','clients.add':'Novo Cliente',
+    'clients.search':'Pesquisar cliente...','clients.tier':'Segmento',
+    'clients.service':'Nível de Serviço','clients.health':'Saúde',
+    'clients.contact':'Contacto','clients.since':'Cliente desde',
+    'settings.title':'Configurações','settings.profile':'Perfil',
+    'settings.notif':'Notificações','settings.autonomy':'Nível de Autonomia',
+    'settings.lang':'Idioma','settings.company':'Empresa',
+    'settings.save':'Guardar Alterações',
+    'myvehicle.title':'A Minha Viatura','service.title':'Pedido de Serviço',
+    'service.type':'Tipo de pedido','service.desc':'Descrição','service.submit':'Submeter Pedido',
+    'common.search':'Pesquisar...','common.save':'Guardar','common.cancel':'Cancelar',
+    'common.edit':'Editar','common.delete':'Eliminar','common.export':'Exportar',
+    'common.close':'Fechar','common.all':'Todos','common.vehicles':'viaturas',
+    'common.month':'Mês','common.year':'Ano','common.since':'Desde',
+    'status.ok':'OK','status.atencao':'Atenção','status.urgente':'Urgente','status.expirado':'Expirado',
+    'fuel.diesel':'Diesel','fuel.gasolina':'Gasolina','fuel.phev':'PHEV','fuel.bev':'Elétrico',
+    'tier.micro':'Micro-frota','tier.media':'Frota Média','tier.grande':'Grande Frota',
+    'service.self':'Self-service','service.hibrido':'Híbrido','service.outsourcing':'Outsourcing',
+    'role.admin':'FleetWise Admin','role.manager':'Gestor Cliente','role.driver':'Condutor',
+  },
+  en: {
+    'login.title':'Sign In','login.email':'Email','login.password':'Password',
+    'login.enter':'Sign In','login.demo':'Demo accounts',
+    'login.role.admin':'FleetWise Admin','login.role.manager':'Client Manager','login.role.driver':'Driver',
+    'nav.dashboard':'Dashboard','nav.fleet':'Fleet','nav.tco':'TCO Analysis',
+    'nav.maintenance':'Maintenance','nav.fiscal':'Tax & Documents',
+    'nav.simulator':'EV/PHEV Simulator','nav.reports':'ESG Reports',
+    'nav.clients':'Clients','nav.settings':'Settings',
+    'nav.myvehicle':'My Vehicle','nav.service':'Service Request',
+    'nav.profile':'Profile','nav.logout':'Sign Out',
+    'dash.welcome.m':'Good morning','dash.welcome.f':'Good morning',
+    'dash.subtitle.admin':'FleetWise operation summary · {date}',
+    'dash.subtitle.manager':'{client} fleet summary · {date}',
+    'dash.subtitle.driver':'Your vehicle status today · {date}',
+    'dash.active_clients':'Active Clients','dash.vehicles':'Vehicles Managed',
+    'dash.km':'km Managed (YTD)','dash.savings':'TCO Savings Generated','dash.nps':'NPS Score',
+    'dash.alerts':'Alerts','dash.fleet_comp':'Fleet Composition',
+    'dash.cost_ev':'Cost Evolution (€/month)','dash.top_clients':'Top Clients',
+    'dash.recent':'Recent Activity','dash.upcoming_maint':'Upcoming Maintenance',
+    'dash.view_all':'View all',
+    'fleet.title':'Fleet Management','fleet.add':'Add Vehicle',
+    'fleet.search':'Search vehicle...','fleet.all_clients':'All clients',
+    'fleet.all_fuel':'Fuel type','fleet.all_status':'Status',
+    'fleet.plate':'Plate','fleet.vehicle':'Vehicle','fleet.driver':'Driver',
+    'fleet.client':'Client','fleet.fuel':'Fuel','fleet.km':'Current km',
+    'fleet.ipo':'MOT','fleet.seguro':'Insurance','fleet.status':'Status',
+    'fleet.value':'Acq. Value','fleet.monthly':'Monthly lease',
+    'tco.title':'TCO Analysis','tco.client':'Client','tco.select':'Select client',
+    'tco.annual':'Annual Total TCO','tco.ta':'Corporate Tax (TA)','tco.savings':'Identified Savings',
+    'tco.breakdown':'Cost Breakdown','tco.opportunities':'Savings Opportunities',
+    'tco.per_vehicle':'per vehicle/year',
+    'maint.title':'Maintenance','maint.pending':'Pending','maint.done':'Completed',
+    'maint.vehicle':'Vehicle','maint.type':'Type','maint.date':'Date',
+    'maint.provider':'Provider','maint.cost':'Cost','maint.status':'Status',
+    'maint.add':'Record Maintenance',
+    'fiscal.title':'Tax & Documents','fiscal.iuc':'Road Tax (IUC)','fiscal.ipo':'MOT (IPO)',
+    'fiscal.seguros':'Insurance','fiscal.ta_calc':'Corp. Tax Calculator',
+    'fiscal.vehicle':'Vehicle','fiscal.due':'Due Date','fiscal.amount':'Amount',
+    'fiscal.provider':'Insurer','fiscal.status':'Status',
+    'sim.title':'EV/PHEV Simulator',
+    'sim.subtitle':'Compare the TCO of electric and hybrid vehicles for your fleet. Discover the real impact of Portuguese corporate tax rules.',
+    'sim.km':'km per year (per vehicle)','sim.nveh':'Number of vehicles to evaluate',
+    'sim.fuel':'Current fuel type','sim.value':'Acquisition value (€)',
+    'sim.renting':'Monthly leasing (€/month)','sim.irc':'Corporate tax rate (%)',
+    'sim.calc':'Run Simulation','sim.results':'Simulation Results',
+    'sim.saving_bev':'Annual Saving (EV)','sim.saving_phev':'Annual Saving (PHEV)',
+    'sim.ta_saving':'Corporate Tax Saving',
+    'sim.fuel_saving':'Fuel Saving','sim.maint_saving':'Maintenance Saving',
+    'sim.curr_tco':'Current TCO','sim.bev_tco':'EV TCO','sim.phev_tco':'PHEV TCO',
+    'sim.cta':'Talk to a Specialist',
+    'reports.title':'ESG Reports','reports.co2':'CO₂ Emissions (tonnes)',
+    'reports.electrif':'Fleet Electrification','reports.savings':'Costs vs Savings',
+    'reports.export':'Export Report',
+    'clients.title':'Client Management','clients.add':'New Client',
+    'clients.search':'Search client...','clients.tier':'Segment',
+    'clients.service':'Service Level','clients.health':'Health',
+    'clients.contact':'Contact','clients.since':'Client since',
+    'settings.title':'Settings','settings.profile':'Profile',
+    'settings.notif':'Notifications','settings.autonomy':'Autonomy Level',
+    'settings.lang':'Language','settings.company':'Company',
+    'settings.save':'Save Changes',
+    'myvehicle.title':'My Vehicle','service.title':'Service Request',
+    'service.type':'Request type','service.desc':'Description','service.submit':'Submit Request',
+    'common.search':'Search...','common.save':'Save','common.cancel':'Cancel',
+    'common.edit':'Edit','common.delete':'Delete','common.export':'Export',
+    'common.close':'Close','common.all':'All','common.vehicles':'vehicles',
+    'common.month':'Month','common.year':'Year','common.since':'Since',
+    'status.ok':'OK','status.atencao':'Attention','status.urgente':'Urgent','status.expirado':'Expired',
+    'fuel.diesel':'Diesel','fuel.gasolina':'Petrol','fuel.phev':'PHEV','fuel.bev':'Electric',
+    'tier.micro':'Small fleet','tier.media':'Medium fleet','tier.grande':'Large fleet',
+    'service.self':'Self-service','service.hibrido':'Hybrid','service.outsourcing':'Outsourcing',
+    'role.admin':'FleetWise Admin','role.manager':'Client Manager','role.driver':'Driver',
+  }
+};
+
+// ─────────────────────────────────────────────────────────────
+// STATE
+// ─────────────────────────────────────────────────────────────
+const S = {
+  lang: 'pt',
+  user: null,
+  page: 'dashboard',
+  charts: {},
+  fleetFilter: { client:'all', fuel:'all', status:'all', search:'' },
+  tcoClientId: 1,
+  fiscalTab: 'iuc',
+  maintTab: 'pending',
+};
+
+function t(k, vars) {
+  let s = TR[S.lang][k] || TR.pt[k] || k;
+  if (vars) Object.entries(vars).forEach(([k,v]) => s = s.replace(`{${k}}`,v));
+  return s;
+}
+
+// ─────────────────────────────────────────────────────────────
+// MOCK DATA
+// ─────────────────────────────────────────────────────────────
+const TODAY = new Date('2026-05-14');
+
+const USERS = [
+  {id:1,name:'João Duarte',email:'joao@fleetwise.pt',role:'admin',initials:'JD',clientId:null,vehicleId:null},
+  {id:2,name:'Ana Costa',email:'ana@logisticanorte.pt',role:'manager',initials:'AC',clientId:1,vehicleId:null},
+  {id:3,name:'Pedro Ferreira',email:'pedro@logisticanorte.pt',role:'driver',initials:'PF',clientId:1,vehicleId:6},
+];
+
+const CLIENTS = [
+  {id:1,name:'Logística Norte Lda',nif:'501234567',tier:'media',service:'hibrido',vehicles:18,health:92,since:'2025-06',contact:'Ana Costa',email:'ana@logisticanorte.pt',phone:'+351 919 234 567'},
+  {id:2,name:'Construtora Lisboa SA',nif:'502345678',tier:'grande',service:'outsourcing',vehicles:34,health:87,since:'2025-08',contact:'Carlos Ferreira',email:'carlos@construtoralisboa.pt',phone:'+351 912 345 678'},
+  {id:3,name:'Farmacêutica Centro Lda',nif:'503456789',tier:'micro',service:'self',vehicles:7,health:78,since:'2026-01',contact:'Isabel Matos',email:'isabel@farmaceuticacentro.pt',phone:'+351 935 456 789'},
+  {id:4,name:'Tech Solutions Porto Lda',nif:'504567890',tier:'media',service:'hibrido',vehicles:12,health:95,since:'2025-09',contact:'Miguel Sousa',email:'miguel@techsolutions.pt',phone:'+351 961 567 890'},
+  {id:5,name:'Retail Group SA',nif:'505678901',tier:'grande',service:'outsourcing',vehicles:45,health:82,since:'2025-07',contact:'Joana Rodrigues',email:'joana@retailgroup.pt',phone:'+351 917 678 901'},
+  {id:6,name:'Médico & Saúde Lda',nif:'506789012',tier:'micro',service:'self',vehicles:5,health:88,since:'2025-11',contact:'Dr. Paulo Santos',email:'paulo@medicosaude.pt',phone:'+351 933 789 012'},
+  {id:7,name:'Engenharia Sul Lda',nif:'507890123',tier:'media',service:'hibrido',vehicles:22,health:76,since:'2025-10',contact:'Rui Almeida',email:'rui@engenhariasul.pt',phone:'+351 916 890 123'},
+  {id:8,name:'Distribuição Central SA',nif:'508901234',tier:'grande',service:'outsourcing',vehicles:38,health:91,since:'2025-06',contact:'Teresa Carvalho',email:'teresa@distcentral.pt',phone:'+351 922 901 234'},
+  {id:9,name:'Marketing Lisboa Lda',nif:'509012345',tier:'micro',service:'self',vehicles:8,health:83,since:'2025-12',contact:'Filipe Costa',email:'filipe@marketinglisboa.pt',phone:'+351 947 012 345'},
+  {id:10,name:'Transportes Expresso SA',nif:'510123456',tier:'grande',service:'outsourcing',vehicles:52,health:89,since:'2025-05',contact:'António Pereira',email:'antonio@transpexpresso.pt',phone:'+351 918 123 456'},
+  {id:11,name:'Consultoria Norte Lda',nif:'511234567',tier:'media',service:'hibrido',vehicles:14,health:94,since:'2025-08',contact:'Sónia Ferreira',email:'sonia@consultorianorte.pt',phone:'+351 934 234 567'},
+  {id:12,name:'Serviços Porto Lda',nif:'512345678',tier:'micro',service:'self',vehicles:6,health:71,since:'2026-02',contact:'Bruno Martins',email:'bruno@servicosporto.pt',phone:'+351 965 345 678'},
+];
+
+const VEHICLES = [
+  {id:1,plate:'24-AB-12',brand:'Renault',model:'Trafic',fuel:'diesel',driver:'Pedro Ferreira',clientId:1,km:45200,ipo:'2026-08-15',seguro:'2026-07-05',revisao:'2026-06-01',value:28500,monthly:620,contractEnd:'2027-06-30',contractType:'renting',fuelCardProvider:'Repsol',fuelCardPlafond:220,fuelCardUsed:145,consumption:8.2},
+  {id:2,plate:'23-KP-87',brand:'Volkswagen',model:'Transporter',fuel:'diesel',driver:'Miguel Santos',clientId:1,km:38900,ipo:'2026-04-20',seguro:'2026-06-15',revisao:'2026-05-01',value:32000,monthly:680,contractEnd:'2026-11-30',contractType:'ald',fuelCardProvider:'Galp',fuelCardPlafond:240,fuelCardUsed:198,consumption:9.1},
+  {id:3,plate:'22-CD-34',brand:'Mercedes',model:'Sprinter',fuel:'diesel',driver:'João Lopes',clientId:1,km:52100,ipo:'2026-11-20',seguro:'2026-11-15',revisao:'2026-10-01',value:36000,monthly:740,contractEnd:'2026-09-30',contractType:'renting',fuelCardProvider:'BP',fuelCardPlafond:260,fuelCardUsed:212,consumption:10.4},
+  {id:4,plate:'24-EF-56',brand:'Renault',model:'Kangoo E-Tech',fuel:'bev',driver:'Ana Martins',clientId:1,km:18400,ipo:'2027-01-10',seguro:'2026-12-01',revisao:'2026-11-15',value:35000,monthly:750,contractEnd:'2027-12-31',contractType:'renting',fuelCardProvider:null,fuelCardPlafond:null,fuelCardUsed:null,consumption:16.2},
+  {id:5,plate:'24-GH-78',brand:'Peugeot',model:'e-Partner',fuel:'bev',driver:'Carlos Silva',clientId:1,km:12600,ipo:'2027-03-20',seguro:'2026-11-30',revisao:'2026-12-20',value:33500,monthly:710,contractEnd:'2028-03-31',contractType:'renting',fuelCardProvider:null,fuelCardPlafond:null,fuelCardUsed:null,consumption:15.8},
+  {id:6,plate:'23-LM-90',brand:'Toyota',model:'Prius',fuel:'phev',driver:'Pedro Ferreira',clientId:1,km:34200,ipo:'2026-05-25',seguro:'2026-07-15',revisao:'2026-06-15',value:38000,monthly:780,contractEnd:'2027-03-31',contractType:'ald',fuelCardProvider:'Galp',fuelCardPlafond:150,fuelCardUsed:88,consumption:6.1},
+  {id:7,plate:'22-NO-12',brand:'Volkswagen',model:'Passat',fuel:'gasolina',driver:'Rui Pereira',clientId:1,km:67800,ipo:'2026-10-15',seguro:'2026-09-20',revisao:'2026-08-15',value:31000,monthly:650,contractEnd:'2026-08-31',contractType:'compra',fuelCardProvider:'CEPSA',fuelCardPlafond:180,fuelCardUsed:167,consumption:7.8},
+  {id:8,plate:'23-PQ-34',brand:'Citroën',model:'Berlingo',fuel:'diesel',driver:'Helena Costa',clientId:1,km:41500,ipo:'2026-06-08',seguro:'2026-08-10',revisao:'2026-07-01',value:26000,monthly:580,contractEnd:'2027-09-30',contractType:'renting',fuelCardProvider:'Prio',fuelCardPlafond:200,fuelCardUsed:134,consumption:7.9},
+  {id:9,plate:'24-RS-56',brand:'Ford',model:'Transit Custom',fuel:'diesel',driver:'Nuno Ferreira',clientId:1,km:28700,ipo:'2026-09-30',seguro:'2026-05-20',revisao:'2026-08-01',value:30000,monthly:640,contractEnd:'2027-06-30',contractType:'renting',fuelCardProvider:'BP',fuelCardPlafond:230,fuelCardUsed:185,consumption:8.8},
+  {id:10,plate:'21-TU-78',brand:'Renault',model:'Trafic',fuel:'diesel',driver:'Beatriz Santos',clientId:1,km:89200,ipo:'2026-10-05',seguro:'2026-10-01',revisao:'2026-09-15',value:28000,monthly:600,contractEnd:'2026-06-30',contractType:'compra',fuelCardProvider:'Repsol',fuelCardPlafond:210,fuelCardUsed:195,consumption:9.6},
+  {id:11,plate:'23-VW-90',brand:'Opel',model:'Vivaro',fuel:'diesel',driver:'Diogo Lima',clientId:1,km:35800,ipo:'2026-07-12',seguro:'2026-11-08',revisao:'2026-07-01',value:29000,monthly:620,contractEnd:'2027-12-31',contractType:'ald',fuelCardProvider:'Galp',fuelCardPlafond:220,fuelCardUsed:143,consumption:8.5},
+  {id:12,plate:'24-XY-12',brand:'Mercedes',model:'eSprinter',fuel:'bev',driver:'Marta Alves',clientId:1,km:9800,ipo:'2027-02-28',seguro:'2026-12-15',revisao:'2026-12-01',value:55000,monthly:950,contractEnd:'2028-12-31',contractType:'renting',fuelCardProvider:null,fuelCardPlafond:null,fuelCardUsed:null,consumption:21.5},
+  {id:13,plate:'22-ZA-34',brand:'Peugeot',model:'Expert',fuel:'diesel',driver:'Gonçalo Faria',clientId:1,km:58300,ipo:'2026-08-22',seguro:'2026-07-28',revisao:'2026-08-01',value:27000,monthly:580,contractEnd:'2026-10-31',contractType:'compra',fuelCardProvider:'CEPSA',fuelCardPlafond:195,fuelCardUsed:158,consumption:8.7},
+  {id:14,plate:'23-BC-56',brand:'Fiat',model:'Doblò',fuel:'diesel',driver:'Ricardo Mendes',clientId:1,km:42100,ipo:'2026-11-15',seguro:'2026-10-20',revisao:'2026-10-15',value:25000,monthly:550,contractEnd:'2027-06-30',contractType:'renting',fuelCardProvider:'Prio',fuelCardPlafond:185,fuelCardUsed:112,consumption:7.6},
+  {id:15,plate:'24-DE-78',brand:'Volkswagen',model:'ID.4',fuel:'bev',driver:'Carla Sousa',clientId:1,km:22300,ipo:'2027-04-10',seguro:'2026-11-05',revisao:'2026-11-20',value:48000,monthly:880,contractEnd:'2028-06-30',contractType:'renting',fuelCardProvider:null,fuelCardPlafond:null,fuelCardUsed:null,consumption:18.4},
+  {id:16,plate:'23-FG-90',brand:'BMW',model:'318i',fuel:'gasolina',driver:'Hugo Pinto',clientId:1,km:31600,ipo:'2026-09-18',seguro:'2026-09-01',revisao:'2026-08-15',value:36000,monthly:760,contractEnd:'2027-09-30',contractType:'ald',fuelCardProvider:'BP',fuelCardPlafond:175,fuelCardUsed:122,consumption:7.2},
+  {id:17,plate:'22-HI-12',brand:'Renault',model:'Clio',fuel:'gasolina',driver:'Inês Torres',clientId:1,km:74500,ipo:'2026-10-30',seguro:'2026-10-15',revisao:'2026-09-20',value:22000,monthly:480,contractEnd:'2026-07-31',contractType:'compra',fuelCardProvider:'Repsol',fuelCardPlafond:130,fuelCardUsed:97,consumption:6.4},
+  {id:18,plate:'24-JK-34',brand:'Nissan',model:'Leaf',fuel:'bev',driver:'Luís Correia',clientId:1,km:16700,ipo:'2027-05-20',seguro:'2026-12-20',revisao:'2026-12-10',value:30000,monthly:650,contractEnd:'2027-12-31',contractType:'renting',fuelCardProvider:null,fuelCardPlafond:null,fuelCardUsed:null,consumption:16.9},
+  {id:19,plate:'23-AB-78',brand:'Toyota',model:'Hilux',fuel:'diesel',driver:'Fernando Dias',clientId:2,km:55200,ipo:'2026-07-15',seguro:'2026-09-10',revisao:'2026-07-01',value:42000,monthly:850,contractEnd:'2027-03-31',contractType:'renting',fuelCardProvider:'Galp',fuelCardPlafond:300,fuelCardUsed:248,consumption:12.1},
+  {id:20,plate:'24-CD-90',brand:'Volkswagen',model:'Amarok',fuel:'diesel',driver:'Teresa Neves',clientId:2,km:38400,ipo:'2026-11-20',seguro:'2026-10-05',revisao:'2026-10-20',value:45000,monthly:900,contractEnd:'2027-11-30',contractType:'ald',fuelCardProvider:'BP',fuelCardPlafond:280,fuelCardUsed:203,consumption:11.3},
+  {id:21,plate:'22-EF-12',brand:'Mercedes',model:'GLC 300d',fuel:'diesel',driver:'Alberto Cruz',clientId:2,km:48900,ipo:'2026-06-05',seguro:'2026-08-15',revisao:'2026-06-15',value:52000,monthly:950,contractEnd:'2026-12-31',contractType:'ald',fuelCardProvider:'Repsol',fuelCardPlafond:250,fuelCardUsed:186,consumption:9.8},
+  {id:22,plate:'24-GH-34',brand:'BMW',model:'X3 xDrive30e',fuel:'phev',driver:'Margarida Fonseca',clientId:2,km:19800,ipo:'2027-01-30',seguro:'2026-12-10',revisao:'2026-12-20',value:58000,monthly:1050,contractEnd:'2028-01-31',contractType:'renting',fuelCardProvider:'Galp',fuelCardPlafond:160,fuelCardUsed:94,consumption:6.8},
+  {id:23,plate:'23-IJ-56',brand:'Audi',model:'A4 35 TFSI',fuel:'gasolina',driver:'Vasco Monteiro',clientId:2,km:52700,ipo:'2026-08-25',seguro:'2026-07-20',revisao:'2026-07-15',value:42000,monthly:840,contractEnd:'2027-08-31',contractType:'ald',fuelCardProvider:'CEPSA',fuelCardPlafond:170,fuelCardUsed:141,consumption:7.5},
+  {id:24,plate:'24-KL-78',brand:'Peugeot',model:'308 1.2 PureTech',fuel:'gasolina',driver:'Isabel Matos',clientId:3,km:22100,ipo:'2026-10-10',seguro:'2026-09-25',revisao:'2026-09-01',value:28000,monthly:600,contractEnd:'2027-10-31',contractType:'renting',fuelCardProvider:'Prio',fuelCardPlafond:145,fuelCardUsed:98,consumption:6.2},
+  {id:25,plate:'23-MN-90',brand:'Renault',model:'Captur E-Tech',fuel:'phev',driver:'Filipa Rocha',clientId:3,km:28500,ipo:'2026-07-08',seguro:'2026-06-30',revisao:'2026-07-01',value:32000,monthly:680,contractEnd:'2027-07-31',contractType:'ald',fuelCardProvider:'Galp',fuelCardPlafond:140,fuelCardUsed:76,consumption:5.5},
+];
+
+const MAINTENANCE = [
+  {id:1,vehicleId:1,clientId:1,type:'Revisão Periódica',date:'2026-03-15',provider:'Renault Oficial Porto',cost:285,status:'done',invoices:['FAT-2026-0312.pdf'],laborCost:120,partsCost:165},
+  {id:2,vehicleId:2,clientId:1,type:'IPO',date:'2026-04-20',provider:'IPO Norte',cost:55,status:'overdue',invoices:[]},
+  {id:3,vehicleId:6,clientId:1,type:'IPO',date:'2026-05-25',provider:'IPO Lisboa',cost:55,status:'pending',invoices:[]},
+  {id:4,vehicleId:8,clientId:1,type:'IPO',date:'2026-06-08',provider:'IPO Porto',cost:55,status:'pending',invoices:[]},
+  {id:5,vehicleId:9,clientId:1,type:'Renovação Seguro',date:'2026-05-20',provider:'Fidelidade',cost:780,status:'pending',invoices:[]},
+  {id:6,vehicleId:3,clientId:1,type:'Revisão 30.000km',date:'2026-10-01',provider:'Mercedes Lisboa',cost:420,status:'pending',invoices:[]},
+  {id:7,vehicleId:21,clientId:2,type:'IPO',date:'2026-06-05',provider:'IPO Sul',cost:55,status:'pending',invoices:[]},
+  {id:8,vehicleId:1,clientId:1,type:'Troca de Pneus',date:'2026-02-10',provider:'ALD Automóvel',cost:620,status:'done',invoices:['FAT-2026-0198.pdf'],laborCost:80,partsCost:540},
+  {id:9,vehicleId:7,clientId:1,type:'Revisão 60.000km',date:'2025-12-15',provider:'VW Autoeuropa',cost:580,status:'done',invoices:['FAT-2025-1187.pdf'],laborCost:180,partsCost:400},
+  {id:10,vehicleId:11,clientId:1,type:'Revisão Periódica',date:'2026-07-12',provider:'Opel Porto',cost:240,status:'pending',invoices:[]},
+];
+
+const FISCAL = {
+  iuc:[
+    {vehicleId:2,clientId:1,plate:'23-KP-87',vehicle:'VW Transporter',due:'2026-05-30',amount:425,status:'urgente'},
+    {vehicleId:9,clientId:1,plate:'24-RS-56',vehicle:'Ford Transit Custom',due:'2026-06-10',amount:380,status:'urgente'},
+    {vehicleId:21,clientId:2,plate:'22-EF-12',vehicle:'Mercedes GLC',due:'2026-05-28',amount:580,status:'urgente'},
+    {vehicleId:1,clientId:1,plate:'24-AB-12',vehicle:'Renault Trafic',due:'2026-07-15',amount:350,status:'atencao'},
+    {vehicleId:3,clientId:1,plate:'22-CD-34',vehicle:'Mercedes Sprinter',due:'2026-08-20',amount:520,status:'ok'},
+    {vehicleId:6,clientId:1,plate:'23-LM-90',vehicle:'Toyota Prius PHEV',due:'2026-09-05',amount:180,status:'ok'},
+    {vehicleId:4,clientId:1,plate:'24-EF-56',vehicle:'Renault Kangoo BEV',due:'2026-12-10',amount:75,status:'ok'},
+    {vehicleId:22,clientId:2,plate:'24-GH-34',vehicle:'BMW X3 PHEV',due:'2026-10-15',amount:220,status:'ok'},
+  ],
+  ipo:[
+    {vehicleId:2,clientId:1,plate:'23-KP-87',vehicle:'VW Transporter',due:'2026-04-20',amount:55,status:'expirado'},
+    {vehicleId:6,clientId:1,plate:'23-LM-90',vehicle:'Toyota Prius PHEV',due:'2026-05-25',amount:55,status:'urgente'},
+    {vehicleId:8,clientId:1,plate:'23-PQ-34',vehicle:'Citroën Berlingo',due:'2026-06-08',amount:55,status:'urgente'},
+    {vehicleId:21,clientId:2,plate:'22-EF-12',vehicle:'Mercedes GLC',due:'2026-06-05',amount:55,status:'urgente'},
+    {vehicleId:11,clientId:1,plate:'23-VW-90',vehicle:'Opel Vivaro',due:'2026-07-12',amount:55,status:'atencao'},
+    {vehicleId:1,clientId:1,plate:'24-AB-12',vehicle:'Renault Trafic',due:'2026-08-15',amount:55,status:'ok'},
+    {vehicleId:3,clientId:1,plate:'22-CD-34',vehicle:'Mercedes Sprinter',due:'2026-11-20',amount:55,status:'ok'},
+    {vehicleId:25,clientId:3,plate:'23-MN-90',vehicle:'Renault Captur E-Tech',due:'2026-07-08',amount:55,status:'atencao'},
+  ],
+  seguros:[
+    {vehicleId:9,clientId:1,plate:'24-RS-56',vehicle:'Ford Transit Custom',due:'2026-05-20',amount:780,provider:'Fidelidade',status:'urgente',policyNumber:'AP-2025-00312',coverageType:'Todos os Riscos',start:'2025-05-20'},
+    {vehicleId:2,clientId:1,plate:'23-KP-87',vehicle:'VW Transporter',due:'2026-06-15',amount:720,provider:'Allianz',status:'urgente',policyNumber:'AP-2025-00478',coverageType:'Danos Próprios',start:'2025-06-15'},
+    {vehicleId:25,clientId:3,plate:'23-MN-90',vehicle:'Renault Captur E-Tech',due:'2026-06-30',amount:520,provider:'Tranquilidade',status:'urgente',policyNumber:'AP-2025-00533',coverageType:'Responsabilidade Civil',start:'2025-06-30'},
+    {vehicleId:1,clientId:1,plate:'24-AB-12',vehicle:'Renault Trafic',due:'2026-07-05',amount:650,provider:'Tranquilidade',status:'atencao',policyNumber:'AP-2025-00601',coverageType:'Todos os Riscos',start:'2025-07-05'},
+    {vehicleId:13,clientId:1,plate:'22-ZA-34',vehicle:'Peugeot Expert',due:'2026-07-28',amount:680,provider:'Generali',status:'atencao',policyNumber:'AP-2025-00644',coverageType:'Danos Próprios',start:'2025-07-28'},
+    {vehicleId:6,clientId:1,plate:'23-LM-90',vehicle:'Toyota Prius PHEV',due:'2026-07-15',amount:720,provider:'Médis Auto',status:'atencao',policyNumber:'AP-2025-00619',coverageType:'Todos os Riscos',start:'2025-07-15'},
+    {vehicleId:21,clientId:2,plate:'22-EF-12',vehicle:'Mercedes GLC',due:'2026-08-15',amount:1100,provider:'Fidelidade',status:'ok',policyNumber:'AP-2024-00891',coverageType:'Todos os Riscos',start:'2025-08-15'},
+    {vehicleId:4,clientId:1,plate:'24-EF-56',vehicle:'Renault Kangoo BEV',due:'2026-12-01',amount:580,provider:'Ok Teleseguros',status:'ok',policyNumber:'AP-2025-01247',coverageType:'Danos Próprios',start:'2025-12-01'},
+  ]
+};
+
+const CLAIMS = [
+  {id:1,vehicleId:2,clientId:1,plate:'23-KP-87',vehicle:'VW Transporter',date:'2025-11-12',type:'Colisão',description:'Embate traseiro em paragem',damage:'Parachoque traseiro, faróis',status:'resolvido',insurer:'Allianz',amount:1850,ref:'SIN-2025-0847'},
+  {id:2,vehicleId:9,clientId:1,plate:'24-RS-56',vehicle:'Ford Transit Custom',date:'2026-01-08',type:'Furto Parcial',description:'Roubo de espelhos retrovisores',damage:'Espelhos laterais',status:'resolvido',insurer:'Fidelidade',amount:420,ref:'SIN-2026-0023'},
+  {id:3,vehicleId:7,clientId:1,plate:'22-NO-12',vehicle:'VW Passat',date:'2026-02-20',type:'Colisão',description:'Embate lateral em parque de estacionamento',damage:'Porta traseira direita, para-lamas',status:'em_reparacao',insurer:'CEPSA Auto',amount:2340,ref:'SIN-2026-0089'},
+  {id:4,vehicleId:21,clientId:2,plate:'22-EF-12',vehicle:'Mercedes GLC',date:'2026-03-15',type:'Vandalismo',description:'Vidro traseiro partido',damage:'Vidro traseiro',status:'aguarda_peritagem',insurer:'Fidelidade',amount:680,ref:'SIN-2026-0134'},
+  {id:5,vehicleId:13,clientId:1,plate:'22-ZA-34',vehicle:'Peugeot Expert',date:'2026-04-02',type:'Colisão',description:'Acidente em rotunda com veículo terceiro',damage:'Frente, airbags, longarina',status:'em_analise',insurer:'Generali',amount:5200,ref:'SIN-2026-0198'},
+  {id:6,vehicleId:3,clientId:1,plate:'22-CD-34',vehicle:'Mercedes Sprinter',date:'2026-04-18',type:'Danos Atmosféricos',description:'Granizo intenso',damage:'Capot, tejadilho, para-brisas',status:'aguarda_peritagem',insurer:'BP Auto',amount:3100,ref:'SIN-2026-0221'},
+  {id:7,vehicleId:6,clientId:1,plate:'23-LM-90',vehicle:'Toyota Prius',date:'2026-05-01',type:'Colisão',description:'Embate frontal a baixa velocidade',damage:'Para-choques dianteiro',status:'em_analise',insurer:'Médis Auto',amount:890,ref:'SIN-2026-0267'},
+  {id:8,vehicleId:20,clientId:2,plate:'24-CD-90',vehicle:'VW Amarok',date:'2026-05-10',type:'Quebra Isolada',description:'Risco em porta',damage:'Porta condutor',status:'em_analise',insurer:'BP Auto',amount:380,ref:'SIN-2026-0291'},
+];
+
+// ─────────────────────────────────────────────────────────────
+// UTILITIES
+// ─────────────────────────────────────────────────────────────
+function fmtEur(n){return'€'+Math.round(n).toLocaleString('pt-PT')}
+function fmtNum(n){return Math.round(n).toLocaleString('pt-PT')}
+function fmtDate(d){return new Date(d+'T12:00:00').toLocaleDateString('pt-PT',{day:'2-digit',month:'2-digit',year:'numeric'})}
+function daysUntil(d){return Math.round((new Date(d+'T12:00:00')-TODAY)/86400000)}
+function getStatus(d){const days=daysUntil(d);if(days<0)return'expirado';if(days<=30)return'urgente';if(days<=60)return'atencao';return'ok'}
+function vehicleStatus(v){
+  const s1=getStatus(v.ipo),s2=getStatus(v.seguro);
+  const order=['expirado','urgente','atencao','ok'];
+  return order[Math.min(order.indexOf(s1),order.indexOf(s2))];
+}
+function badge(status){const m={'ok':'b-ok','atencao':'b-atencao','urgente':'b-urgente','expirado':'b-expirado'};return`<span class="badge ${m[status]||'b-ok'}">${t('status.'+status)}</span>`}
+function fuelBadge(f){const m={'diesel':'b-diesel','gasolina':'b-gasolina','phev':'b-phev','bev':'b-bev'};return`<span class="badge ${m[f]||'b-diesel'}">${t('fuel.'+f)}</span>`}
+function tierBadge(tier){const m={'micro':'b-micro','media':'b-media','grande':'b-grande'};return`<span class="badge ${m[tier]||'b-micro'}">${t('tier.'+tier)}</span>`}
+function serviceBadge(svc){const m={'self':'b-self','hibrido':'b-hibrido','outsourcing':'b-outsourcing'};return`<span class="badge ${m[svc]||'b-self'}">${t('service.'+svc)}</span>`}
+function healthColor(h){return h>=85?'#10b981':h>=70?'#f59e0b':'#ef4444'}
+function healthClass(h){return h>=85?'':h>=70?'warn':'danger'}
+function clientName(id){const c=CLIENTS.find(x=>x.id===id);return c?c.name:'—'}
+function calcTA(v){
+  if(v.fuel==='bev')return 0;
+  const val=v.value;
+  let rate;
+  if(v.fuel==='phev'){rate=val<=27500?.05:val<=35000?.125:.175;}
+  else{rate=val<=27500?.10:val<=35000?.275:.35;}
+  return val*rate;
+}
+function vehiclesFor(clientId){return clientId?VEHICLES.filter(v=>v.clientId===clientId):VEHICLES}
+function destroyCharts(){Object.values(S.charts).forEach(c=>c&&c.destroy&&c.destroy());S.charts={}}
+function todayStr(){return TODAY.toLocaleDateString(S.lang==='pt'?'pt-PT':'en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'})}
+
+// ─────────────────────────────────────────────────────────────
+// AUTH
+// ─────────────────────────────────────────────────────────────
+function loginAs(uid){
+  S.user=USERS.find(u=>u.id===uid);
+  document.getElementById('login-screen').style.display='none';
+  document.getElementById('app').style.display='flex';
+  initApp();
+}
+function loginSubmit(e){
+  e.preventDefault();
+  const email=document.getElementById('login-email').value.toLowerCase();
+  const u=USERS.find(x=>x.email.toLowerCase()===email);
+  if(u){loginAs(u.id)}else{alert('Email não encontrado. Use uma conta de demonstração.')}
+}
+function logout(){
+  destroyCharts();
+  S.user=null;S.page='dashboard';
+  document.getElementById('app').style.display='none';
+  document.getElementById('login-screen').style.display='flex';
+}
+
+// ─────────────────────────────────────────────────────────────
+// NAVIGATION
+// ─────────────────────────────────────────────────────────────
+const PAGE_TITLES = {
+  'dashboard':'nav.dashboard','fleet':'nav.fleet','tco':'nav.tco',
+  'maintenance':'nav.maintenance','fiscal':'nav.fiscal','simulator':'nav.simulator',
+  'reports':'nav.reports','clients':'nav.clients','settings':'nav.settings',
+  'myvehicle':'nav.myvehicle','service':'nav.service',
+};
+
+function navigate(page){
+  if(!S.user)return;
+  if(page==='simulator'&&S.user.role!=='admin')return;
+  destroyCharts();
+  closeSidebar();
+  S.page=page;
+  // Hide all pages
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const el=document.getElementById('pg-'+page);
+  if(el)el.classList.add('active');
+  // Update sidebar active
+  document.querySelectorAll('.nav-item').forEach(n=>{
+    n.classList.toggle('active',n.dataset.page===page);
+  });
+  // Update topbar
+  document.getElementById('topbar-title').textContent=t(PAGE_TITLES[page]||'nav.dashboard');
+  document.getElementById('topbar-badge').innerHTML='';
+  // Render page
+  const renders={'dashboard':renderDashboard,'fleet':renderFleet,'tco':renderTCO,
+    'maintenance':renderMaintenance,'fiscal':renderFiscal,'simulator':renderSimulator,
+    'reports':renderReports,'clients':renderClients,'settings':renderSettings,
+    'myvehicle':renderMyVehicle,'service':renderService};
+  if(renders[page])renders[page]();
+}
+
+function buildSidebarNav(){
+  const u=S.user;
+  const nav=document.getElementById('sidebar-nav');
+  let html='';
+  if(u.role==='driver'){
+    html+=navItem('dashboard','fa-house')
+      +navItem('myvehicle','fa-car')
+      +navItem('service','fa-wrench')
+      +'<div class="nav-sep"></div>'
+      +navItem('settings','fa-gear')
+      +`<div class="nav-item" onclick="logout()" style="margin-top:4px"><i class="fa-solid fa-right-from-bracket" style="width:18px;text-align:center;font-size:1rem"></i><span>${t('nav.logout')}</span></div>`;
+  } else {
+    html+=navItem('dashboard','fa-house')
+      +navItem('fleet','fa-car-side')
+      +navItem('tco','fa-chart-bar')
+      +navItem('maintenance','fa-wrench')
+      +navItem('fiscal','fa-file-invoice')
+      +(u.role==='admin'?navItem('simulator','fa-bolt'):'')
+      +navItem('reports','fa-leaf')
+      +'<div class="nav-sep"></div>';
+    if(u.role==='admin') html+=navItem('clients','fa-users');
+    html+=navItem('settings','fa-gear')
+      +`<div class="nav-item" onclick="logout()" style="margin-top:4px"><i class="fa-solid fa-right-from-bracket" style="width:18px;text-align:center;font-size:1rem"></i><span>${t('nav.logout')}</span></div>`;
+  }
+  nav.innerHTML=html;
+  // Mark active item
+  document.querySelectorAll('.nav-item').forEach(n=>{
+    n.classList.toggle('active',n.dataset.page===S.page);
+  });
+  document.getElementById('user-role-label').textContent=t('role.'+u.role);
+}
+
+function initApp(){
+  const u=S.user;
+  buildSidebarNav();
+  // User strip
+  document.getElementById('user-avatar').textContent=u.initials;
+  document.getElementById('user-name').textContent=u.name;
+  document.getElementById('user-role-label').textContent=t('role.'+u.role);
+  document.getElementById('topbar-avatar').textContent=u.initials;
+  document.getElementById('topbar-name').textContent=u.name;
+  // Notification dot
+  const alerts=getAlerts();
+  document.getElementById('notif-dot').style.display=alerts.length?'block':'none';
+  navigate('dashboard');
+}
+
+function navItem(page,icon){
+  return`<div class="nav-item" data-page="${page}" onclick="navigate('${page}')"><i class="fa-solid ${icon}"></i><span>${t('nav.'+page)}</span></div>`;
+}
+
+// ─────────────────────────────────────────────────────────────
+// ALERTS HELPER
+// ─────────────────────────────────────────────────────────────
+function getAlerts(clientId){
+  const vlist=clientId?VEHICLES.filter(v=>v.clientId===clientId):VEHICLES;
+  const alerts=[];
+  vlist.forEach(v=>{
+    const s=vehicleStatus(v);
+    if(s==='expirado'||s==='urgente'){
+      const ipoS=getStatus(v.ipo),segS=getStatus(v.seguro);
+      if(ipoS==='expirado')alerts.push({type:'expirado',msg:`${v.plate} ${v.brand} ${v.model} — IPO ${ipoS==='expirado'?'EXPIRADO':'urgente'} (${fmtDate(v.ipo)})`,icon:'fa-id-card'});
+      else if(ipoS==='urgente')alerts.push({type:'urgente',msg:`${v.plate} ${v.brand} ${v.model} — IPO em ${daysUntil(v.ipo)} dias (${fmtDate(v.ipo)})`,icon:'fa-id-card'});
+      if(segS==='urgente')alerts.push({type:'urgente',msg:`${v.plate} ${v.brand} ${v.model} — Seguro expira em ${daysUntil(v.seguro)} dias`,icon:'fa-shield-halved'});
+    }
+    if(s==='atencao'){
+      const ipoS=getStatus(v.ipo),segS=getStatus(v.seguro);
+      if(ipoS==='atencao')alerts.push({type:'atencao',msg:`${v.plate} ${v.brand} ${v.model} — IPO em ${daysUntil(v.ipo)} dias`,icon:'fa-id-card'});
+      if(segS==='atencao')alerts.push({type:'atencao',msg:`${v.plate} ${v.brand} ${v.model} — Seguro em ${daysUntil(v.seguro)} dias`,icon:'fa-shield-halved'});
+    }
+  });
+  // TA alert for admin
+  if(!clientId){
+    const iceCount=VEHICLES.filter(v=>v.fuel==='diesel'||v.fuel==='gasolina').length;
+    alerts.push({type:'info',msg:`${iceCount} viaturas ICE com Tributação Autónoma optimizável — poupança estimada de €28.600/ano`,icon:'fa-calculator'});
+  }
+  return alerts.slice(0,5);
+}
+
+// ─────────────────────────────────────────────────────────────
+// DASHBOARD
+// ─────────────────────────────────────────────────────────────
+function renderDashboard(){
+  const u=S.user;
+  if(u.role==='admin')renderDashboardAdmin();
+  else if(u.role==='manager')renderDashboardManager();
+  else renderDashboardDriver();
+}
+
+function renderDashboardAdmin(){
+  const dateStr=todayStr();
+  const alerts=getAlerts();
+  const alertsHtml=alerts.map(a=>`
+    <div class="alert-row al-${a.type==='info'?'info':a.type==='urgente'?'urgente':'atencao'}">
+      <i class="fa-solid ${a.icon}" style="font-size:.9rem;flex-shrink:0;margin-top:2px"></i>
+      <span>${a.msg}</span>
+    </div>`).join('');
+
+  const topClients=CLIENTS.sort((a,b)=>b.vehicles-a.vehicles).slice(0,5);
+  const topClientsRows=topClients.map(c=>`
+    <tr onclick="navigate('clients')">
+      <td><div style="font-weight:600;font-size:.9rem">${c.name}</div></td>
+      <td>${tierBadge(c.tier)}</td>
+      <td>${serviceBadge(c.service)}</td>
+      <td style="font-weight:600">${c.vehicles}</td>
+      <td>
+        <div style="display:flex;align-items:center;gap:8px">
+          <div style="flex:1"><div class="health-bar" style="width:70px"><div class="health-fill ${c.health<70?'danger':c.health<85?'warn':''}" style="width:${c.health}%"></div></div></div>
+          <span style="font-size:.8rem;font-weight:600;color:${healthColor(c.health)}">${c.health}%</span>
+        </div>
+      </td>
+    </tr>`).join('');
+
+  const recentActivity=[
+    {time:'14 mai, 10:32',icon:'fa-plus',color:'#10b981',text:'Nova viatura adicionada — Farmacêutica Centro (23-MN-90 Renault Captur)'},
+    {time:'14 mai, 09:18',icon:'fa-triangle-exclamation',color:'#f59e0b',text:'Alerta IPO — 23-KP-87 VW Transporter (Logística Norte) expirado'},
+    {time:'13 mai, 16:45',icon:'fa-file-invoice',color:'#3b82f6',text:'Radiografia TCO concluída — Construtora Lisboa SA (poupança: €18.400)'},
+    {time:'13 mai, 11:20',icon:'fa-users',color:'#8b5cf6',text:'Novo cliente adicionado — Serviços Porto Lda (6 viaturas, Self-service)'},
+    {time:'12 mai, 15:10',icon:'fa-bolt',color:'#10b981',text:'Simulação BEV/PHEV — Tech Solutions Porto (5 viaturas, poupança €26k/ano)'},
+  ];
+  const activityHtml=recentActivity.map(a=>`
+    <div style="display:flex;gap:12px;padding:10px 0;border-bottom:1px solid #f1f5f9">
+      <div style="width:30px;height:30px;border-radius:6px;background:${a.color}20;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <i class="fa-solid ${a.icon}" style="color:${a.color};font-size:.8rem"></i>
+      </div>
+      <div style="flex:1">
+        <p style="font-size:.9rem;color:#334155;margin:0 0 2px">${a.text}</p>
+        <p style="font-size:.7rem;color:#94a3b8;margin:0">${a.time}</p>
+      </div>
+    </div>`).join('');
+
+  document.getElementById('dash-content').innerHTML=`
+    <div class="pg-hdr">
+      <h1 class="pg-title">${t('dash.welcome.m')}, ${S.user.name.split(' ')[0]}! 👋</h1>
+      <p class="pg-sub">${t('dash.subtitle.admin',{date:dateStr})}</p>
+    </div>
+
+    <div class="kpi-grid kpi-5">
+      <div class="kpi-card">
+        <div class="kpi-icon" style="background:#ecfdf5"><i class="fa-solid fa-users" style="color:#10b981"></i></div>
+        <div class="kpi-label">${t('dash.active_clients')}</div>
+        <div class="kpi-value">12</div>
+        <div class="kpi-change pos"><i class="fa-solid fa-arrow-up" style="font-size:.7rem"></i> +2 este mês</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icon" style="background:#dbeafe"><i class="fa-solid fa-car-side" style="color:#3b82f6"></i></div>
+        <div class="kpi-label">${t('dash.vehicles')}</div>
+        <div class="kpi-value">261</div>
+        <div class="kpi-change pos"><i class="fa-solid fa-arrow-up" style="font-size:.7rem"></i> +18 este mês</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icon" style="background:#ede9fe"><i class="fa-solid fa-route" style="color:#8b5cf6"></i></div>
+        <div class="kpi-label">${t('dash.km')}</div>
+        <div class="kpi-value">2,8M</div>
+        <div class="kpi-change pos"><i class="fa-solid fa-arrow-up" style="font-size:.7rem"></i> +14% vs 2025</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icon" style="background:#ecfdf5"><i class="fa-solid fa-piggy-bank" style="color:#10b981"></i></div>
+        <div class="kpi-label">${t('dash.savings')}</div>
+        <div class="kpi-value">€86k</div>
+        <div class="kpi-change pos"><i class="fa-solid fa-arrow-up" style="font-size:.7rem"></i> +€12k este mês</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icon" style="background:#fef3c7"><i class="fa-solid fa-star" style="color:#f59e0b"></i></div>
+        <div class="kpi-label">${t('dash.nps')}</div>
+        <div class="kpi-value">67</div>
+        <div class="kpi-change pos"><i class="fa-solid fa-arrow-up" style="font-size:.7rem"></i> +12 pts vs Q1</div>
+      </div>
+    </div>
+
+    <div class="g2" style="margin-bottom:20px">
+      <div class="card">
+        <div class="card-header"><span class="card-title"><i class="fa-solid fa-chart-pie" style="color:#10b981;margin-right:6px"></i>${t('dash.fleet_comp')}</span></div>
+        <div class="card-body"><div class="chart-wrap"><canvas id="chart-fleet-comp"></canvas></div></div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="card-title"><i class="fa-solid fa-chart-line" style="color:#3b82f6;margin-right:6px"></i>${t('dash.cost_ev')}</span></div>
+        <div class="card-body"><div class="chart-wrap"><canvas id="chart-cost-ev"></canvas></div></div>
+      </div>
+    </div>
+
+    <div class="g2">
+      <div class="tbl-wrap">
+        <div class="card-header"><span class="card-title"><i class="fa-solid fa-trophy" style="color:#f59e0b;margin-right:6px"></i>${t('dash.top_clients')}</span><button class="btn btn-sec btn-sm" onclick="navigate('clients')">${t('dash.view_all')}</button></div>
+        <table class="data-tbl">
+          <thead><tr><th>Cliente</th><th>Segmento</th><th>Serviço</th><th>Viaturas</th><th>Saúde</th></tr></thead>
+          <tbody>${topClientsRows}</tbody>
+        </table>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="card-title"><i class="fa-solid fa-clock-rotate-left" style="color:#64748b;margin-right:6px"></i>${t('dash.recent')}</span></div>
+        <div class="card-body" style="padding:8px 16px">${activityHtml}</div>
+      </div>
+    </div>`;
+
+  // Charts
+  setTimeout(()=>{
+    const gColors=['#10b981','#8b5cf6','#64748b','#f59e0b'];
+    S.charts.fleetComp=new Chart(document.getElementById('chart-fleet-comp'),{
+      type:'doughnut',
+      data:{labels:['Elétrico (BEV)','PHEV','Diesel','Gasolina'],datasets:[{data:[26,38,145,52],backgroundColor:gColors,borderWidth:2,borderColor:'#fff'}]},
+      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{font:{family:'Poppins',size:9},padding:5}},tooltip:{callbacks:{label:c=>`${c.label}: ${c.raw} viaturas (${Math.round(c.raw/261*100)}%)`}}}}
+    });
+    S.charts.costEv=new Chart(document.getElementById('chart-cost-ev'),{
+      type:'line',
+      data:{labels:['Jan','Fev','Mar','Abr','Mai'],datasets:[{label:'TCO Total',data:[158200,161400,155800,162900,164300],borderColor:'#10b981',backgroundColor:'rgba(16,185,129,.08)',fill:true,tension:.4,pointRadius:4,pointBackgroundColor:'#10b981'},{label:'Poupança',data:[14200,15600,13800,16400,17200],borderColor:'#3b82f6',backgroundColor:'rgba(59,130,246,.06)',fill:true,tension:.4,pointRadius:4,pointBackgroundColor:'#3b82f6'}]},
+      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font:{family:'Poppins',size:9}}}},scales:{y:{ticks:{callback:v=>'€'+v.toLocaleString('pt-PT'),font:{family:'Poppins',size:8}},grid:{color:'#f1f5f9'}},x:{grid:{display:false},ticks:{font:{family:'Poppins',size:8}}}}}
+    });
+  },50);
+}
+
+function renderDashboardManager(){
+  const u=S.user;
+  const client=CLIENTS.find(c=>c.id===u.clientId);
+  const vlist=VEHICLES.filter(v=>v.clientId===u.clientId);
+  const alerts=getAlerts(u.clientId);
+  const dateStr=todayStr();
+
+  const urgCount=vlist.filter(v=>vehicleStatus(v)==='urgente'||vehicleStatus(v)==='expirado').length;
+  const bev=vlist.filter(v=>v.fuel==='bev').length;
+  const phev=vlist.filter(v=>v.fuel==='phev').length;
+  const diesel=vlist.filter(v=>v.fuel==='diesel').length;
+  const gas=vlist.filter(v=>v.fuel==='gasolina').length;
+
+  const alertsHtml=alerts.map(a=>`
+    <div class="alert-row al-${a.type==='info'?'info':a.type==='urgente'?'urgente':'atencao'}">
+      <i class="fa-solid ${a.icon}" style="font-size:.9rem;flex-shrink:0;margin-top:2px"></i>
+      <span>${a.msg}</span>
+    </div>`).join('');
+
+  // Upcoming maintenance table
+  const upcomingMaint=MAINTENANCE.filter(m=>m.clientId===u.clientId&&m.status==='pending')
+    .sort((a,b)=>new Date(a.date)-new Date(b.date)).slice(0,5);
+  const maintRows=upcomingMaint.map(m=>{
+    const v=VEHICLES.find(x=>x.id===m.vehicleId)||{};
+    const days=daysUntil(m.date);
+    const sClass=days<0?'b-expirado':days<30?'b-urgente':days<60?'b-atencao':'b-ok';
+    const sLabel=days<0?t('status.expirado'):days<30?t('status.urgente'):days<60?t('status.atencao'):t('status.ok');
+    return`<tr><td><span style="font-weight:600">${v.plate||''}</span> ${v.brand||''} ${v.model||''}</td><td>${m.type}</td><td>${fmtDate(m.date)}</td><td>${fmtEur(m.cost)}</td><td><span class="badge ${sClass}">${sLabel}</span></td></tr>`;
+  }).join('');
+
+  document.getElementById('dash-content').innerHTML=`
+    <div class="pg-hdr">
+      <h1 class="pg-title">${t('dash.welcome.f')}, ${u.name.split(' ')[0]}! 👋</h1>
+      <p class="pg-sub">${t('dash.subtitle.manager',{client:client?client.name:'',date:dateStr})}</p>
+    </div>
+
+    <div class="kpi-grid kpi-4">
+      <div class="kpi-card">
+        <div class="kpi-icon" style="background:#dbeafe"><i class="fa-solid fa-car-side" style="color:#3b82f6"></i></div>
+        <div class="kpi-label">Total de Viaturas</div>
+        <div class="kpi-value">${vlist.length}</div>
+        <div class="kpi-change neu">${serviceBadge(client?client.service:'self')}</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icon" style="background:#fee2e2"><i class="fa-solid fa-triangle-exclamation" style="color:#ef4444"></i></div>
+        <div class="kpi-label">Alertas Ativos</div>
+        <div class="kpi-value">${urgCount}</div>
+        <div class="kpi-change ${urgCount>0?'neg':'pos'}">${urgCount>0?'Requerem atenção imediata':'Tudo em ordem'}</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icon" style="background:#ecfdf5"><i class="fa-solid fa-piggy-bank" style="color:#10b981"></i></div>
+        <div class="kpi-label">Poupança TCO Ident.</div>
+        <div class="kpi-value">€31.4k</div>
+        <div class="kpi-change pos">18,6% do TCO anual</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icon" style="background:#ede9fe"><i class="fa-solid fa-bolt" style="color:#8b5cf6"></i></div>
+        <div class="kpi-label">Frota Eletrificada</div>
+        <div class="kpi-value">${Math.round((bev+phev)/vlist.length*100)}%</div>
+        <div class="kpi-change pos">${bev} BEV + ${phev} PHEV</div>
+      </div>
+    </div>
+
+    <div class="g2">
+      <div class="card">
+        <div class="card-header"><span class="card-title"><i class="fa-solid fa-chart-pie" style="color:#10b981;margin-right:6px"></i>${t('dash.fleet_comp')}</span></div>
+        <div class="card-body"><div class="chart-wrap"><canvas id="chart-mgr-comp"></canvas></div></div>
+      </div>
+      <div class="tbl-wrap">
+        <div class="card-header"><span class="card-title"><i class="fa-solid fa-wrench" style="color:#64748b;margin-right:6px"></i>${t('dash.upcoming_maint')}</span><button class="btn btn-sec btn-sm" onclick="navigate('maintenance')">${t('dash.view_all')}</button></div>
+        <table class="data-tbl">
+          <thead><tr><th>Viatura</th><th>Tipo</th><th>Data</th><th>Custo</th><th>Estado</th></tr></thead>
+          <tbody>${maintRows||'<tr><td colspan="5" style="text-align:center;color:#94a3b8;padding:20px">Sem manutenções pendentes</td></tr>'}</tbody>
+        </table>
+      </div>
+    </div>`;
+
+  setTimeout(()=>{
+    S.charts.mgrComp=new Chart(document.getElementById('chart-mgr-comp'),{
+      type:'doughnut',
+      data:{labels:['Elétrico (BEV)','PHEV','Diesel','Gasolina'],datasets:[{data:[bev,phev,diesel,gas],backgroundColor:['#3b82f6','#8b5cf6','#64748b','#f59e0b'],borderWidth:2,borderColor:'#fff'}]},
+      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{font:{family:'Poppins',size:9},padding:5}},tooltip:{callbacks:{label:c=>`${c.label}: ${c.raw} viaturas`}}}}
+    });
+  },50);
+}
+
+function renderDashboardDriver(){
+  const u=S.user;
+  const v=VEHICLES.find(x=>x.id===u.vehicleId);
+  if(!v){document.getElementById('dash-content').innerHTML='<div class="empty-state"><i class="fa-solid fa-car"></i><p>Sem viatura atribuída.</p></div>';return;}
+  const ipoS=getStatus(v.ipo),segS=getStatus(v.seguro),revS=getStatus(v.revisao);
+  const dateStr=todayStr();
+  document.getElementById('dash-content').innerHTML=`
+    <div class="pg-hdr">
+      <h1 class="pg-title">${t('dash.welcome.m')}, ${u.name.split(' ')[0]}! 👋</h1>
+      <p class="pg-sub">${t('dash.subtitle.driver',{date:dateStr})}</p>
+    </div>
+    <div class="v-hero">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;gap:8px">
+        <div style="min-width:0">
+          <div style="font-size:.72rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#64748b;margin-bottom:3px">A Minha Viatura</div>
+          <div class="v-hero-brand" style="font-size:1.4rem;font-weight:700;word-break:break-word">${v.brand} ${v.model}</div>
+          <div class="v-hero-plate" style="font-size:.9rem;color:#94a3b8;margin-top:2px">${v.plate}</div>
+        </div>
+        <div style="flex-shrink:0">${fuelBadge(v.fuel)}</div>
+      </div>
+      <div class="v-hero-stats" style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+        <div style="background:rgba(255,255,255,.06);border-radius:8px;padding:10px">
+          <div style="font-size:.65rem;color:#94a3b8;margin-bottom:3px">km Atual</div>
+          <div class="v-hero-stat-val" style="font-size:.95rem;font-weight:700">${fmtNum(v.km)} km</div>
+        </div>
+        <div style="background:rgba(255,255,255,.06);border-radius:8px;padding:10px">
+          <div style="font-size:.65rem;color:#94a3b8;margin-bottom:3px">Renting/mês</div>
+          <div class="v-hero-stat-val" style="font-size:.95rem;font-weight:700">${fmtEur(v.monthly)}</div>
+        </div>
+        <div style="background:rgba(255,255,255,.06);border-radius:8px;padding:10px">
+          <div style="font-size:.65rem;color:#94a3b8;margin-bottom:3px">Valor Aquisição</div>
+          <div class="v-hero-stat-val" style="font-size:.95rem;font-weight:700">${fmtEur(v.value)}</div>
+        </div>
+      </div>
+    </div>
+    <div class="kpi-grid kpi-3">
+      <div class="kpi-card">
+        <div class="kpi-icon" style="background:${ipoS==='ok'?'#ecfdf5':ipoS==='atencao'?'#fef3c7':'#fee2e2'}"><i class="fa-solid fa-id-card" style="color:${ipoS==='ok'?'#10b981':ipoS==='atencao'?'#f59e0b':'#ef4444'}"></i></div>
+        <div class="kpi-label">IPO</div>
+        <div class="kpi-value" style="font-size:1rem">${fmtDate(v.ipo)}</div>
+        <div style="margin-top:6px">${badge(ipoS)}</div>
+        ${daysUntil(v.ipo)>0?`<div class="kpi-change neu" style="margin-top:4px">em ${daysUntil(v.ipo)} dias</div>`:''}
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icon" style="background:${segS==='ok'?'#ecfdf5':segS==='atencao'?'#fef3c7':'#fee2e2'}"><i class="fa-solid fa-shield-halved" style="color:${segS==='ok'?'#10b981':segS==='atencao'?'#f59e0b':'#ef4444'}"></i></div>
+        <div class="kpi-label">Seguro</div>
+        <div class="kpi-value" style="font-size:1rem">${fmtDate(v.seguro)}</div>
+        <div style="margin-top:6px">${badge(segS)}</div>
+        ${daysUntil(v.seguro)>0?`<div class="kpi-change neu" style="margin-top:4px">em ${daysUntil(v.seguro)} dias</div>`:''}
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icon" style="background:${revS==='ok'?'#ecfdf5':revS==='atencao'?'#fef3c7':'#fee2e2'}"><i class="fa-solid fa-wrench" style="color:${revS==='ok'?'#10b981':revS==='atencao'?'#f59e0b':'#ef4444'}"></i></div>
+        <div class="kpi-label">Próx. Revisão</div>
+        <div class="kpi-value" style="font-size:1rem">${fmtDate(v.revisao)}</div>
+        <div style="margin-top:6px">${badge(revS)}</div>
+        ${daysUntil(v.revisao)>0?`<div class="kpi-change neu" style="margin-top:4px">em ${daysUntil(v.revisao)} dias</div>`:''}
+      </div>
+    </div>
+    <div class="mob-btn-wrap" style="margin-top:10px">
+      <button class="btn btn-primary" onclick="navigate('service')"><i class="fa-solid fa-wrench"></i> Pedido de Serviço</button>
+      <button class="btn btn-sec" onclick="navigate('myvehicle')"><i class="fa-solid fa-car"></i> Ver Detalhes da Viatura</button>
+    </div>`;
+}
+
+// ─────────────────────────────────────────────────────────────
+// FLEET
+// ─────────────────────────────────────────────────────────────
+function renderFleet(){
+  const u=S.user,isAdmin=u.role==='admin';
+  const baseVehicles=isAdmin?VEHICLES:VEHICLES.filter(v=>v.clientId===u.clientId);
+  const clientOpts=isAdmin?'<option value="all">'+t('fleet.all_clients')+'</option>'+CLIENTS.map(c=>`<option value="${c.id}">${c.name}</option>`).join(''):'';
+  const html=`
+    <div class="pg-hdr pg-hdr-row" style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--sp-3)">
+      <div style="min-width:0">
+        <h1 class="pg-title">${t('fleet.title')}</h1>
+        <p class="pg-sub">${baseVehicles.length} ${t('common.vehicles')} ${isAdmin?'· '+CLIENTS.length+' clientes':'· '+(CLIENTS.find(c=>c.id===u.clientId)||{name:''}).name}</p>
+      </div>
+      <button class="btn btn-primary" style="flex-shrink:0" onclick="openAddVehicleModal()"><i class="fa-solid fa-plus"></i> ${t('fleet.add')}</button>
+    </div>
+    <div class="fbar">
+      <input type="text" class="form-input" id="fleet-search" placeholder="${t('fleet.search')}" oninput="S.fleetFilter.search=this.value;buildFleetTable()" value="${S.fleetFilter.search}">
+      ${isAdmin?`<select class="form-select" id="fleet-client" onchange="S.fleetFilter.client=this.value;buildFleetTable()">${clientOpts}</select>`:''}
+      <select class="form-select" id="fleet-fuel" onchange="S.fleetFilter.fuel=this.value;buildFleetTable()">
+        <option value="all">${t('fleet.all_fuel')}</option>
+        <option value="bev">${t('fuel.bev')}</option><option value="phev">${t('fuel.phev')}</option>
+        <option value="diesel">${t('fuel.diesel')}</option><option value="gasolina">${t('fuel.gasolina')}</option>
+      </select>
+      <select class="form-select" id="fleet-status" onchange="S.fleetFilter.status=this.value;buildFleetTable()">
+        <option value="all">${t('fleet.all_status')}</option>
+        <option value="ok">${t('status.ok')}</option><option value="atencao">${t('status.atencao')}</option>
+        <option value="urgente">${t('status.urgente')}</option><option value="expirado">${t('status.expirado')}</option>
+      </select>
+      <span id="fleet-count" style="font-size:.8rem;color:#64748b;font-weight:500;margin-left:auto"></span>
+    </div>
+    <div class="tbl-wrap">
+      <table class="data-tbl">
+        <thead><tr>
+          <th>${t('fleet.plate')}</th><th>${t('fleet.vehicle')}</th><th>${t('fleet.driver')}</th>
+          ${isAdmin?`<th>${t('fleet.client')}</th>`:''}
+          <th>${t('fleet.fuel')}</th><th>${t('fleet.km')}</th><th>Combustível</th>
+          <th>${t('fleet.ipo')}</th><th>${t('fleet.seguro')}</th><th>${t('fleet.status')}</th><th></th>
+        </tr></thead>
+        <tbody id="fleet-tbody"></tbody>
+      </table>
+    </div>`;
+  document.getElementById('fleet-content').innerHTML=html;
+  if(isAdmin){const cs=document.getElementById('fleet-client');if(cs)cs.value=S.fleetFilter.client;}
+  const fs=document.getElementById('fleet-fuel');if(fs)fs.value=S.fleetFilter.fuel;
+  const ss=document.getElementById('fleet-status');if(ss)ss.value=S.fleetFilter.status;
+  buildFleetTable();
+}
+
+function buildFleetTable(){
+  const u=S.user,isAdmin=u.role==='admin';
+  let vehicles=isAdmin?VEHICLES:VEHICLES.filter(v=>v.clientId===u.clientId);
+  const f=S.fleetFilter;
+  if(f.client!=='all')vehicles=vehicles.filter(v=>v.clientId===parseInt(f.client));
+  if(f.fuel!=='all')vehicles=vehicles.filter(v=>v.fuel===f.fuel);
+  if(f.status!=='all')vehicles=vehicles.filter(v=>vehicleStatus(v)===f.status);
+  if(f.search){const q=f.search.toLowerCase();vehicles=vehicles.filter(v=>v.plate.toLowerCase().includes(q)||v.brand.toLowerCase().includes(q)||v.model.toLowerCase().includes(q)||v.driver.toLowerCase().includes(q));}
+  const countEl=document.getElementById('fleet-count');
+  if(countEl)countEl.textContent=vehicles.length+' '+t('common.vehicles');
+  const tbody=document.getElementById('fleet-tbody');
+  if(!tbody)return;
+  if(!vehicles.length){tbody.innerHTML=`<tr><td colspan="${isAdmin?11:10}" style="text-align:center;color:#94a3b8;padding:30px">Nenhuma viatura encontrada</td></tr>`;return;}
+  tbody.innerHTML=vehicles.map(v=>{
+    const st=vehicleStatus(v),ipoS=getStatus(v.ipo),segS=getStatus(v.seguro);
+    const fuelCell=v.fuel==='bev'
+      ?`<span style="font-size:.75rem;color:#10b981;display:flex;align-items:center;gap:3px"><i class="fa-solid fa-bolt"></i> Elétrico</span>`
+      :v.fuelCardProvider
+        ?`<div style="font-size:.75rem;color:#64748b">${v.consumption} l/100km</div><div style="font-size:.7rem;background:#fef9c3;color:#92400e;padding:1px 5px;border-radius:4px;margin-top:2px;display:inline-block">${v.fuelCardProvider}</div>`
+        :`<div style="font-size:.75rem;color:#64748b">${v.consumption} l/100km</div>`;
+    return`<tr onclick="openVehicleModal(${v.id})" style="cursor:pointer">
+      <td><span style="font-weight:600;color:#0f172a">${v.plate}</span></td>
+      <td><span style="font-weight:500">${v.brand} ${v.model}</span></td>
+      <td style="color:#64748b">${v.driver}</td>
+      ${isAdmin?`<td style="color:#64748b;font-size:.8rem">${clientName(v.clientId)}</td>`:''}
+      <td>${fuelBadge(v.fuel)}</td>
+      <td style="font-size:.9rem">${fmtNum(v.km)} km</td>
+      <td>${fuelCell}</td>
+      <td><div style="font-size:.8rem">${fmtDate(v.ipo)}</div><div style="margin-top:2px">${badge(ipoS)}</div></td>
+      <td><div style="font-size:.8rem">${fmtDate(v.seguro)}</div><div style="margin-top:2px">${badge(segS)}</div></td>
+      <td>${badge(st)}</td>
+      <td><button class="btn btn-sec btn-sm" onclick="event.stopPropagation();openVehicleModal(${v.id})"><i class="fa-solid fa-eye"></i></button></td>
+    </tr>`;
+  }).join('');
+}
+
+function openVehicleModal(id){
+  const v=VEHICLES.find(x=>x.id===id);if(!v)return;
+  const ipoS=getStatus(v.ipo),segS=getStatus(v.seguro),revS=getStatus(v.revisao),ta=calcTA(v);
+  const body=`
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px;padding:16px;background:#f8fafc;border-radius:10px">
+      <div style="width:48px;height:48px;border-radius:10px;background:#0f172a;display:flex;align-items:center;justify-content:center;flex-shrink:0">
+        <i class="fa-solid fa-car-side" style="color:#10b981;font-size:1rem"></i>
+      </div>
+      <div>
+        <div style="font-size:1rem;font-weight:700;color:#0f172a">${v.brand} ${v.model}</div>
+        <div style="font-size:.9rem;color:#64748b">${v.plate} &nbsp;${fuelBadge(v.fuel)}</div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
+      <div style="padding:11px;background:#f8fafc;border-radius:10px"><div style="font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#94a3b8;margin-bottom:3px">Condutor</div><div style="font-size:.9rem;font-weight:600;color:#0f172a">${v.driver}</div></div>
+      <div style="padding:11px;background:#f8fafc;border-radius:10px"><div style="font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#94a3b8;margin-bottom:3px">km Atual</div><div style="font-size:.9rem;font-weight:600;color:#0f172a">${fmtNum(v.km)} km</div></div>
+      <div style="padding:11px;background:#f8fafc;border-radius:10px"><div style="font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#94a3b8;margin-bottom:3px">Valor Aquisição</div><div style="font-size:.9rem;font-weight:600;color:#0f172a">${fmtEur(v.value)}</div></div>
+      <div style="padding:11px;background:#f8fafc;border-radius:10px"><div style="font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#94a3b8;margin-bottom:3px">Renting/mês</div><div style="font-size:.9rem;font-weight:600;color:#0f172a">${fmtEur(v.monthly)}/mês</div></div>
+    </div>
+    <div style="margin-bottom:14px">
+      <div style="font-size:.7rem;font-weight:600;color:#475569;margin-bottom:8px;letter-spacing:.04em">DOCUMENTOS & DATAS</div>
+      ${[['fa-id-card','IPO',v.ipo,ipoS],['fa-shield-halved','Seguro',v.seguro,segS],['fa-wrench','Próx. Revisão',v.revisao,revS]].map(([ico,lbl,date,st])=>`
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:9px 13px;background:#f8fafc;border-radius:10px;margin-bottom:6px">
+        <div style="display:flex;align-items:center;gap:8px"><i class="fa-solid ${ico}" style="color:#64748b;font-size:.8rem;width:16px;text-align:center"></i><span style="font-size:.9rem;font-weight:500">${lbl}</span></div>
+        <div style="display:flex;align-items:center;gap:6px"><span style="font-size:.8rem;color:#64748b">${fmtDate(date)}</span>${badge(st)}${daysUntil(date)>0?`<span style="font-size:.7rem;color:#94a3b8">em ${daysUntil(date)}d</span>`:''}</div>
+      </div>`).join('')}
+    </div>
+    ${ta>0
+      ?`<div style="padding:11px 14px;background:#ecfdf5;border:1px solid #a7f3d0;border-radius:10px;display:flex;align-items:center;justify-content:space-between"><div style="display:flex;align-items:center;gap:8px"><i class="fa-solid fa-calculator" style="color:#10b981"></i><span style="font-size:.9rem;font-weight:500;color:#065f46">Tributação Autónoma estimada</span></div><span style="font-size:1rem;font-weight:700;color:#065f46">${fmtEur(ta)}/ano</span></div>`
+      :`<div style="padding:11px 14px;background:#ecfdf5;border:1px solid #a7f3d0;border-radius:10px;display:flex;align-items:center;gap:8px"><i class="fa-solid fa-bolt" style="color:#10b981"></i><span style="font-size:.9rem;color:#065f46;font-weight:500">Isento de Tributação Autónoma (BEV)</span></div>`}
+    <div style="margin-top:14px">
+      <div style="font-size:.7rem;font-weight:600;color:#475569;margin-bottom:8px;letter-spacing:.04em">CONTRATO & CARTÃO COMBUSTÍVEL</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
+        <div style="padding:11px;background:#f8fafc;border-radius:10px">
+          <div style="font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#94a3b8;margin-bottom:3px">Tipo Contrato</div>
+          <div style="font-size:.9rem;font-weight:600;color:#0f172a"><span style="background:#e0f2fe;color:#0369a1;padding:2px 8px;border-radius:9999px;font-size:.75rem;font-weight:700;text-transform:uppercase">${v.contractType}</span></div>
+        </div>
+        <div style="padding:11px;background:#f8fafc;border-radius:10px">
+          <div style="font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#94a3b8;margin-bottom:3px">Fim Contrato</div>
+          <div style="font-size:.9rem;font-weight:600;color:#0f172a">${fmtDate(v.contractEnd)}</div>
+        </div>
+      </div>
+      ${v.fuelCardProvider?`
+      <div style="padding:12px 14px;background:#fefce8;border:1px solid #fef08a;border-radius:10px;margin-bottom:8px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+          <div style="display:flex;align-items:center;gap:6px"><i class="fa-solid fa-credit-card" style="color:#ca8a04;font-size:.85rem"></i><span style="font-size:.85rem;font-weight:700;color:#854d0e">Cartão ${v.fuelCardProvider}</span></div>
+          <span style="font-size:.75rem;color:#92400e">Plafond: <b>${fmtEur(v.fuelCardPlafond)}/mês</b></span>
+        </div>
+        <div style="height:6px;background:#fef9c3;border-radius:3px;overflow:hidden;margin-bottom:6px">
+          <div style="height:100%;width:${Math.min(100,Math.round(v.fuelCardUsed/v.fuelCardPlafond*100))}%;background:${v.fuelCardUsed/v.fuelCardPlafond>.85?'#ef4444':v.fuelCardUsed/v.fuelCardPlafond>.6?'#f59e0b':'#10b981'};border-radius:3px;transition:width .4s"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:.75rem;color:#92400e">
+          <span>Usado: <b>${fmtEur(v.fuelCardUsed)}</b></span>
+          <span>Restante: <b>${fmtEur(v.fuelCardPlafond-v.fuelCardUsed)}</b></span>
+        </div>
+      </div>`:'<div style="padding:11px 14px;background:#f8fafc;border-radius:10px;font-size:.8rem;color:#64748b;margin-bottom:8px"><i class="fa-solid fa-bolt" style="margin-right:6px;color:#10b981"></i>Viatura elétrica — sem cartão combustível</div>'}
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+        <div style="padding:11px;background:#f8fafc;border-radius:10px">
+          <div style="font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#94a3b8;margin-bottom:3px">Consumo Médio</div>
+          <div style="font-size:.95rem;font-weight:700;color:#0f172a">${v.consumption} ${v.fuel==='bev'?'kWh/100km':'l/100km'}</div>
+        </div>
+        <div style="padding:0;border-radius:10px;overflow:hidden;background:#f1f5f9;display:flex;align-items:center;justify-content:center;min-height:52px;position:relative">
+          <div style="text-align:center">
+            <i class="fa-solid fa-car" style="color:#94a3b8;font-size:1.4rem;display:block;margin-bottom:2px"></i>
+            <div style="font-size:.65rem;color:#94a3b8">Sem foto</div>
+          </div>
+          <div style="position:absolute;top:4px;right:4px">${fuelBadge(v.fuel)}</div>
+        </div>
+      </div>
+    </div>`;
+  openModal(`${v.brand} ${v.model} — ${v.plate}`,body,`<button class="btn btn-sec" onclick="closeModal()">${t('common.close')}</button>`);
+}
+
+function openAddVehicleModal(){
+  const cOpts=S.user.role==='admin'?CLIENTS.map(c=>`<option value="${c.id}">${c.name}</option>`).join(''):`<option value="${S.user.clientId}">${clientName(S.user.clientId)}</option>`;
+  const body=`
+    <div class="g2" style="gap:12px">
+      <div><label class="form-label">Matrícula</label><input type="text" class="form-input" placeholder="00-AB-00"></div>
+      <div><label class="form-label">Marca</label><input type="text" class="form-input" placeholder="Ex: Volkswagen"></div>
+      <div><label class="form-label">Modelo</label><input type="text" class="form-input" placeholder="Ex: Transporter"></div>
+      <div><label class="form-label">Combustível</label><select class="form-select"><option value="diesel">Diesel</option><option value="gasolina">Gasolina</option><option value="phev">PHEV</option><option value="bev">Elétrico (BEV)</option></select></div>
+      <div><label class="form-label">Condutor</label><input type="text" class="form-input" placeholder="Nome do condutor"></div>
+      <div><label class="form-label">Cliente</label><select class="form-select">${cOpts}</select></div>
+      <div><label class="form-label">Valor Aquisição (€)</label><input type="number" class="form-input" placeholder="Ex: 35000"></div>
+      <div><label class="form-label">Renting Mensal (€)</label><input type="number" class="form-input" placeholder="Ex: 650"></div>
+    </div>
+    <div style="margin-top:12px;padding:10px 13px;background:#eff6ff;border-radius:6px;font-size:.8rem;color:#1e40af"><i class="fa-solid fa-circle-info" style="margin-right:6px"></i>Demonstração — dados não persistidos.</div>`;
+  openModal(t('fleet.add'),body,`<button class="btn btn-sec" onclick="closeModal()">${t('common.cancel')}</button><button class="btn btn-primary" onclick="closeModal()"><i class="fa-solid fa-plus"></i> Adicionar</button>`);
+}
+
+// ─────────────────────────────────────────────────────────────
+// TCO
+// ─────────────────────────────────────────────────────────────
+function renderTCO(){
+  const u=S.user,isAdmin=u.role==='admin';
+  const clientId=isAdmin?S.tcoClientId:u.clientId;
+  const client=CLIENTS.find(c=>c.id===clientId);
+  const vlist=VEHICLES.filter(v=>v.clientId===clientId);
+  const rentingAnnual=vlist.reduce((s,v)=>s+v.monthly*12,0);
+  const fuelCost=vlist.reduce((s,v)=>{const r=v.km/15000;return s+(v.fuel==='bev'?400*r:v.fuel==='phev'?900*r:v.fuel==='diesel'?1800*r:2100*r);},0);
+  const maintCost=vlist.reduce((s,v)=>s+(v.fuel==='bev'?350:v.fuel==='phev'?580:820),0);
+  const iucCost=FISCAL.iuc.filter(x=>x.clientId===clientId).reduce((s,x)=>s+x.amount,0);
+  const ipoCost=FISCAL.ipo.filter(x=>x.clientId===clientId).reduce((s,x)=>s+x.amount,0);
+  const segurosCost=FISCAL.seguros.filter(x=>x.clientId===clientId).reduce((s,x)=>s+x.amount,0);
+  const taCost=vlist.reduce((s,v)=>s+calcTA(v),0);
+  const totalTCO=rentingAnnual+fuelCost+maintCost+iucCost+ipoCost+segurosCost+taCost;
+  const iceVeh=vlist.filter(v=>v.fuel==='diesel'||v.fuel==='gasolina');
+  const taSavings=iceVeh.reduce((s,v)=>s+calcTA(v),0);
+  const fuelSavings=iceVeh.reduce((s,v)=>{const r=v.km/15000;return s+((v.fuel==='diesel'?1800:2100)*r-400*r);},0)*0.5;
+  const maintSavings=iceVeh.reduce((s)=>s+(820-350),0)*0.5;
+  const totalSavings=taSavings*0.4+fuelSavings+maintSavings;
+  const cOpts=CLIENTS.map(c=>`<option value="${c.id}"${c.id===clientId?' selected':''}>${c.name}</option>`).join('');
+  const opps=[
+    {icon:'fa-bolt',color:'#10b981',title:'Eletrificação da Frota',desc:`${iceVeh.length} viaturas ICE elegíveis para conversão BEV/PHEV`,saving:taSavings*0.4+fuelSavings+maintSavings},
+    {icon:'fa-calculator',color:'#3b82f6',title:'Otimização Tributação Autónoma',desc:`Redução de ${fmtEur(taCost)} em TA via BEV/PHEV (CIRC Art. 88)`,saving:taCost*0.6},
+    {icon:'fa-handshake',color:'#8b5cf6',title:'Renegociação Renting',desc:'Contratos com potencial de renegociação identificados',saving:rentingAnnual*0.03},
+    {icon:'fa-shield-halved',color:'#f59e0b',title:'Revisão de Seguros',desc:'Cobertura excessiva em viaturas identificada',saving:segurosCost*0.08},
+  ].sort((a,b)=>b.saving-a.saving);
+  const html=`
+    <div class="pg-hdr pg-hdr-row" style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--sp-3)">
+      <div>
+        <h1 class="pg-title">${t('tco.title')}</h1>
+        <p class="pg-sub">${client?client.name:''} &middot; ${vlist.length} ${t('common.vehicles')}</p>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px">
+        ${isAdmin?`<select class="form-select" onchange="S.tcoClientId=parseInt(this.value);renderTCO()">${cOpts}</select>`:''}
+        <button class="btn btn-sec"><i class="fa-solid fa-file-export"></i> ${t('common.export')}</button>
+      </div>
+    </div>
+    <div class="kpi-grid kpi-3" style="margin-bottom:20px">
+      <div class="kpi-card" style="border-left:4px solid #0f172a">
+        <div class="kpi-label">${t('tco.annual')}</div>
+        <div class="kpi-value">${fmtEur(totalTCO)}</div>
+        <div class="kpi-change neu">${fmtEur(Math.round(totalTCO/vlist.length))} ${t('tco.per_vehicle')}</div>
+      </div>
+      <div class="kpi-card" style="border-left:4px solid #ef4444">
+        <div class="kpi-label">${t('tco.ta')}</div>
+        <div class="kpi-value">${fmtEur(taCost)}</div>
+        <div class="kpi-change neg">CIRC Art. 88 &mdash; ${Math.round(taCost/totalTCO*100)}% do TCO</div>
+      </div>
+      <div class="kpi-card" style="border-left:4px solid #10b981">
+        <div class="kpi-label">${t('tco.savings')}</div>
+        <div class="kpi-value" style="color:#10b981">${fmtEur(totalSavings)}</div>
+        <div class="kpi-change pos">Poupança anual potencial</div>
+      </div>
+    </div>
+    <div class="g21">
+      <div class="card">
+        <div class="card-header"><span class="card-title"><i class="fa-solid fa-chart-pie" style="color:#10b981;margin-right:6px"></i>${t('tco.breakdown')}</span></div>
+        <div class="card-body">
+          <div class="chart-sm"><canvas id="chart-tco-break"></canvas></div>
+          <div style="margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:8px">
+            ${[['Renting/Leasing',rentingAnnual,'#3b82f6'],['Combustível',fuelCost,'#f59e0b'],['Manutenção',maintCost,'#8b5cf6'],['Tributação Autónoma',taCost,'#ef4444'],['IUC',iucCost,'#64748b'],['Seguros',segurosCost,'#10b981']].map(([lbl,val,col])=>`
+            <div style="display:flex;align-items:center;gap:8px">
+              <div style="width:9px;height:9px;border-radius:50%;background:${col};flex-shrink:0"></div>
+              <div style="flex:1"><div style="font-size:.7rem;color:#64748b">${lbl}</div><div style="font-size:.8rem;font-weight:600;color:#0f172a">${fmtEur(val)} <span style="font-size:.66rem;font-weight:400;color:#94a3b8">(${Math.round(val/totalTCO*100)}%)</span></div></div>
+            </div>`).join('')}
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="card-title"><i class="fa-solid fa-lightbulb" style="color:#f59e0b;margin-right:6px"></i>${t('tco.opportunities')}</span></div>
+        <div class="card-body" style="padding:14px">
+          ${opps.map(o=>`
+          <div class="savings-item">
+            <div style="width:36px;height:36px;border-radius:6px;background:${o.color}20;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="fa-solid ${o.icon}" style="color:${o.color};font-size:.9rem"></i></div>
+            <div style="flex:1;min-width:0"><div style="font-size:.9rem;font-weight:600;color:#0f172a">${o.title}</div><div style="font-size:.7rem;color:#64748b;margin-top:1px">${o.desc}</div></div>
+            <div class="savings-amount">${fmtEur(o.saving)}/ano</div>
+          </div>`).join('')}
+          <div style="margin-top:12px;padding:13px;background:#ecfdf5;border-radius:10px;text-align:center">
+            <div style="font-size:.8rem;color:#065f46;margin-bottom:4px">Poupança Total Identificada</div>
+            <div style="font-size:1.5rem;font-weight:800;color:#10b981">${fmtEur(totalSavings)}/ano</div>
+            <button class="btn btn-primary btn-sm" style="margin-top:8px;width:100%;justify-content:center" onclick="navigate('simulator')"><i class="fa-solid fa-bolt"></i> Simular Eletrificação</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  document.getElementById('tco-content').innerHTML=html;
+  setTimeout(()=>{
+    const ctx=document.getElementById('chart-tco-break');if(!ctx)return;
+    S.charts.tcoBreak=new Chart(ctx,{
+      type:'doughnut',
+      data:{labels:['Renting','Combustível','Manutenção','Trib. Autónoma','IUC','Seguros'],datasets:[{data:[rentingAnnual,fuelCost,maintCost,taCost,iucCost,segurosCost],backgroundColor:['#3b82f6','#f59e0b','#8b5cf6','#ef4444','#64748b','#10b981'],borderWidth:2,borderColor:'#fff'}]},
+      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`${c.label}: ${fmtEur(c.raw)} (${Math.round(c.raw/totalTCO*100)}%)`}}}}
+    });
+  },50);
+}
+
+// ─────────────────────────────────────────────────────────────
+// MAINTENANCE
+// ─────────────────────────────────────────────────────────────
+function renderMaintenance(){
+  const u=S.user,isAdmin=u.role==='admin';
+  const clientId=isAdmin?null:u.clientId;
+  const allMaint=clientId?MAINTENANCE.filter(m=>m.clientId===clientId):MAINTENANCE;
+  const pending=allMaint.filter(m=>m.status==='pending'||m.status==='overdue').sort((a,b)=>new Date(a.date)-new Date(b.date));
+  const done=allMaint.filter(m=>m.status==='done').sort((a,b)=>new Date(b.date)-new Date(a.date));
+  function mRow(m,isDone){
+    const v=VEHICLES.find(x=>x.id===m.vehicleId)||{};
+    const days=daysUntil(m.date);
+    let sc,sl;
+    if(isDone){sc='b-ok';sl='Concluído';}
+    else if(m.status==='overdue'||days<0){sc='b-expirado';sl=t('status.expirado');}
+    else if(days<=30){sc='b-urgente';sl=t('status.urgente');}
+    else if(days<=60){sc='b-atencao';sl=t('status.atencao');}
+    else{sc='b-ok';sl=t('status.ok');}
+    return`<tr>
+      <td><div style="font-weight:600;font-size:.9rem">${v.plate||'—'}</div><div style="font-size:.74rem;color:#64748b">${v.brand||''} ${v.model||''}</div></td>
+      <td style="font-size:.9rem">${m.type}</td>
+      <td>${fmtDate(m.date)}${!isDone&&days>0?`<div style="font-size:.7rem;color:#94a3b8">em ${days}d</div>`:''}</td>
+      <td style="font-size:.8rem;color:#64748b">${m.provider}</td>
+      <td style="font-weight:600">${fmtEur(m.cost)}</td>
+      <td><span class="badge ${sc}">${sl}</span></td>
+    </tr>`;
+  }
+  const colHdr=`<thead><tr><th>${t('maint.vehicle')}</th><th>${t('maint.type')}</th><th>${t('maint.date')}</th><th>${t('maint.provider')}</th><th>${t('maint.cost')}</th><th>${t('maint.status')}</th></tr></thead>`;
+  const html=`
+    <div class="pg-hdr pg-hdr-row" style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--sp-3)">
+      <div>
+        <h1 class="pg-title">${t('maint.title')}</h1>
+        <p class="pg-sub">${pending.length} pendentes &middot; ${done.length} concluídas</p>
+      </div>
+      <button class="btn btn-primary" onclick="openAddMaintModal()"><i class="fa-solid fa-plus"></i> ${t('maint.add')}</button>
+    </div>
+    <div class="tabs" id="maint-tabs">
+      <button class="tab-btn ${S.maintTab==='pending'?'active':''}" onclick="switchMaintTab('pending')">
+        <i class="fa-solid fa-clock" style="margin-right:5px"></i>${t('maint.pending')} <span style="background:#fee2e2;color:#991b1b;border-radius:10px;padding:1px 7px;font-size:.7rem;font-weight:700;margin-left:4px">${pending.length}</span>
+      </button>
+      <button class="tab-btn ${S.maintTab==='done'?'active':''}" onclick="switchMaintTab('done')">
+        <i class="fa-solid fa-circle-check" style="margin-right:5px"></i>${t('maint.done')} <span style="background:#d1fae5;color:#065f46;border-radius:10px;padding:1px 7px;font-size:.7rem;font-weight:700;margin-left:4px">${done.length}</span>
+      </button>
+    </div>
+    <div id="maint-tab-pending" class="tab-pane ${S.maintTab==='pending'?'active':''}">
+      <div class="tbl-wrap"><table class="data-tbl">${colHdr}<tbody>${pending.length?pending.map(m=>mRow(m,false)).join(''):'<tr><td colspan="6" style="text-align:center;color:#94a3b8;padding:30px">Sem manutenções pendentes</td></tr>'}</tbody></table></div>
+    </div>
+    <div id="maint-tab-done" class="tab-pane ${S.maintTab==='done'?'active':''}">
+      <div class="tbl-wrap"><table class="data-tbl">${colHdr}<tbody>${done.length?done.map(m=>mRow(m,true)).join(''):'<tr><td colspan="6" style="text-align:center;color:#94a3b8;padding:30px">Sem registos</td></tr>'}</tbody></table></div>
+    </div>`;
+  document.getElementById('maint-content').innerHTML=html;
+}
+
+function switchMaintTab(tab){
+  S.maintTab=tab;
+  document.querySelectorAll('#maint-tabs .tab-btn').forEach((b,i)=>b.classList.toggle('active',['pending','done'][i]===tab));
+  ['pending','done'].forEach(k=>{const el=document.getElementById('maint-tab-'+k);if(el)el.classList.toggle('active',k===tab);});
+}
+
+function openAddMaintModal(){
+  const vOpts=(S.user.role==='admin'?VEHICLES:VEHICLES.filter(v=>v.clientId===S.user.clientId)).map(v=>`<option value="${v.id}">${v.plate} ${v.brand} ${v.model}</option>`).join('');
+  const body=`
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div><label class="form-label">Viatura</label><select class="form-select">${vOpts}</select></div>
+      <div><label class="form-label">Tipo de Manutenção</label><select class="form-select"><option>Revisão Periódica</option><option>IPO</option><option>Renovação Seguro</option><option>Troca de Pneus</option><option>Reparação</option><option>IUC</option><option>Outro</option></select></div>
+      <div class="g2" style="gap:12px">
+        <div><label class="form-label">Data</label><input type="date" class="form-input"></div>
+        <div><label class="form-label">Custo (€)</label><input type="number" class="form-input" placeholder="Ex: 350"></div>
+      </div>
+      <div><label class="form-label">Prestador de Serviço</label><input type="text" class="form-input" placeholder="Ex: Auto-Sueco Porto"></div>
+      <div class="form-group">
+        <label class="form-label">Fatura (PDF)</label>
+        <div style="border:2px dashed #e2e8f0;border-radius:6px;padding:12px;text-align:center;cursor:pointer;background:#f8fafc" onclick="document.getElementById('invoice-upload').click()">
+          <i class="fa-solid fa-file-invoice" style="color:#94a3b8;font-size:1.2rem;margin-bottom:4px;display:block"></i>
+          <div style="font-size:.8rem;color:#64748b">Clique para anexar fatura</div>
+          <div id="invoice-name" style="font-size:.75rem;color:#10b981;margin-top:2px"></div>
+        </div>
+        <input type="file" id="invoice-upload" accept=".pdf,.jpg,.png" style="display:none" onchange="document.getElementById('invoice-name').textContent=this.files[0]?.name||''">
+      </div>
+      <div style="padding:10px 13px;background:#eff6ff;border-radius:6px;font-size:.8rem;color:#1e40af"><i class="fa-solid fa-circle-info" style="margin-right:6px"></i>Demonstração &mdash; dados não persistidos.</div>
+    </div>`;
+  openModal(t('maint.add'),body,`<button class="btn btn-sec" onclick="closeModal()">${t('common.cancel')}</button><button class="btn btn-primary" onclick="closeModal()"><i class="fa-solid fa-plus"></i> Registar</button>`);
+}
+
+// ─────────────────────────────────────────────────────────────
+// FISCAL
+// ─────────────────────────────────────────────────────────────
+function renderFiscal(){
+  const u=S.user,isAdmin=u.role==='admin';
+  const clientId=isAdmin?null:u.clientId;
+  const flt=arr=>clientId?arr.filter(x=>x.clientId===clientId):arr;
+  const iucData=flt(FISCAL.iuc).sort((a,b)=>new Date(a.due)-new Date(b.due));
+  const ipoData=flt(FISCAL.ipo).sort((a,b)=>new Date(a.due)-new Date(b.due));
+  const segData=flt(FISCAL.seguros).sort((a,b)=>new Date(a.due)-new Date(b.due));
+  const allVeh=clientId?VEHICLES.filter(v=>v.clientId===clientId):VEHICLES;
+  const taByFuel={bev:0,phev:0,diesel:0,gasolina:0};
+  allVeh.forEach(v=>{if(taByFuel[v.fuel]!==undefined)taByFuel[v.fuel]+=calcTA(v);});
+  const taTotal=Object.values(taByFuel).reduce((s,v)=>s+v,0);
+  const claimsData=flt(CLAIMS).sort((a,b)=>new Date(b.date)-new Date(a.date));
+  function fRow(item,showProv){
+    const days=daysUntil(item.due),st=days<0?'expirado':days<=30?'urgente':days<=60?'atencao':'ok';
+    return`<tr>
+      <td><div style="font-weight:600;font-size:.9rem">${item.plate}</div><div style="font-size:.74rem;color:#64748b">${item.vehicle}</div></td>
+      <td>${fmtDate(item.due)}${days>0?`<div style="font-size:.7rem;color:#94a3b8">em ${days}d</div>`:''}</td>
+      <td style="font-weight:600">${fmtEur(item.amount)}</td>
+      ${showProv?`<td style="font-size:.8rem;color:#64748b">${item.provider||'—'}</td>`:''}
+      <td>${badge(st)}</td>
+    </tr>`;
+  }
+  function iucRow(item){
+    const days=daysUntil(item.due),st=days<0?'expirado':days<=30?'urgente':days<=60?'atencao':'ok';
+    return`<tr>
+      <td><div style="font-weight:600;font-size:.9rem">${item.plate}</div><div style="font-size:.74rem;color:#64748b">${item.vehicle}</div></td>
+      <td>${fmtDate(item.due)}${days>0?`<div style="font-size:.7rem;color:#94a3b8">em ${days}d</div>`:''}</td>
+      <td style="font-weight:600">${fmtEur(item.amount)}</td>
+      <td>${badge(st)}</td>
+      <td><button class="btn btn-sec btn-sm" title="Histórico" onclick="openIUCHistory('${item.plate}',${item.amount})"><i class="fa-solid fa-clock-rotate-left"></i></button></td>
+    </tr>`;
+  }
+  function segRow(item){
+    const days=daysUntil(item.due),st=days<0?'expirado':days<=30?'urgente':days<=60?'atencao':'ok';
+    return`<tr>
+      <td><div style="font-weight:600;font-size:.9rem">${item.plate}</div><div style="font-size:.74rem;color:#64748b">${item.vehicle}</div></td>
+      <td>${fmtDate(item.due)}</td>
+      <td style="font-weight:600">${fmtEur(item.amount)}</td>
+      <td style="font-size:.8rem;color:#64748b">${item.provider||'—'}</td>
+      <td style="font-size:.8rem;color:#334155">${item.policyNumber||'—'}</td>
+      <td style="font-size:.8rem"><span style="background:#e0f2fe;color:#0369a1;padding:2px 7px;border-radius:9999px;font-size:.72rem;white-space:nowrap">${item.coverageType||'—'}</span></td>
+      <td>${badge(st)}</td>
+    </tr>`;
+  }
+  function claimBadge(status){const m={'em_analise':'b-atencao','aguarda_peritagem':'b-atencao','em_reparacao':'b-urgente','resolvido':'b-ok'};const l={'em_analise':'Em análise','aguarda_peritagem':'Aguarda peritagem','em_reparacao':'Em reparação','resolvido':'Resolvido'};return`<span class="badge ${m[status]||'b-ok'}">${l[status]||status}</span>`;}
+  const html=`
+    <div class="pg-hdr">
+      <h1 class="pg-title">${t('fiscal.title')}</h1>
+      <p class="pg-sub">Obrigações fiscais e documentais &middot; ${allVeh.length} ${t('common.vehicles')}</p>
+    </div>
+    <div class="tabs" id="fiscal-tabs">
+      <button class="tab-btn ${S.fiscalTab==='iuc'?'active':''}" onclick="switchFiscalTab('iuc')"><i class="fa-solid fa-car" style="margin-right:5px"></i>${t('fiscal.iuc')} <span style="background:#f1f5f9;color:#475569;border-radius:10px;padding:1px 7px;font-size:.7rem;margin-left:4px">${iucData.length}</span></button>
+      <button class="tab-btn ${S.fiscalTab==='ipo'?'active':''}" onclick="switchFiscalTab('ipo')"><i class="fa-solid fa-id-card" style="margin-right:5px"></i>${t('fiscal.ipo')} <span style="background:#f1f5f9;color:#475569;border-radius:10px;padding:1px 7px;font-size:.7rem;margin-left:4px">${ipoData.length}</span></button>
+      <button class="tab-btn ${S.fiscalTab==='seguros'?'active':''}" onclick="switchFiscalTab('seguros')"><i class="fa-solid fa-shield-halved" style="margin-right:5px"></i>${t('fiscal.seguros')} <span style="background:#f1f5f9;color:#475569;border-radius:10px;padding:1px 7px;font-size:.7rem;margin-left:4px">${segData.length}</span></button>
+      <button class="tab-btn ${S.fiscalTab==='sinistros'?'active':''}" onclick="switchFiscalTab('sinistros')"><i class="fa-solid fa-car-burst" style="margin-right:5px"></i>Sinistros <span style="background:#fee2e2;color:#991b1b;border-radius:10px;padding:1px 7px;font-size:.7rem;margin-left:4px">${claimsData.length}</span></button>
+      <button class="tab-btn ${S.fiscalTab==='ta'?'active':''}" onclick="switchFiscalTab('ta')"><i class="fa-solid fa-calculator" style="margin-right:5px"></i>${t('fiscal.ta_calc')}</button>
+    </div>
+    <div id="fiscal-tab-iuc" class="tab-pane ${S.fiscalTab==='iuc'?'active':''}">
+      <div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>Viatura</th><th>Vencimento</th><th>Montante</th><th>Estado</th><th></th></tr></thead><tbody>${iucData.length?iucData.map(x=>iucRow(x)).join(''):'<tr><td colspan="5" style="text-align:center;color:#94a3b8;padding:30px">Sem registos</td></tr>'}</tbody></table></div>
+    </div>
+    <div id="fiscal-tab-ipo" class="tab-pane ${S.fiscalTab==='ipo'?'active':''}">
+      <div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>Viatura</th><th>Vencimento</th><th>Montante</th><th>Estado</th></tr></thead><tbody>${ipoData.length?ipoData.map(x=>fRow(x,false)).join(''):'<tr><td colspan="4" style="text-align:center;color:#94a3b8;padding:30px">Sem registos</td></tr>'}</tbody></table></div>
+    </div>
+    <div id="fiscal-tab-seguros" class="tab-pane ${S.fiscalTab==='seguros'?'active':''}">
+      <div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>Viatura</th><th>Vencimento</th><th>Prémio Anual</th><th>Seguradora</th><th>Apólice</th><th>Cobertura</th><th>Estado</th></tr></thead><tbody>${segData.length?segData.map(x=>segRow(x)).join(''):'<tr><td colspan="7" style="text-align:center;color:#94a3b8;padding:30px">Sem registos</td></tr>'}</tbody></table></div>
+    </div>
+    <div id="fiscal-tab-sinistros" class="tab-pane ${S.fiscalTab==='sinistros'?'active':''}">
+      <div class="tbl-wrap"><table class="data-tbl"><thead><tr><th>Viatura</th><th>Data</th><th>Tipo</th><th>Descrição</th><th>Dano</th><th>Seguradora</th><th>Montante</th><th>Estado</th><th>Referência</th></tr></thead><tbody>${claimsData.length?claimsData.map(c=>`<tr>
+        <td><div style="font-weight:600;font-size:.9rem">${c.plate}</div><div style="font-size:.74rem;color:#64748b">${c.vehicle}</div></td>
+        <td style="font-size:.8rem">${fmtDate(c.date)}</td>
+        <td style="font-size:.85rem;font-weight:500">${c.type}</td>
+        <td style="font-size:.8rem;color:#475569;max-width:140px">${c.description}</td>
+        <td style="font-size:.75rem;color:#64748b;max-width:120px">${c.damage}</td>
+        <td style="font-size:.8rem;color:#64748b">${c.insurer}</td>
+        <td style="font-weight:600;color:#0f172a">${fmtEur(c.amount)}</td>
+        <td>${claimBadge(c.status)}</td>
+        <td style="font-size:.75rem;color:#94a3b8;font-family:monospace">${c.ref}</td>
+      </tr>`).join(''):'<tr><td colspan="9" style="text-align:center;color:#94a3b8;padding:30px">Sem sinistros registados</td></tr>'}</tbody></table></div>
+    </div>
+    <div id="fiscal-tab-ta" class="tab-pane ${S.fiscalTab==='ta'?'active':''}">
+      <div class="g2">
+        <div class="card">
+          <div class="card-header"><span class="card-title"><i class="fa-solid fa-chart-bar" style="color:#ef4444;margin-right:6px"></i>Tributação Autónoma por Tipo de Frota</span></div>
+          <div class="card-body">
+            <div style="font-size:.7rem;color:#64748b;margin-bottom:10px">CIRC Art. 88 &mdash; Taxas aplicáveis em 2024</div>
+            ${[['BEV (Elétrico)',allVeh.filter(v=>v.fuel==='bev').length,'#10b981','Isento',taByFuel.bev],['PHEV',allVeh.filter(v=>v.fuel==='phev').length,'#8b5cf6','5 &ndash; 17,5%',taByFuel.phev],['Diesel',allVeh.filter(v=>v.fuel==='diesel').length,'#64748b','10 &ndash; 35%',taByFuel.diesel],['Gasolina',allVeh.filter(v=>v.fuel==='gasolina').length,'#f59e0b','10 &ndash; 35%',taByFuel.gasolina]].map(([fuel,cnt,col,rate,ta])=>`
+            <div style="display:flex;align-items:center;gap:12px;padding:11px;border-radius:10px;background:#f8fafc;margin-bottom:8px">
+              <div style="width:10px;height:10px;border-radius:50%;background:${col};flex-shrink:0"></div>
+              <div style="flex:1"><div style="font-size:.9rem;font-weight:600;color:#0f172a">${fuel}</div><div style="font-size:.7rem;color:#64748b">Taxa: ${rate} &middot; ${cnt} viatura${cnt!==1?'s':''}</div></div>
+              <div style="text-align:right"><div style="font-size:1rem;font-weight:700;color:${ta>0?'#ef4444':'#10b981'}">${ta>0?fmtEur(ta)+'/ano':'Isento'}</div></div>
+            </div>`).join('')}
+            <div style="padding:13px;background:#fff5f5;border:1px solid #fecaca;border-radius:10px;display:flex;justify-content:space-between;align-items:center">
+              <div><div style="font-size:.9rem;font-weight:700;color:#991b1b">TA Total Anual</div><div style="font-size:.7rem;color:#b91c1c">Impacto fiscal atual da frota</div></div>
+              <div style="font-size:1.5rem;font-weight:800;color:#ef4444">${fmtEur(taTotal)}</div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><span class="card-title"><i class="fa-solid fa-calculator" style="color:#3b82f6;margin-right:6px"></i>Calculadora TA Individual</span></div>
+          <div class="card-body">
+            <div style="display:flex;flex-direction:column;gap:12px">
+              <div><label class="form-label">Valor de Aquisição (€)</label><input type="number" id="ta-value" class="form-input" value="35000" oninput="calcTAForm()"></div>
+              <div><label class="form-label">Combustível</label><select id="ta-fuel" class="form-select" onchange="calcTAForm()"><option value="diesel">Diesel</option><option value="gasolina">Gasolina</option><option value="phev">PHEV</option><option value="bev">Elétrico (BEV)</option></select></div>
+              <div><label class="form-label">Taxa IRC (%)</label><input type="number" id="ta-irc" class="form-input" value="21" min="0" max="100"></div>
+              <div id="ta-result" style="padding:14px;background:#f8fafc;border-radius:10px;border:1px solid #e2e8f0"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  document.getElementById('fiscal-content').innerHTML=html;
+  if(S.fiscalTab==='ta')calcTAForm();
+}
+
+function switchFiscalTab(tab){
+  S.fiscalTab=tab;
+  const tabs=['iuc','ipo','seguros','sinistros','ta'];
+  document.querySelectorAll('#fiscal-tabs .tab-btn').forEach((b,i)=>b.classList.toggle('active',tabs[i]===tab));
+  tabs.forEach(k=>{const el=document.getElementById('fiscal-tab-'+k);if(el)el.classList.toggle('active',k===tab);});
+  if(tab==='ta')calcTAForm();
+}
+
+function openIUCHistory(plate,amount){
+  const year=TODAY.getFullYear();
+  const rows=[year-2,year-1,year].map(y=>{
+    const a=Math.round(amount*(1+(Math.random()*.1-.05)));
+    const paid=y<year;
+    return`<tr><td style="font-weight:600">${y}</td><td style="font-weight:600">${fmtEur(a)}</td><td><span class="badge ${paid?'b-ok':'b-atencao'}">${paid?'Pago':'Pendente'}</span></td><td style="font-size:.8rem;color:#64748b">${paid?`${Math.floor(Math.random()*28)+1}/${Math.floor(Math.random()*5)+5}/${y}`:'—'}</td></tr>`;
+  });
+  openModal(`Histórico IUC — ${plate}`,`<table class="data-tbl" style="margin-top:4px"><thead><tr><th>Ano</th><th>Montante</th><th>Estado</th><th>Data Pagamento</th></tr></thead><tbody>${rows.join('')}</tbody></table>`,'<button class="btn btn-sec" onclick="closeModal()">Fechar</button>');
+}
+
+function calcTAForm(){
+  const value=parseFloat(document.getElementById('ta-value')?.value)||0;
+  const fuel=document.getElementById('ta-fuel')?.value||'diesel';
+  const result=document.getElementById('ta-result');
+  if(!result)return;
+  let rate,taAmt,note;
+  if(fuel==='bev'){rate=0;taAmt=0;note='Veículos elétricos (BEV) estão isentos de Tributação Autónoma &mdash; CIRC Art. 88, n.&ordm; 3-b.';}
+  else if(fuel==='phev'){rate=value<=27500?.05:value<=35000?.125:.175;taAmt=value*rate;note='Veículo PHEV. Taxa reduzida &asymp;50% vs ICE equivalente. Benefício fiscal relevante na transição de frota.';}
+  else{rate=value<=27500?.10:value<=35000?.275:.35;taAmt=value*rate;note=`Veículo ICE. ${value<=27500?'Escalão &le; &euro;27.500 &mdash; 10%':value<=35000?'Escalão &euro;27.500&ndash;35.000 &mdash; 27,5%':'Escalão &gt; &euro;35.000 &mdash; 35%'}. Custo não dedutível em IRC.`;}
+  const bevSaving=fuel!=='bev'?taAmt:0;
+  const phevSaving=(fuel==='diesel'||fuel==='gasolina')?taAmt-(value<=27500?value*.05:value<=35000?value*.125:value*.175):0;
+  result.innerHTML=`
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px">
+      <div><div style="font-size:.7rem;color:#64748b">Taxa aplicável</div><div style="font-size:1rem;font-weight:700;color:${taAmt>0?'#ef4444':'#10b981'}">${Math.round(rate*100)}%</div></div>
+      <div style="text-align:right"><div style="font-size:.7rem;color:#64748b">TA Anual</div><div style="font-size:1.5rem;font-weight:800;color:${taAmt>0?'#ef4444':'#10b981'}">${fmtEur(taAmt)}</div></div>
+    </div>
+    ${fuel!=='bev'?`<div style="display:flex;gap:8px;margin-bottom:10px">
+      ${bevSaving>0?`<div style="flex:1;padding:8px;background:#ecfdf5;border-radius:6px;text-align:center"><div style="font-size:.7rem;color:#065f46">Poupança c/ BEV</div><div style="font-size:.9rem;font-weight:700;color:#10b981">${fmtEur(bevSaving)}/ano</div></div>`:''}
+      ${phevSaving>0?`<div style="flex:1;padding:8px;background:#eff6ff;border-radius:6px;text-align:center"><div style="font-size:.7rem;color:#1e40af">Poupança c/ PHEV</div><div style="font-size:.9rem;font-weight:700;color:#3b82f6">${fmtEur(phevSaving)}/ano</div></div>`:''}
+    </div>`:''}
+    <div style="font-size:.7rem;color:#64748b;padding:8px;background:#f8fafc;border-radius:6px">${note}</div>`;
+}
+
+// ─────────────────────────────────────────────────────────────
+// SIMULATOR
+// ─────────────────────────────────────────────────────────────
+function renderSimulator(){
+  const u=S.user,isAdmin=u.role==='admin';
+  const html=`
+    <div class="pg-hdr">
+      <h1 class="pg-title">${t('sim.title')}</h1>
+      <p class="pg-sub">${t('sim.subtitle')}</p>
+    </div>
+    <div class="g2" style="margin-bottom:20px">
+      <div class="card">
+        <div class="card-header"><span class="card-title"><i class="fa-solid fa-sliders" style="color:#10b981;margin-right:6px"></i>Parâmetros da Simulação</span></div>
+        <div class="card-body">
+          <div style="display:flex;flex-direction:column;gap:13px">
+            <div class="g2" style="gap:12px">
+              <div>
+                <label class="form-label">${t('sim.km')}</label>
+                <input type="number" id="sim-km" class="form-input" value="20000" min="5000" max="80000" step="1000" oninput="runSimulator()">
+              </div>
+              <div>
+                <label class="form-label">${t('sim.nveh')}</label>
+                <input type="number" id="sim-nveh" class="form-input" value="5" min="1" max="100" oninput="runSimulator()">
+              </div>
+            </div>
+            <div>
+              <label class="form-label">${t('sim.fuel')}</label>
+              <select id="sim-fuel" class="form-select" onchange="runSimulator()">
+                <option value="diesel">Diesel</option>
+                <option value="gasolina">Gasolina</option>
+                <option value="phev">PHEV</option>
+              </select>
+            </div>
+            <div>
+              <label class="form-label">${t('sim.value')}</label>
+              <input type="range" id="sim-value" min="15000" max="80000" step="500" value="32000" oninput="document.getElementById('sim-value-disp').textContent='€'+parseInt(this.value).toLocaleString('pt-PT');runSimulator()">
+              <div style="display:flex;justify-content:space-between;margin-top:4px"><span style="font-size:.7rem;color:#94a3b8">€15.000</span><span id="sim-value-disp" style="font-size:.9rem;font-weight:700;color:#0f172a">€32.000</span><span style="font-size:.7rem;color:#94a3b8">€80.000</span></div>
+            </div>
+            <div class="g2" style="gap:12px">
+              <div>
+                <label class="form-label">${t('sim.renting')}</label>
+                <input type="number" id="sim-renting" class="form-input" value="680" min="100" max="3000" oninput="runSimulator()">
+              </div>
+              <div>
+                <label class="form-label">${t('sim.irc')}</label>
+                <input type="number" id="sim-irc" class="form-input" value="21" min="0" max="35" oninput="runSimulator()">
+              </div>
+            </div>
+            <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="runSimulator()"><i class="fa-solid fa-bolt"></i> ${t('sim.calc')}</button>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="card-title"><i class="fa-solid fa-chart-bar" style="color:#3b82f6;margin-right:6px"></i>Comparação TCO Total (por viatura/ano)</span></div>
+        <div class="card-body"><div class="chart-tall"><canvas id="chart-sim-compare"></canvas></div></div>
+      </div>
+    </div>
+    <div id="sim-results"></div>
+    <div style="margin-top:16px;padding:16px 20px;background:linear-gradient(135deg,#0f172a 0%,#064e3b 100%);border-radius:16px;display:flex;align-items:center;justify-content:space-between;gap:16px">
+      <div>
+        <div style="color:#10b981;font-weight:700;font-size:1rem;margin-bottom:3px"><i class="fa-solid fa-phone" style="margin-right:6px"></i>${t('sim.cta')}</div>
+        <div style="color:#94a3b8;font-size:.8rem">Análise detalhada da frota + apoio à decisão de compra/leasing BEV/PHEV</div>
+      </div>
+      <button class="btn btn-primary" style="flex-shrink:0;padding:10px 22px"><i class="fa-solid fa-calendar-check"></i> Agendar Reunião</button>
+    </div>`;
+  document.getElementById('sim-content').innerHTML=html;
+  runSimulator();
+}
+
+function runSimulator(){
+  const km=parseInt(document.getElementById('sim-km')?.value)||20000;
+  const nveh=parseInt(document.getElementById('sim-nveh')?.value)||5;
+  const fuel=document.getElementById('sim-fuel')?.value||'diesel';
+  const value=parseInt(document.getElementById('sim-value')?.value)||32000;
+  const renting=parseInt(document.getElementById('sim-renting')?.value)||680;
+  const irc=(parseFloat(document.getElementById('sim-irc')?.value)||21)/100;
+  const r=km/15000;
+  // Per-vehicle annual costs
+  const rentAnn=renting*12;
+  const fuelCurrPV=fuel==='diesel'?1800*r:fuel==='gasolina'?2100*r:900*r;
+  const fuelBevPV=400*r;
+  const fuelPhevPV=700*r;
+  const maintCurr=fuel==='phev'?580:820;
+  const maintBev=350;
+  const maintPhev=580;
+  // Tributação Autónoma per vehicle
+  let taCurrRate;
+  if(fuel==='phev'){taCurrRate=value<=27500?.05:value<=35000?.125:.175;}
+  else{taCurrRate=value<=27500?.10:value<=35000?.275:.35;}
+  const taCurr=value*taCurrRate;
+  const taBev=0;
+  const taPhev=value<=27500?value*.05:value<=35000?value*.125:value*.175;
+  // Total TCO per vehicle per year (excl renting — same for comparison)
+  const tcoCurr=rentAnn+fuelCurrPV+maintCurr+taCurr;
+  const tcoBev=rentAnn*1.08+fuelBevPV+maintBev+taBev; // BEV renting ~8% higher
+  const tcoPhev=rentAnn*1.04+fuelPhevPV+maintPhev+taPhev; // PHEV ~4% higher
+  const savBev=tcoCurr-tcoBev;
+  const savPhev=tcoCurr-tcoPhev;
+  // Fleet totals
+  const fleetCurr=tcoCurr*nveh;
+  const fleetBev=tcoBev*nveh;
+  const fleetPhev=tcoPhev*nveh;
+  const taFleetCurr=taCurr*nveh;
+  const taFleetBev=0;
+  const taFleetPhev=taPhev*nveh;
+  const taSavBev=taFleetCurr-taFleetBev;
+  const taSavPhev=taFleetCurr-taFleetPhev;
+  const fuelSavBev=(fuelCurrPV-fuelBevPV)*nveh;
+  const fuelSavPhev=(fuelCurrPV-fuelPhevPV)*nveh;
+  const maintSavBev=(maintCurr-maintBev)*nveh;
+  const maintSavPhev=(maintCurr-maintPhev)*nveh;
+  // IRC deduction benefit (TA não dedutível, logo TA poupada reduz base tributável)
+  const ircBenBev=taSavBev*irc;
+  const ircBenPhev=taSavPhev*irc;
+  const bestOption=savBev>savPhev?'BEV':'PHEV';
+  const bestSav=savBev>savPhev?savBev*nveh:savPhev*nveh;
+
+  const resHtml=`
+    <div style="margin-bottom:14px;display:flex;align-items:center;gap:8px">
+      <div style="padding:6px 14px;background:#ecfdf5;border:1px solid #a7f3d0;border-radius:6px;font-size:.8rem;font-weight:700;color:#065f46"><i class="fa-solid fa-check" style="margin-right:5px"></i>Melhor opção: ${bestOption} &mdash; poupança de ${fmtEur(bestSav)}/ano na frota</div>
+    </div>
+    <div class="kpi-grid kpi-3" style="margin-bottom:16px">
+      <div class="kpi-card sim-gray">
+        <div class="kpi-label" style="color:#64748b">TCO Atual (${fuel.toUpperCase()}) · ${nveh} viaturas</div>
+        <div class="kpi-value" style="color:#ef4444">${fmtEur(fleetCurr)}/ano</div>
+        <div style="font-size:.7rem;color:#94a3b8;margin-top:4px">TA: ${fmtEur(taFleetCurr)}/ano · Comb.: ${fmtEur(fuelCurrPV*nveh)}/ano</div>
+      </div>
+      <div class="kpi-card sim-green">
+        <div class="kpi-label" style="color:#065f46">TCO Elétrico (BEV) · ${nveh} viaturas</div>
+        <div class="kpi-value" style="color:#10b981">${fmtEur(fleetBev)}/ano</div>
+        <div style="font-size:.7rem;color:#059669;margin-top:4px">TA: Isento &nbsp;·&nbsp; Poupança: <b>${fmtEur(savBev*nveh)}/ano</b></div>
+      </div>
+      <div class="kpi-card sim-blue">
+        <div class="kpi-label" style="color:#1e40af">TCO PHEV · ${nveh} viaturas</div>
+        <div class="kpi-value" style="color:#3b82f6">${fmtEur(fleetPhev)}/ano</div>
+        <div style="font-size:.7rem;color:#1e40af;margin-top:4px">TA reduzida: ${fmtEur(taFleetPhev)}/ano &nbsp;·&nbsp; <b>${fmtEur(savPhev*nveh)}/ano</b></div>
+      </div>
+    </div>
+    <div class="g2">
+      <div class="card">
+        <div class="card-header"><span class="card-title"><i class="fa-solid fa-bolt" style="color:#10b981;margin-right:6px"></i>Detalhe Poupanças vs BEV (frota total)</span></div>
+        <div class="card-body" style="padding:14px">
+          ${[[t('sim.ta_saving'),taSavBev,'#10b981','fa-calculator'],[t('sim.fuel_saving'),fuelSavBev,'#3b82f6','fa-gas-pump'],[t('sim.maint_saving'),maintSavBev,'#8b5cf6','fa-wrench'],['Benefício IRC (TA poupada)',ircBenBev,'#f59e0b','fa-landmark']].map(([lbl,val,col,ico])=>`
+          <div class="savings-item">
+            <div style="width:34px;height:34px;border-radius:6px;background:${col}20;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="fa-solid ${ico}" style="color:${col};font-size:.8rem"></i></div>
+            <div style="flex:1"><div style="font-size:.9rem;font-weight:600;color:#0f172a">${lbl}</div></div>
+            <div class="savings-amount">${fmtEur(val)}/ano</div>
+          </div>`).join('')}
+          <div style="padding:12px;background:#ecfdf5;border-radius:10px;display:flex;justify-content:space-between;align-items:center;margin-top:4px">
+            <div style="font-size:.9rem;font-weight:700;color:#065f46">Total poupança BEV/ano</div>
+            <div style="font-size:1.5rem;font-weight:800;color:#10b981">${fmtEur(savBev*nveh)}</div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="card-title"><i class="fa-solid fa-shield-halved" style="color:#8b5cf6;margin-right:6px"></i>Detalhe Poupanças vs PHEV (frota total)</span></div>
+        <div class="card-body" style="padding:14px">
+          ${[[t('sim.ta_saving'),taSavPhev,'#8b5cf6','fa-calculator'],[t('sim.fuel_saving'),fuelSavPhev,'#3b82f6','fa-gas-pump'],[t('sim.maint_saving'),maintSavPhev,'#10b981','fa-wrench'],['Benefício IRC (TA poupada)',ircBenPhev,'#f59e0b','fa-landmark']].map(([lbl,val,col,ico])=>`
+          <div class="savings-item">
+            <div style="width:34px;height:34px;border-radius:6px;background:${col}20;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="fa-solid ${ico}" style="color:${col};font-size:.8rem"></i></div>
+            <div style="flex:1"><div style="font-size:.9rem;font-weight:600;color:#0f172a">${lbl}</div></div>
+            <div class="savings-amount">${fmtEur(val)}/ano</div>
+          </div>`).join('')}
+          <div style="padding:12px;background:#eff6ff;border-radius:10px;display:flex;justify-content:space-between;align-items:center;margin-top:4px">
+            <div style="font-size:.9rem;font-weight:700;color:#1e40af">Total poupança PHEV/ano</div>
+            <div style="font-size:1.5rem;font-weight:800;color:#3b82f6">${fmtEur(savPhev*nveh)}</div>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  const resEl=document.getElementById('sim-results');
+  if(resEl)resEl.innerHTML=resHtml;
+
+  // Chart
+  if(S.charts.simCompare){S.charts.simCompare.destroy();delete S.charts.simCompare;}
+  setTimeout(()=>{
+    const ctx=document.getElementById('chart-sim-compare');if(!ctx)return;
+    S.charts.simCompare=new Chart(ctx,{
+      type:'bar',
+      data:{
+        labels:['Renting','Combustível','Manutenção','Trib. Autónoma'],
+        datasets:[
+          {label:'Atual ('+fuel.toUpperCase()+')',data:[rentAnn,fuelCurrPV,maintCurr,taCurr],backgroundColor:'rgba(100,116,139,.7)',borderRadius:6},
+          {label:'BEV',data:[rentAnn*1.08,fuelBevPV,maintBev,0],backgroundColor:'rgba(16,185,129,.75)',borderRadius:6},
+          {label:'PHEV',data:[rentAnn*1.04,fuelPhevPV,maintPhev,taPhev],backgroundColor:'rgba(59,130,246,.75)',borderRadius:6},
+        ]
+      },
+      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font:{family:'Poppins',size:9}}},tooltip:{callbacks:{label:c=>`${c.dataset.label}: ${fmtEur(c.raw)}`}}},scales:{x:{grid:{display:false},ticks:{font:{family:'Poppins',size:8}}},y:{ticks:{callback:v=>fmtEur(v),font:{family:'Poppins',size:8}},grid:{color:'#f1f5f9'}}}}
+    });
+  },50);
+}
+
+// ─────────────────────────────────────────────────────────────
+// REPORTS
+// ─────────────────────────────────────────────────────────────
+function renderReports(){
+  const u=S.user,isAdmin=u.role==='admin';
+  const clientId=isAdmin?null:u.clientId;
+  const vlist=clientId?VEHICLES.filter(v=>v.clientId===clientId):VEHICLES;
+  const bev=vlist.filter(v=>v.fuel==='bev').length;
+  const phev=vlist.filter(v=>v.fuel==='phev').length;
+  const diesel=vlist.filter(v=>v.fuel==='diesel').length;
+  const gas=vlist.filter(v=>v.fuel==='gasolina').length;
+  const total=vlist.length;
+  const electrif=Math.round((bev+phev)/total*100);
+  // CO2 estimation (gCO2/km average * total km estimated)
+  const co2Diesel=diesel*45200*0.162/1000; // avg 162g/km → tonnes
+  const co2Gas=gas*45200*0.148/1000;
+  const co2Phev=phev*45200*0.062/1000;
+  const co2Bev=0;
+  const co2Total=co2Diesel+co2Gas+co2Phev;
+  const co2Saved=(diesel+gas)*45200*0.162/1000-co2Total;
+  const taCost=vlist.reduce((s,v)=>s+calcTA(v),0);
+  const html=`
+    <div class="pg-hdr pg-hdr-row" style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--sp-3)">
+      <div>
+        <h1 class="pg-title">${t('reports.title')}</h1>
+        <p class="pg-sub">${total} ${t('common.vehicles')} &middot; Dados YTD 2026</p>
+      </div>
+      <button class="btn btn-sec"><i class="fa-solid fa-file-export"></i> ${t('reports.export')}</button>
+    </div>
+    <div class="kpi-grid kpi-4" style="margin-bottom:20px">
+      <div class="kpi-card">
+        <div class="kpi-icon" style="background:#ecfdf5"><i class="fa-solid fa-leaf" style="color:#10b981"></i></div>
+        <div class="kpi-label">CO₂ Emitido (est. YTD)</div>
+        <div class="kpi-value">${Math.round(co2Total)} t</div>
+        <div class="kpi-change ${co2Total>0?'neg':'pos'}">${co2Total>0?Math.round(co2Total)+' toneladas CO₂':'Frota 100% limpa'}</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icon" style="background:#ecfdf5"><i class="fa-solid fa-bolt" style="color:#10b981"></i></div>
+        <div class="kpi-label">Eletrificação da Frota</div>
+        <div class="kpi-value">${electrif}%</div>
+        <div class="kpi-change pos">${bev} BEV + ${phev} PHEV</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icon" style="background:#dbeafe"><i class="fa-solid fa-piggy-bank" style="color:#3b82f6"></i></div>
+        <div class="kpi-label">CO₂ Evitado (vs frota 100% ICE)</div>
+        <div class="kpi-value">${Math.round(co2Saved)} t</div>
+        <div class="kpi-change pos">Graças a ${bev+phev} viaturas BEV/PHEV</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-icon" style="background:#fff5f5"><i class="fa-solid fa-calculator" style="color:#ef4444"></i></div>
+        <div class="kpi-label">Trib. Autónoma (CIRC Art.88)</div>
+        <div class="kpi-value" style="color:#ef4444">${fmtEur(taCost)}</div>
+        <div class="kpi-change neg">Impacto fiscal anual estimado</div>
+      </div>
+    </div>
+    <div class="g2" style="margin-bottom:20px">
+      <div class="card">
+        <div class="card-header"><span class="card-title"><i class="fa-solid fa-smog" style="color:#64748b;margin-right:6px"></i>${t('reports.co2')}</span></div>
+        <div class="card-body"><div class="chart-wrap"><canvas id="chart-co2"></canvas></div></div>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="card-title"><i class="fa-solid fa-bolt" style="color:#10b981;margin-right:6px"></i>${t('reports.electrif')}</span></div>
+        <div class="card-body">
+          <div style="margin-bottom:16px">
+            <div style="display:flex;justify-content:space-between;margin-bottom:6px">
+              <span style="font-size:.9rem;font-weight:600;color:#0f172a">Taxa de Eletrificação</span>
+              <span style="font-size:.9rem;font-weight:700;color:#10b981">${electrif}%</span>
+            </div>
+            <div style="height:10px;background:#e2e8f0;border-radius:6px;overflow:hidden">
+              <div style="height:100%;width:${electrif}%;background:linear-gradient(90deg,#10b981,#059669);border-radius:6px;transition:width .6s"></div>
+            </div>
+            <div style="font-size:.7rem;color:#94a3b8;margin-top:4px">Meta 2027: 50%</div>
+          </div>
+          ${[['Elétrico (BEV)',bev,'#10b981'],['PHEV',phev,'#8b5cf6'],['Diesel',diesel,'#64748b'],['Gasolina',gas,'#f59e0b']].map(([lbl,cnt,col])=>`
+          <div style="display:flex;align-items:center;gap:10px;padding:9px 12px;border-radius:10px;background:#f8fafc;margin-bottom:6px">
+            <div style="width:9px;height:9px;border-radius:50%;background:${col};flex-shrink:0"></div>
+            <div style="flex:1;font-size:.9rem;font-weight:500;color:#0f172a">${lbl}</div>
+            <div style="font-size:.9rem;font-weight:700;color:#0f172a">${cnt} <span style="font-weight:400;color:#94a3b8;font-size:.7rem">(${total?Math.round(cnt/total*100):0}%)</span></div>
+          </div>`).join('')}
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><span class="card-title"><i class="fa-solid fa-chart-line" style="color:#3b82f6;margin-right:6px"></i>${t('reports.savings')}</span></div>
+      <div class="card-body"><div class="chart-tall"><canvas id="chart-savings-ev"></canvas></div></div>
+    </div>`;
+  document.getElementById('reports-content').innerHTML=html;
+  setTimeout(()=>{
+    const co2Ctx=document.getElementById('chart-co2');
+    if(co2Ctx){
+      S.charts.co2=new Chart(co2Ctx,{
+        type:'doughnut',
+        data:{labels:['Diesel','Gasolina','PHEV','BEV (Zero)'],datasets:[{data:[Math.round(co2Diesel),Math.round(co2Gas),Math.round(co2Phev),0.01],backgroundColor:['#64748b','#f59e0b','#8b5cf6','#10b981'],borderWidth:2,borderColor:'#fff'}]},
+        options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{font:{family:'Poppins',size:9},padding:5}},tooltip:{callbacks:{label:c=>`${c.label}: ${c.raw} t CO₂`}}}}
+      });
+    }
+    const savCtx=document.getElementById('chart-savings-ev');
+    if(savCtx){
+      S.charts.savingsEv=new Chart(savCtx,{
+        type:'line',
+        data:{
+          labels:['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+          datasets:[
+            {label:'Custo TCO Total',data:[148000,151000,149500,152000,155000,158000,156500,159000,162000,161000,164000,167000],borderColor:'#ef4444',backgroundColor:'rgba(239,68,68,.06)',fill:true,tension:.4,pointRadius:3,pointBackgroundColor:'#ef4444'},
+            {label:'Poupança Acumulada',data:[0,3200,7800,13500,20100,28400,35900,44200,52800,59600,67100,78400],borderColor:'#10b981',backgroundColor:'rgba(16,185,129,.06)',fill:true,tension:.4,pointRadius:3,pointBackgroundColor:'#10b981'},
+            {label:'TA (Tributação Autónoma)',data:[18200,18200,18200,18200,18200,18200,18200,18200,18200,18200,18200,18200],borderColor:'#f59e0b',borderDash:[5,5],backgroundColor:'transparent',tension:.1,pointRadius:2,pointBackgroundColor:'#f59e0b'},
+          ]
+        },
+        options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font:{family:'Poppins',size:9}}}},scales:{y:{ticks:{callback:v=>'€'+v.toLocaleString('pt-PT'),font:{family:'Poppins',size:8}},grid:{color:'#f1f5f9'}},x:{grid:{display:false},ticks:{font:{family:'Poppins',size:8}}}}}
+      });
+    }
+  },50);
+}
+
+// ─────────────────────────────────────────────────────────────
+// CLIENTS
+// ─────────────────────────────────────────────────────────────
+function renderClients(){
+  const html=`
+    <div class="pg-hdr pg-hdr-row" style="display:flex;align-items:flex-start;justify-content:space-between;gap:var(--sp-3)">
+      <div>
+        <h1 class="pg-title">${t('clients.title')}</h1>
+        <p class="pg-sub">${CLIENTS.length} clientes ativos &middot; ${VEHICLES.length} viaturas geridas</p>
+      </div>
+      <button class="btn btn-primary" onclick="openAddClientModal()"><i class="fa-solid fa-plus"></i> ${t('clients.add')}</button>
+    </div>
+    <div class="fbar">
+      <input type="text" class="form-input" id="clients-search" placeholder="${t('clients.search')}" oninput="buildClientsTable(this.value)">
+      <select class="form-select" id="clients-tier" onchange="buildClientsTable()">
+        <option value="all">Todos os segmentos</option>
+        <option value="micro">${t('tier.micro')}</option>
+        <option value="media">${t('tier.media')}</option>
+        <option value="grande">${t('tier.grande')}</option>
+      </select>
+      <select class="form-select" id="clients-service" onchange="buildClientsTable()">
+        <option value="all">Todos os níveis</option>
+        <option value="self">${t('service.self')}</option>
+        <option value="hibrido">${t('service.hibrido')}</option>
+        <option value="outsourcing">${t('service.outsourcing')}</option>
+      </select>
+      <span id="clients-count" style="font-size:.8rem;color:#64748b;font-weight:500;margin-left:auto"></span>
+    </div>
+    <div class="tbl-wrap">
+      <table class="data-tbl">
+        <thead><tr>
+          <th>Cliente</th><th>${t('clients.tier')}</th><th>${t('clients.service')}</th>
+          <th>Viaturas</th><th>${t('clients.health')}</th>
+          <th>${t('clients.contact')}</th><th>${t('clients.since')}</th><th></th>
+        </tr></thead>
+        <tbody id="clients-tbody"></tbody>
+      </table>
+    </div>`;
+  document.getElementById('clients-content').innerHTML=html;
+  buildClientsTable('');
+}
+
+function buildClientsTable(search){
+  const q=(search!==undefined?search:(document.getElementById('clients-search')?.value||'')).toLowerCase();
+  const tier=document.getElementById('clients-tier')?.value||'all';
+  const service=document.getElementById('clients-service')?.value||'all';
+  let list=CLIENTS.slice();
+  if(q)list=list.filter(c=>c.name.toLowerCase().includes(q)||c.contact.toLowerCase().includes(q)||c.nif.includes(q));
+  if(tier!=='all')list=list.filter(c=>c.tier===tier);
+  if(service!=='all')list=list.filter(c=>c.service===service);
+  const countEl=document.getElementById('clients-count');
+  if(countEl)countEl.textContent=list.length+' clientes';
+  const tbody=document.getElementById('clients-tbody');
+  if(!tbody)return;
+  if(!list.length){tbody.innerHTML='<tr><td colspan="8" style="text-align:center;color:#94a3b8;padding:30px">Nenhum cliente encontrado</td></tr>';return;}
+  tbody.innerHTML=list.map(c=>`
+    <tr onclick="openClientModal(${c.id})" style="cursor:pointer">
+      <td>
+        <div style="font-weight:600;font-size:.9rem;color:#0f172a">${c.name}</div>
+        <div style="font-size:.7rem;color:#94a3b8">NIF ${c.nif}</div>
+      </td>
+      <td>${tierBadge(c.tier)}</td>
+      <td>${serviceBadge(c.service)}</td>
+      <td style="font-weight:600;color:#0f172a">${c.vehicles}</td>
+      <td>
+        <div style="display:flex;align-items:center;gap:8px">
+          <div style="flex:1;max-width:70px"><div class="health-bar"><div class="health-fill ${healthClass(c.health)}" style="width:${c.health}%"></div></div></div>
+          <span style="font-size:.8rem;font-weight:700;color:${healthColor(c.health)}">${c.health}%</span>
+        </div>
+      </td>
+      <td>
+        <div style="font-size:.9rem;font-weight:500">${c.contact}</div>
+        <div style="font-size:.7rem;color:#94a3b8">${c.email}</div>
+      </td>
+      <td style="font-size:.8rem;color:#64748b">${c.since}</td>
+      <td><button class="btn btn-sec btn-sm" onclick="event.stopPropagation();openClientModal(${c.id})"><i class="fa-solid fa-eye"></i></button></td>
+    </tr>`).join('');
+}
+
+function openClientModal(id){
+  const c=CLIENTS.find(x=>x.id===id);if(!c)return;
+  const vlist=VEHICLES.filter(v=>v.clientId===id);
+  const alerts=vlist.filter(v=>vehicleStatus(v)==='urgente'||vehicleStatus(v)==='expirado').length;
+  const bev=vlist.filter(v=>v.fuel==='bev').length;
+  const phev=vlist.filter(v=>v.fuel==='phev').length;
+  const taCost=vlist.reduce((s,v)=>s+calcTA(v),0);
+  const body=`
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px;padding:16px;background:#f8fafc;border-radius:10px">
+      <div style="width:46px;height:46px;border-radius:10px;background:#0f172a;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1rem;font-weight:800;color:#10b981">${c.name.charAt(0)}</div>
+      <div>
+        <div style="font-size:1rem;font-weight:700;color:#0f172a">${c.name}</div>
+        <div style="font-size:.8rem;color:#64748b">NIF ${c.nif} &nbsp;·&nbsp; ${tierBadge(c.tier)} ${serviceBadge(c.service)}</div>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
+      <div style="padding:11px;background:#f8fafc;border-radius:10px"><div style="font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#94a3b8;margin-bottom:3px">Viaturas</div><div style="font-size:1rem;font-weight:700;color:#0f172a">${vlist.length} viaturas</div></div>
+      <div style="padding:11px;background:#f8fafc;border-radius:10px"><div style="font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#94a3b8;margin-bottom:3px">Saúde da Frota</div><div style="font-size:1rem;font-weight:700;color:${healthColor(c.health)}">${c.health}%</div></div>
+      <div style="padding:11px;background:#f8fafc;border-radius:10px"><div style="font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#94a3b8;margin-bottom:3px">BEV + PHEV</div><div style="font-size:1rem;font-weight:700;color:#10b981">${bev+phev} viaturas (${vlist.length?Math.round((bev+phev)/vlist.length*100):0}%)</div></div>
+      <div style="padding:11px;background:#fff5f5;border-radius:10px"><div style="font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:#94a3b8;margin-bottom:3px">Tributação Autónoma</div><div style="font-size:1rem;font-weight:700;color:#ef4444">${fmtEur(taCost)}/ano</div></div>
+    </div>
+    ${alerts>0?`<div class="alert-row al-urgente" style="margin-bottom:12px"><i class="fa-solid fa-triangle-exclamation"></i><span>${alerts} viatura${alerts>1?'s':''} com alertas urgentes</span></div>`:''}
+    <div style="margin-bottom:12px">
+      <div style="font-size:.7rem;font-weight:600;color:#475569;margin-bottom:8px">CONTACTO</div>
+      <div style="font-size:.9rem;color:#334155;margin-bottom:4px"><i class="fa-solid fa-user" style="width:16px;color:#94a3b8"></i> ${c.contact}</div>
+      <div style="font-size:.9rem;color:#334155;margin-bottom:4px"><i class="fa-solid fa-envelope" style="width:16px;color:#94a3b8"></i> ${c.email}</div>
+      <div style="font-size:.9rem;color:#334155"><i class="fa-solid fa-phone" style="width:16px;color:#94a3b8"></i> ${c.phone}</div>
+    </div>`;
+  openModal(c.name,body,`<button class="btn btn-sec" onclick="closeModal()">${t('common.close')}</button><button class="btn btn-primary" onclick="closeModal();navigate('fleet')"><i class="fa-solid fa-car-side"></i> Ver Frota</button>`);
+}
+
+function openAddClientModal(){
+  const body=`
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div><label class="form-label">Nome da Empresa</label><input type="text" class="form-input" placeholder="Ex: Empresa XYZ Lda"></div>
+      <div class="g2" style="gap:12px">
+        <div><label class="form-label">NIF</label><input type="text" class="form-input" placeholder="501234567"></div>
+        <div><label class="form-label">Segmento</label><select class="form-select"><option value="micro">Micro-frota (&le; 10)</option><option value="media">Frota Média (11-30)</option><option value="grande">Grande Frota (&gt; 30)</option></select></div>
+      </div>
+      <div><label class="form-label">Nível de Serviço</label><select class="form-select"><option value="self">Self-service</option><option value="hibrido">Híbrido</option><option value="outsourcing">Outsourcing Total</option></select></div>
+      <div class="g2" style="gap:12px">
+        <div><label class="form-label">Responsável</label><input type="text" class="form-input" placeholder="Nome do gestor"></div>
+        <div><label class="form-label">Email</label><input type="email" class="form-input" placeholder="gestor@empresa.pt"></div>
+      </div>
+      <div><label class="form-label">Telefone</label><input type="tel" class="form-input" placeholder="+351 912 345 678"></div>
+      <div style="padding:10px 13px;background:#eff6ff;border-radius:6px;font-size:.8rem;color:#1e40af"><i class="fa-solid fa-circle-info" style="margin-right:6px"></i>Demonstração — dados não persistidos.</div>
+    </div>`;
+  openModal(t('clients.add'),body,`<button class="btn btn-sec" onclick="closeModal()">${t('common.cancel')}</button><button class="btn btn-primary" onclick="closeModal()"><i class="fa-solid fa-plus"></i> Criar Cliente</button>`);
+}
+
+// ─────────────────────────────────────────────────────────────
+// SETTINGS
+// ─────────────────────────────────────────────────────────────
+function renderSettings(){
+  const u=S.user;
+  const client=u.clientId?CLIENTS.find(c=>c.id===u.clientId):null;
+  const html=`
+    <div class="pg-hdr">
+      <h1 class="pg-title">${t('settings.title')}</h1>
+      <p class="pg-sub">Gestão de perfil e preferências da plataforma</p>
+    </div>
+    <div class="g2" style="align-items:start">
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <!-- Profile card -->
+        <div class="card">
+          <div class="card-header"><span class="card-title"><i class="fa-solid fa-user" style="color:#10b981;margin-right:6px"></i>${t('settings.profile')}</span></div>
+          <div class="card-body">
+            <div style="display:flex;align-items:center;gap:14px;margin-bottom:20px">
+              <div style="width:56px;height:56px;border-radius:16px;background:#10b981;display:flex;align-items:center;justify-content:center;font-size:1.2rem;font-weight:800;color:#fff;flex-shrink:0">${u.initials}</div>
+              <div>
+                <div style="font-size:1rem;font-weight:700;color:#0f172a">${u.name}</div>
+                <div style="font-size:.8rem;color:#64748b;margin-bottom:4px">${u.email}</div>
+                <span class="badge b-${u.role==='admin'?'admin':u.role==='manager'?'manager':'driver'}">${t('role.'+u.role)}</span>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:11px">
+              <div><label class="form-label">Nome Completo</label><input type="text" class="form-input" value="${u.name}"></div>
+              <div><label class="form-label">Email</label><input type="email" class="form-input" value="${u.email}"></div>
+              <div><label class="form-label">Função</label><input type="text" class="form-input" value="${t('role.'+u.role)}" disabled style="background:#f8fafc;color:#94a3b8"></div>
+            </div>
+          </div>
+        </div>
+        <!-- Language -->
+        <div class="card">
+          <div class="card-header"><span class="card-title"><i class="fa-solid fa-globe" style="color:#3b82f6;margin-right:6px"></i>${t('settings.lang')}</span></div>
+          <div class="card-body">
+            <div style="display:flex;gap:10px">
+              <button onclick="if(S.lang!=='pt'){toggleLang()}" class="btn ${S.lang==='pt'?'btn-primary':'btn-sec'}" style="flex:1;justify-content:center"><span style="font-size:1rem">🇵🇹</span> Português</button>
+              <button onclick="if(S.lang!=='en'){toggleLang()}" class="btn ${S.lang==='en'?'btn-primary':'btn-sec'}" style="flex:1;justify-content:center"><span style="font-size:1rem">🇬🇧</span> English</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <!-- Notifications -->
+        <div class="card">
+          <div class="card-header"><span class="card-title"><i class="fa-solid fa-bell" style="color:#f59e0b;margin-right:6px"></i>${t('settings.notif')}</span></div>
+          <div class="card-body">
+            ${[['Alertas IPO/Seguros (urgente)','Notificação quando vencimento &le; 30 dias',true],['Alerta Revisão Periódica','Lembrete de revisão agendada',true],['Relatório TCO Mensal','Resumo mensal enviado por email',false],['Novos Clientes (Admin)','Alerta de novo cliente adicionado',u.role==='admin'],['Alertas Tributação Autónoma','Relatório fiscal trimestral',u.role!=='driver']].map(([title,desc,on])=>`
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 0;border-bottom:1px solid #f1f5f9">
+              <div>
+                <div style="font-size:.9rem;font-weight:500;color:#0f172a">${title}</div>
+                <div style="font-size:.7rem;color:#94a3b8;margin-top:1px">${desc}</div>
+              </div>
+              <div onclick="this.dataset.on=this.dataset.on==='1'?'0':'1';this.style.background=this.dataset.on==='1'?'#10b981':'#e2e8f0';this.querySelector('div').style.transform=this.dataset.on==='1'?'translateX(20px)':'translateX(0)'" data-on="${on?'1':'0'}" style="width:40px;height:22px;border-radius:10px;background:${on?'#10b981':'#e2e8f0'};cursor:pointer;position:relative;flex-shrink:0;transition:background .2s">
+                <div style="width:18px;height:18px;border-radius:50%;background:#fff;position:absolute;top:2px;left:2px;transform:${on?'translateX(18px)':'translateX(0)'};transition:transform .2s;box-shadow:0 1px 4px rgba(0,0,0,.2)"></div>
+              </div>
+            </div>`).join('')}
+          </div>
+        </div>
+        ${u.role==='manager'||u.role==='admin'?`
+        <!-- Autonomy level -->
+        <div class="card">
+          <div class="card-header"><span class="card-title"><i class="fa-solid fa-sliders" style="color:#8b5cf6;margin-right:6px"></i>${t('settings.autonomy')}</span></div>
+          <div class="card-body">
+            <p style="font-size:.8rem;color:#64748b;margin:0 0 14px">Define o nível de intervenção FleetWise na gestão da sua frota.</p>
+            ${[['self','fa-user','Self-service','Plataforma autónoma — apenas relatórios e alertas'],['hibrido','fa-handshake','Híbrido','Decisões partilhadas FleetWise + Cliente'],['outsourcing','fa-building','Outsourcing Total','FleetWise gere integralmente a frota']].map(([val,ico,lbl,desc])=>`
+            <div style="display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:10px;border:2px solid ${client&&client.service===val?'#10b981':'#e2e8f0'};margin-bottom:8px;cursor:pointer;background:${client&&client.service===val?'#f0fdf9':'#fff'}" onclick="document.querySelectorAll('.aut-opt').forEach(el=>el.style.borderColor='#e2e8f0');this.style.borderColor='#10b981'">
+              <div style="width:34px;height:34px;border-radius:6px;background:${client&&client.service===val?'#ecfdf5':'#f8fafc'};display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="fa-solid ${ico}" style="color:${client&&client.service===val?'#10b981':'#94a3b8'};font-size:.9rem"></i></div>
+              <div><div style="font-size:.9rem;font-weight:600;color:#0f172a">${lbl}</div><div style="font-size:.7rem;color:#64748b">${desc}</div></div>
+            </div>`).join('')}
+          </div>
+        </div>`:''
+        }
+        <div style="display:flex;justify-content:flex-end;gap:10px">
+          <button class="btn btn-sec" onclick="navigate('dashboard')"><i class="fa-solid fa-xmark"></i> ${t('common.cancel')}</button>
+          <button class="btn btn-primary" onclick="confirmSettingsSave()"><i class="fa-solid fa-floppy-disk"></i> ${t('settings.save')}</button>
+        </div>
+      </div>
+    </div>`;
+  document.getElementById('settings-content').innerHTML=html;
+}
+
+// ─────────────────────────────────────────────────────────────
+// MY VEHICLE (Driver)
+// ─────────────────────────────────────────────────────────────
+function renderMyVehicle(){
+  const u=S.user;
+  const v=VEHICLES.find(x=>x.id===u.vehicleId);
+  if(!v){document.getElementById('myvehicle-content').innerHTML='<div class="empty-state"><i class="fa-solid fa-car"></i><p>Sem viatura atribuída.</p></div>';return;}
+  const ipoS=getStatus(v.ipo),segS=getStatus(v.seguro),revS=getStatus(v.revisao);
+  const maint=MAINTENANCE.filter(m=>m.vehicleId===v.id).sort((a,b)=>new Date(b.date)-new Date(a.date));
+  const html=`
+    <div class="pg-hdr">
+      <h1 class="pg-title">${t('myvehicle.title')}</h1>
+      <p class="pg-sub">${v.brand} ${v.model} &middot; ${v.plate}</p>
+    </div>
+    <div class="v-hero" style="margin-bottom:16px">
+      <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px;gap:8px">
+        <div style="min-width:0">
+          <div style="font-size:.7rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:#475569;margin-bottom:4px">A Minha Viatura Atual</div>
+          <div class="v-hero-brand" style="font-size:1.5rem;font-weight:800;line-height:1.1;word-break:break-word">${v.brand} ${v.model}</div>
+          <div class="v-hero-plate" style="font-size:.95rem;color:#94a3b8;margin-top:3px">${v.plate}</div>
+        </div>
+        <div style="flex-shrink:0">${fuelBadge(v.fuel)}</div>
+      </div>
+      <div class="v-hero-stats-4" style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px">
+        ${[['fa-route','km Atual',fmtNum(v.km)+' km'],['fa-euro-sign','Renting/mês',fmtEur(v.monthly)+'/mês'],['fa-tag','Valor Aquisição',fmtEur(v.value)],['fa-calendar-check','Em serviço','Jan 2025']].map(([ico,lbl,val])=>`
+        <div style="background:rgba(255,255,255,.07);border-radius:8px;padding:10px">
+          <div style="font-size:.65rem;color:#94a3b8;margin-bottom:3px;display:flex;align-items:center;gap:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis"><i class="fa-solid ${ico}" style="flex-shrink:0"></i><span style="overflow:hidden;text-overflow:ellipsis">${lbl}</span></div>
+          <div class="v-hero-stat-val" style="font-size:.95rem;font-weight:700;word-break:break-word">${val}</div>
+        </div>`).join('')}
+      </div>
+    </div>
+    <div class="kpi-grid kpi-3" style="margin-bottom:20px">
+      <div class="kpi-card" style="border-top:3px solid ${ipoS==='ok'?'#10b981':ipoS==='atencao'?'#f59e0b':'#ef4444'}">
+        <div class="kpi-icon" style="background:${ipoS==='ok'?'#ecfdf5':ipoS==='atencao'?'#fef3c7':'#fee2e2'}">
+          <i class="fa-solid fa-id-card" style="color:${ipoS==='ok'?'#10b981':ipoS==='atencao'?'#f59e0b':'#ef4444'}"></i>
+        </div>
+        <div class="kpi-label">IPO</div>
+        <div class="kpi-value" style="font-size:1rem">${fmtDate(v.ipo)}</div>
+        <div style="margin-top:6px">${badge(ipoS)}</div>
+        ${daysUntil(v.ipo)>0?`<div class="kpi-change neu" style="margin-top:4px">em ${daysUntil(v.ipo)} dias</div>`:`<div class="kpi-change neg" style="margin-top:4px">Renovação necessária</div>`}
+      </div>
+      <div class="kpi-card" style="border-top:3px solid ${segS==='ok'?'#10b981':segS==='atencao'?'#f59e0b':'#ef4444'}">
+        <div class="kpi-icon" style="background:${segS==='ok'?'#ecfdf5':segS==='atencao'?'#fef3c7':'#fee2e2'}">
+          <i class="fa-solid fa-shield-halved" style="color:${segS==='ok'?'#10b981':segS==='atencao'?'#f59e0b':'#ef4444'}"></i>
+        </div>
+        <div class="kpi-label">Seguro</div>
+        <div class="kpi-value" style="font-size:1rem">${fmtDate(v.seguro)}</div>
+        <div style="margin-top:6px">${badge(segS)}</div>
+        ${daysUntil(v.seguro)>0?`<div class="kpi-change neu" style="margin-top:4px">em ${daysUntil(v.seguro)} dias</div>`:`<div class="kpi-change neg" style="margin-top:4px">Renovação necessária</div>`}
+      </div>
+      <div class="kpi-card" style="border-top:3px solid ${revS==='ok'?'#10b981':revS==='atencao'?'#f59e0b':'#ef4444'}">
+        <div class="kpi-icon" style="background:${revS==='ok'?'#ecfdf5':revS==='atencao'?'#fef3c7':'#fee2e2'}">
+          <i class="fa-solid fa-wrench" style="color:${revS==='ok'?'#10b981':revS==='atencao'?'#f59e0b':'#ef4444'}"></i>
+        </div>
+        <div class="kpi-label">Próxima Revisão</div>
+        <div class="kpi-value" style="font-size:1rem">${fmtDate(v.revisao)}</div>
+        <div style="margin-top:6px">${badge(revS)}</div>
+        ${daysUntil(v.revisao)>0?`<div class="kpi-change neu" style="margin-top:4px">em ${daysUntil(v.revisao)} dias</div>`:`<div class="kpi-change neg" style="margin-top:4px">Revisão em atraso</div>`}
+      </div>
+    </div>
+    <div class="g2">
+      <div class="tbl-wrap">
+        <div class="card-header"><span class="card-title"><i class="fa-solid fa-clock-rotate-left" style="color:#64748b;margin-right:6px"></i>Histórico de Manutenção</span></div>
+        <table class="data-tbl">
+          <thead><tr><th>Tipo</th><th>Data</th><th>Prestador</th><th>Custo</th><th>Estado</th></tr></thead>
+          <tbody>
+            ${maint.length?maint.map(m=>{
+              const st=m.status==='done'?'ok':m.status==='overdue'?'expirado':'urgente';
+              const stLbl=m.status==='done'?'Concluído':m.status==='overdue'?'Em atraso':'Pendente';
+              return`<tr><td style="font-size:.9rem">${m.type}</td><td style="font-size:.8rem">${fmtDate(m.date)}</td><td style="font-size:.8rem;color:#64748b">${m.provider}</td><td style="font-weight:600;font-size:.9rem">${fmtEur(m.cost)}</td><td><span class="badge b-${st}">${stLbl}</span></td></tr>`;
+            }).join('')
+            :'<tr><td colspan="5" style="text-align:center;color:#94a3b8;padding:20px">Sem registos</td></tr>'}
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <div class="card-header"><span class="card-title"><i class="fa-solid fa-circle-info" style="color:#3b82f6;margin-right:6px"></i>Informações Técnicas</span></div>
+        <div class="card-body">
+          ${[['Combustível',fuelBadge(v.fuel)],['Condutor Atual',u.name],['N.º km Registados',fmtNum(v.km)+' km'],['Renting Mensal',fmtEur(v.monthly)+'/mês'],['Valor de Aquisição',fmtEur(v.value)],['Empresa',clientName(v.clientId)]].map(([lbl,val])=>`
+          <div class="info-row" style="display:flex;align-items:baseline;justify-content:space-between;padding:9px 0;border-bottom:1px solid #f1f5f9;gap:8px">
+            <span class="info-row-lbl" style="font-size:.8rem;color:#64748b;flex-shrink:0">${lbl}</span>
+            <span class="info-row-val" style="font-size:.85rem;font-weight:600;color:#0f172a;text-align:right;word-break:break-word;min-width:0">${val}</span>
+          </div>`).join('')}
+          <div style="margin-top:14px">
+            <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="navigate('service')"><i class="fa-solid fa-wrench"></i> Pedir Assistência</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  document.getElementById('myvehicle-content').innerHTML=html;
+}
+
+// ─────────────────────────────────────────────────────────────
+// SERVICE REQUEST (Driver)
+// ─────────────────────────────────────────────────────────────
+function renderService(){
+  const u=S.user;
+  const v=u.vehicleId?VEHICLES.find(x=>x.id===u.vehicleId):null;
+  const recentRequests=[
+    {date:'2026-04-10',type:'Revisão Periódica',status:'done',desc:'Revisão dos 30.000km concluída.'},
+    {date:'2026-02-18',type:'Troca de Pneus',status:'done',desc:'4 pneus substituídos — ALD Automóvel.'},
+    {date:'2025-12-05',type:'Reparação',status:'done',desc:'Substituição farolim traseiro direito.'},
+  ];
+  const html=`
+    <div class="pg-hdr">
+      <h1 class="pg-title">${t('service.title')}</h1>
+      <p class="pg-sub">${v?v.brand+' '+v.model+' · '+v.plate:'Sem viatura atribuída'}</p>
+    </div>
+    <div class="g2" style="align-items:start">
+      <div class="card">
+        <div class="card-header"><span class="card-title"><i class="fa-solid fa-plus" style="color:#10b981;margin-right:6px"></i>Novo Pedido de Serviço</span></div>
+        <div class="card-body">
+          <div style="display:flex;flex-direction:column;gap:14px">
+            ${v?`<div style="padding:12px 14px;background:#f0fdf9;border:1px solid #a7f3d0;border-radius:10px;display:flex;align-items:center;gap:10px">
+              <i class="fa-solid fa-car-side" style="color:#10b981"></i>
+              <div>
+                <div style="font-size:.9rem;font-weight:600;color:#065f46">${v.brand} ${v.model}</div>
+                <div style="font-size:.7rem;color:#059669">${v.plate} &nbsp;·&nbsp; ${fmtNum(v.km)} km</div>
+              </div>
+            </div>`:''}
+            <div>
+              <label class="form-label">${t('service.type')}</label>
+              <select class="form-select" id="svc-type" onchange="document.getElementById('svc-type-info').textContent=({'Avaria':'Descreva o problema e sintomas observados.','Revisão Periódica':'Indique os km atuais e última revisão.','IPO':'Selecione data e local preferencial.','Troca de Pneus':'Indique desgaste ou danos observados.','Renovação de Seguro':'Confirm os dados do seguro atual.','Sinistro':'Descreva o acontecimento e danos.','Outro':'Descreva o pedido em detalhe.'})[this.value]||''">
+                <option value="Avaria">Avaria / Problema mecânico</option>
+                <option value="Revisão Periódica">Revisão Periódica</option>
+                <option value="IPO">IPO</option>
+                <option value="Troca de Pneus">Troca de Pneus</option>
+                <option value="Renovação de Seguro">Renovação de Seguro</option>
+                <option value="Sinistro">Sinistro / Acidente</option>
+                <option value="Outro">Outro</option>
+              </select>
+              <div id="svc-type-info" style="font-size:.7rem;color:#64748b;margin-top:4px;min-height:16px">Descreva o problema e sintomas observados.</div>
+            </div>
+            <div>
+              <label class="form-label">${t('service.desc')}</label>
+              <textarea class="form-input" rows="4" placeholder="Descreva o pedido em detalhe..." style="resize:vertical;line-height:1.5"></textarea>
+            </div>
+            <div class="g2" style="gap:12px">
+              <div>
+                <label class="form-label">Urgência</label>
+                <select class="form-select">
+                  <option value="normal">Normal (até 5 dias úteis)</option>
+                  <option value="urgente">Urgente (24-48h)</option>
+                  <option value="critico">Crítico (imediato)</option>
+                </select>
+              </div>
+              <div>
+                <label class="form-label">Data preferencial</label>
+                <input type="date" class="form-input" min="${todayStr().slice(0,10)}">
+              </div>
+            </div>
+            <div>
+              <label class="form-label">km Atuais (confirmação)</label>
+              <input type="number" class="form-input" value="${v?v.km:''}" placeholder="Ex: 34200">
+            </div>
+            <div style="padding:11px 14px;background:#f8fafc;border-radius:6px;display:flex;align-items:center;gap:8px;font-size:.8rem;color:#475569;cursor:pointer;border:1px dashed #e2e8f0">
+              <i class="fa-solid fa-camera" style="color:#94a3b8"></i>
+              <span>Anexar fotografia (opcional) — clique para selecionar</span>
+            </div>
+            <button class="btn btn-primary" style="width:100%;justify-content:center;padding:11px" onclick="submitServiceRequest()"><i class="fa-solid fa-paper-plane"></i> ${t('service.submit')}</button>
+            <div style="font-size:.7rem;color:#94a3b8;text-align:center">Será notificado por email após confirmação do pedido pela FleetWise.</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="tbl-wrap">
+          <div class="card-header"><span class="card-title"><i class="fa-solid fa-clock-rotate-left" style="color:#64748b;margin-right:6px"></i>Pedidos Recentes</span></div>
+          <table class="data-tbl">
+            <thead><tr><th>Tipo</th><th>Data</th><th>Estado</th></tr></thead>
+            <tbody>
+              ${recentRequests.map(r=>`
+              <tr>
+                <td>
+                  <div style="font-size:.9rem;font-weight:500">${r.type}</div>
+                  <div style="font-size:.7rem;color:#94a3b8">${r.desc}</div>
+                </td>
+                <td style="font-size:.8rem;color:#64748b">${fmtDate(r.date)}</td>
+                <td><span class="badge b-ok">Concluído</span></td>
+              </tr>`).join('')}
+            </tbody>
+          </table>
+        </div>
+        <div class="card" style="margin-top:16px">
+          <div class="card-header"><span class="card-title"><i class="fa-solid fa-phone" style="color:#10b981;margin-right:6px"></i>Contacto Direto FleetWise</span></div>
+          <div class="card-body">
+            ${[['fa-phone','Linha de Apoio','+351 220 123 456','Seg–Sex, 9h–18h'],['fa-envelope','Email Assistência','assistencia@fleetwise.pt','Resposta em 2h úteis'],['fa-mobile-screen','Emergências 24h','+351 910 999 888','Avarias e acidentes']].map(([ico,lbl,val,hint])=>`
+            <div style="display:flex;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid #f1f5f9">
+              <div style="width:34px;height:34px;border-radius:6px;background:#ecfdf5;display:flex;align-items:center;justify-content:center;flex-shrink:0"><i class="fa-solid ${ico}" style="color:#10b981;font-size:.8rem"></i></div>
+              <div>
+                <div style="font-size:.9rem;font-weight:600;color:#0f172a">${lbl}</div>
+                <div style="font-size:.9rem;color:#334155">${val}</div>
+                <div style="font-size:.7rem;color:#94a3b8">${hint}</div>
+              </div>
+            </div>`).join('')}
+          </div>
+        </div>
+      </div>
+    </div>`;
+  document.getElementById('service-content').innerHTML=html;
+}
+
+function submitServiceRequest(){
+  openModal('Pedido Enviado!','<div style="text-align:center;padding:14px"><i class="fa-solid fa-circle-check" style="color:#10b981;font-size:2.6rem;margin-bottom:14px;display:block"></i><p style="font-size:1rem;color:#334155;margin-bottom:6px"><strong>Pedido registado com sucesso!</strong></p><p style="font-size:.8rem;color:#64748b">A equipa FleetWise irá contactá-lo em breve para confirmação e agendamento.<br><br><span style="font-size:.8rem;color:#94a3b8">(Demonstração — sem persistência de dados)</span></p></div>','<button class="btn btn-primary" onclick="closeModal()">OK</button>');
+}
+
+// ─────────────────────────────────────────────────────────────
+// MODAL
+// ─────────────────────────────────────────────────────────────
+function openModal(title,body,foot=''){
+  document.getElementById('modal-title').textContent=title;
+  document.getElementById('modal-body').innerHTML=body;
+  const mf=document.getElementById('modal-foot');
+  if(foot){mf.innerHTML=foot;mf.style.display='flex';}else{mf.style.display='none';}
+  document.getElementById('modal-overlay').classList.add('open');
+}
+function confirmSettingsSave(){
+  openModal('Confirmação','<div style="text-align:center;padding:10px"><i class="fa-solid fa-check-circle" style="color:#10b981;font-size:1.8rem;margin-bottom:8px;display:block"></i><p style="font-size:1rem;color:#334155">Definições guardadas com sucesso!<br><span style="font-size:.8rem;color:#94a3b8">(Demonstração — sem persistência de dados)</span></p></div>','<button class="btn btn-primary" onclick="closeModal()">OK</button>');
+}
+function closeModal(){document.getElementById('modal-overlay').classList.remove('open');}
+function closeModalOutside(e){if(e.target===document.getElementById('modal-overlay'))closeModal();}
+
+// ─────────────────────────────────────────────────────────────
+// LANGUAGE
+// ─────────────────────────────────────────────────────────────
+function toggleLang(){
+  S.lang=S.lang==='pt'?'en':'pt';
+  document.getElementById('lang-btn').textContent='🌐 '+(S.lang==='pt'?'PT':'EN');
+  document.documentElement.setAttribute('data-lang',S.lang);
+  // Re-translate static elements
+  document.querySelectorAll('[data-i18n]').forEach(el=>{el.textContent=t(el.dataset.i18n);});
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{el.placeholder=t(el.dataset['i18nPlaceholder']);});
+  // Rebuild sidebar nav with new language
+  if(S.user)buildSidebarNav();
+  // Re-render current page
+  if(S.user)navigate(S.page);
+}
+
+// ─────────────────────────────────────────────────────────────
+// MOBILE SIDEBAR
+// ─────────────────────────────────────────────────────────────
+function toggleSidebar(){
+  document.getElementById('sidebar').classList.toggle('mob-open');
+  document.getElementById('sidebar-overlay').classList.toggle('mob-open');
+}
+function closeSidebar(){
+  document.getElementById('sidebar').classList.remove('mob-open');
+  document.getElementById('sidebar-overlay').classList.remove('mob-open');
+}
+
+// ─────────────────────────────────────────────────────────────
+// NOTIFICATIONS
+// ─────────────────────────────────────────────────────────────
+function openNotifications(){
+  const alerts=S.user?getAlerts(S.user.role!=='admin'?S.user.clientId:null):[];
+  const body=alerts.length
+    ?alerts.map(a=>`<div class="alert-row al-${a.type==='info'?'info':a.type==='urgente'?'urgente':'atencao'}" style="margin-bottom:8px"><i class="fa-solid ${a.icon}" style="margin-right:8px"></i>${a.msg}</div>`).join('')
+    :'<div class="empty-state" style="padding:30px"><i class="fa-solid fa-check-circle" style="color:#10b981"></i><p>Sem alertas pendentes</p></div>';
+  openModal('Notificações',body);
+}
+
+// ─────────────────────────────────────────────────────────────
+// INIT
+// ─────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
+// MOBILE — JS fallback (inline styles não interferem com display via JS)
+// ─────────────────────────────────────────────────────────────
+function applyMobileLayout(){
+  const mob=window.innerWidth<=768;
+  const xs=window.innerWidth<=480;
+  const s=document.getElementById('topbar-search');
+  const l=document.getElementById('lang-btn');
+  const n=document.getElementById('topbar-name');
+  const b=document.getElementById('topbar-badge');
+  const h=document.getElementById('hamburger');
+  const tb=document.getElementById('topbar');
+  if(s)s.style.display=mob?'none':'flex';
+  if(l)l.style.display=mob?'none':'';
+  if(n)n.style.display=mob?'none':'';
+  if(b)b.style.display=mob?'none':'';
+  if(h)h.style.display=mob?'flex':'none';
+  if(tb){tb.style.gap=xs?'6px':mob?'8px':'';tb.style.padding=xs?'0 8px':mob?'0 12px':'';}
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  // Translate static login elements
+  document.querySelectorAll('[data-i18n]').forEach(el=>{el.textContent=t(el.dataset.i18n);});
+  applyMobileLayout();
+});
+window.addEventListener('resize',applyMobileLayout);
+</script>
+</body>
+</html>
