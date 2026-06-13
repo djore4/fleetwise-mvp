@@ -12,165 +12,189 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <style>
-        body { font-family: 'Poppins', sans-serif; background-color: #f8fafc; padding-top: 72px; }
-        .text-brand-green { color: #10b981; }
-        .bg-brand-navy  { background-color: #0f172a; }
-        .bg-brand-green { background-color: #10b981; }
+        /* ════════════════════════════════════════════════════════════
+           FLEETWISE — DESIGN TOKENS (partilhados com index.html)
+           ════════════════════════════════════════════════════════════ */
+        :root{
+          --fs-xs:.7rem; --fs-sm:.8rem; --fs-md:.9rem; --fs-base:1rem;
+          --fs-lg:1.2rem; --fs-xl:1.5rem; --fs-2xl:1.9rem; --fs-3xl:2.6rem;
+          --fw-reg:400; --fw-med:500; --fw-semi:600; --fw-bold:700; --fw-xbold:800;
+          --sp-0:0; --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-5:20px;
+          --sp-6:24px; --sp-8:32px; --sp-10:40px; --sp-12:48px; --sp-16:64px;
+          --r-sm:4px; --r-md:6px; --r-lg:10px; --r-xl:16px; --r-full:9999px;
+          --sh-sm:0 1px 2px rgba(15,23,42,.06);
+          --sh-md:0 4px 12px rgba(15,23,42,.08);
+          --sh-lg:0 12px 32px rgba(15,23,42,.10);
+          --c-navy:#0f172a; --c-navy-2:#1e293b; --c-navy-3:#334155;
+          --c-green:#10b981; --c-green-d:#059669; --c-green-l:#d1fae5; --c-green-bg:#ecfdf5;
+          --c-text:#0f172a; --c-text-2:#475569; --c-text-3:#64748b; --c-text-4:#94a3b8;
+          --c-bg:#f8fafc; --c-card:#fff; --c-border:#e2e8f0; --c-border-2:#f1f5f9;
+          --c-warn:#f59e0b; --c-danger:#ef4444; --c-info:#3b82f6;
+          --t-fast:.15s ease; --t-base:.2s ease;
+        }
+        html{font-size:16px}
+        body{
+          font-family:'Poppins',sans-serif; color:var(--c-text);
+          background-color:var(--c-bg); padding-top:72px;
+          font-size:var(--fs-md); line-height:1.5;
+        }
+        .text-brand-green{color:var(--c-green)}
+        .bg-brand-navy{background-color:var(--c-navy)}
+        .bg-brand-green{background-color:var(--c-green)}
 
         /* ── HEADER ── */
-        .sticky-header {
-            position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
-            background: #0f172a; height: 72px; display: flex;
-            align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        .sticky-header{
+          position:fixed; top:0; left:0; width:100%; z-index:1000;
+          background:var(--c-navy); height:72px; display:flex;
+          align-items:center; box-shadow:var(--sh-md);
         }
-        .brand-logo { color: white; font-weight: 700; font-size: 1.5rem; text-decoration: none; }
-        .back-btn {
-            color: white; text-decoration: none; font-size: 0.85rem; font-weight: 500;
-            padding: 8px 20px; border: 1px solid rgba(255,255,255,0.2);
-            border-radius: 50px; transition: 0.3s;
+        .brand-logo{ color:#fff; font-weight:var(--fw-bold); font-size:var(--fs-xl); text-decoration:none }
+        .back-btn{
+          color:#fff; text-decoration:none; font-size:var(--fs-md); font-weight:var(--fw-med);
+          padding:var(--sp-2) var(--sp-5); border:1px solid rgba(255,255,255,.2);
+          border-radius:var(--r-full); transition:all var(--t-base);
         }
-        .back-btn:hover { border-color: #10b981; background: rgba(16,185,129,0.1); }
+        .back-btn:hover{ border-color:var(--c-green); background:rgba(16,185,129,.1) }
 
         /* ── HERO ── */
-        .hero-badge {
-            display: inline-flex; align-items: center; gap: 8px;
-            background: rgba(16,185,129,0.12); color: #10b981;
-            border: 1px solid rgba(16,185,129,0.3); border-radius: 50px;
-            padding: 6px 16px; font-size: 0.75rem; font-weight: 700;
-            letter-spacing: 0.08em; text-transform: uppercase;
+        .hero-badge{
+          display:inline-flex; align-items:center; gap:var(--sp-2);
+          background:rgba(16,185,129,.12); color:var(--c-green);
+          border:1px solid rgba(16,185,129,.3); border-radius:var(--r-full);
+          padding:var(--sp-2) var(--sp-4); font-size:var(--fs-xs); font-weight:var(--fw-bold);
+          letter-spacing:.08em; text-transform:uppercase;
         }
 
         /* ── BENEFIT CARDS ── */
-        .benefit-card {
-            background: white; border-radius: 16px; padding: 28px 24px;
-            border: 1px solid #e2e8f0; transition: transform 0.3s, box-shadow 0.3s;
+        .benefit-card{
+          background:#fff; border-radius:var(--r-xl); padding:var(--sp-6) var(--sp-5);
+          border:1px solid var(--c-border); transition:transform var(--t-base), box-shadow var(--t-base);
         }
-        .benefit-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(15,23,42,0.1); }
-        .benefit-icon {
-            width: 52px; height: 52px; border-radius: 12px;
-            background: rgba(16,185,129,0.1); display: flex; align-items: center;
-            justify-content: center; margin-bottom: 16px;
+        .benefit-card:hover{ transform:translateY(-4px); box-shadow:var(--sh-md) }
+        .benefit-icon{
+          width:52px; height:52px; border-radius:var(--r-lg);
+          background:rgba(16,185,129,.1); display:flex; align-items:center;
+          justify-content:center; margin-bottom:var(--sp-4);
         }
 
         /* ── WHAT IS TCO SECTION ── */
-        .tco-pillar {
-            background: white; border-radius: 16px; overflow: hidden;
-            border: 1px solid #e2e8f0; text-align: center;
+        .tco-pillar{
+          background:#fff; border-radius:var(--r-xl); overflow:hidden;
+          border:1px solid var(--c-border); text-align:center;
         }
-        .tco-pillar-header { padding: 20px 24px 16px; }
-        .tco-pillar-body { padding: 0 24px 24px; }
-        .pillar-num {
-            font-size: 3rem; font-weight: 800; line-height: 1;
-            color: #10b981; opacity: 0.25;
+        .tco-pillar-header{ padding:var(--sp-5) var(--sp-6) var(--sp-4) }
+        .tco-pillar-body{ padding:0 var(--sp-6) var(--sp-6) }
+        .pillar-num{
+          font-size:var(--fs-3xl); font-weight:var(--fw-xbold); line-height:1;
+          color:var(--c-green); opacity:.25;
         }
 
         /* ── PROCESS STEPS ── */
-        .step-connector { width: 2px; height: 32px; background: #e2e8f0; margin: 0 auto; }
+        .step-connector{ width:2px; height:var(--sp-8); background:var(--c-border); margin:0 auto }
 
         /* ── SIMULATOR WRAPPER ── */
-        .sim-outer {
-            background: white; border-radius: 20px;
-            border: 1px solid #e2e8f0;
-            box-shadow: 0 8px 40px rgba(15,23,42,0.08);
-            overflow: hidden;
+        .sim-outer{
+          background:#fff; border-radius:var(--r-xl);
+          border:1px solid var(--c-border);
+          box-shadow:var(--sh-md); overflow:hidden;
         }
 
-        /* ── TCO SIMULATOR INTERNALS (preserved from TCO_simulator.html) ── */
-        .fw-global-inputs {
-            background: #f8fafc; padding: 16px 20px;
-            border-bottom: 3px solid #0f172a;
-            display: flex; flex-wrap: wrap; gap: 14px; align-items: flex-end;
+        /* ── TCO SIMULATOR INTERNALS ── */
+        .fw-global-inputs{
+          background:var(--c-bg); padding:var(--sp-4) var(--sp-5);
+          border-bottom:3px solid var(--c-navy);
+          display:flex; flex-wrap:wrap; gap:var(--sp-4); align-items:flex-end;
         }
-        .fw-g-field { flex: 1; min-width: 130px; }
-        .fw-g-field label {
-            display: block; font-weight: 700; margin-bottom: 4px;
-            color: #0f172a; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em;
+        .fw-g-field{ flex:1; min-width:130px }
+        .fw-g-field label{
+          display:block; font-weight:var(--fw-bold); margin-bottom:var(--sp-1);
+          color:var(--c-navy); font-size:var(--fs-xs); text-transform:uppercase; letter-spacing:.05em;
         }
-        .fw-g-field input {
-            width: 100%; padding: 7px 10px; border: 1px solid #cbd5e1; border-radius: 6px;
-            color: #0f172a; font-weight: 600; font-size: 13px; font-family: 'Poppins', sans-serif;
-            background: white;
+        .fw-g-field input{
+          width:100%; padding:var(--sp-2) var(--sp-3); border:1px solid #cbd5e1; border-radius:var(--r-md);
+          color:var(--c-navy); font-weight:var(--fw-semi); font-size:var(--fs-sm); font-family:'Poppins',sans-serif;
+          background:#fff;
         }
-        .fw-g-field input:focus { border-color: #10b981; outline: none; }
+        .fw-g-field input:focus{ border-color:var(--c-green); outline:none }
 
-        .fw-table-wrapper { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-        .fw-table { width: 100%; border-collapse: collapse; table-layout: fixed; min-width: 680px; }
-        .fw-table th, .fw-table td {
-            padding: 8px 12px; text-align: right;
-            border-bottom: 1px solid #f1f5f9; font-size: 13px; vertical-align: middle;
+        .fw-table-wrapper{ width:100%; overflow-x:auto; -webkit-overflow-scrolling:touch }
+        .fw-table{ width:100%; border-collapse:collapse; table-layout:fixed; min-width:680px }
+        .fw-table th, .fw-table td{
+          padding:var(--sp-2) var(--sp-3); text-align:right;
+          border-bottom:1px solid var(--c-border-2); font-size:var(--fs-sm); vertical-align:middle;
         }
-        .fw-table td:first-child {
-            text-align: left; color: #475569; font-weight: 600;
-            width: 28%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-        }
-
-        .fw-col-data { width: 24%; border-left: 1px solid #f1f5f9; background: #fff; }
-        .fw-col-data:hover { background: #f8fafc; }
-
-        .fw-cell-input {
-            width: 100%; padding: 5px 6px; text-align: right;
-            border: 1px solid #e2e8f0; border-radius: 4px;
-            font-size: 13px; color: #1e293b; font-family: 'Poppins', sans-serif; font-weight: 600;
-            background: white;
-        }
-        .fw-cell-input:focus { border-color: #10b981; outline: none; }
-        .fw-cell-input:disabled { background: #f8fafc; color: #94a3b8; cursor: not-allowed; }
-
-        .fw-type-select {
-            width: 100%; padding: 4px 6px; margin-top: 4px;
-            border: 1px solid rgba(255,255,255,0.2); border-radius: 4px;
-            font-weight: 700; color: white; background: rgba(0,0,0,0.15);
-            font-size: 11px; font-family: 'Poppins', sans-serif; cursor: pointer;
-        }
-        .fw-type-select option { color: #333; background: white; }
-
-        .fw-header-cell { text-align: center !important; color: white; padding: 12px 10px; }
-        .fw-header-1 { background-color: #0f172a; }
-        .fw-header-2 { background-color: #1e3a5f; }
-        .fw-header-3 { background-color: #10b981; }
-        .fw-header-title { text-transform: uppercase; font-weight: 800; font-size: 12px; letter-spacing: 0.5px; display: block; }
-
-        .fw-section-title {
-            background: #f1f5f9; font-weight: 700; font-size: 10px;
-            text-transform: uppercase; letter-spacing: 1px; color: #64748b;
-            padding: 9px 12px; border-top: 1px solid #e2e8f0;
+        .fw-table td:first-child{
+          text-align:left; color:var(--c-text-2); font-weight:var(--fw-semi);
+          width:28%; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
         }
 
-        .fw-text-warn { color: #ef4444 !important; font-weight: 700; }
-        .fw-text-ok   { color: #10b981 !important; font-weight: 700; }
-        .fw-bold      { font-weight: 700; color: #0f172a; }
+        .fw-col-data{ width:24%; border-left:1px solid var(--c-border-2); background:#fff }
+        .fw-col-data:hover{ background:var(--c-bg) }
 
-        .fw-total-row td {
-            border-top: 2px solid #cbd5e1; font-weight: 700;
-            font-size: 13px; background: #f8fafc; color: #0f172a;
+        .fw-cell-input{
+          width:100%; padding:var(--sp-1) var(--sp-2); text-align:right;
+          border:1px solid var(--c-border); border-radius:var(--r-sm);
+          font-size:var(--fs-sm); color:var(--c-navy-2); font-family:'Poppins',sans-serif; font-weight:var(--fw-semi);
+          background:#fff;
         }
-        .fw-summary-header td {
-            background: #0f172a; color: white; font-weight: 700;
-            font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em;
-            padding: 10px 12px; border-top: 2px solid #0f172a;
+        .fw-cell-input:focus{ border-color:var(--c-green); outline:none }
+        .fw-cell-input:disabled{ background:var(--c-bg); color:var(--c-text-4); cursor:not-allowed }
+
+        .fw-type-select{
+          width:100%; padding:var(--sp-1) var(--sp-2); margin-top:var(--sp-1);
+          border:1px solid rgba(255,255,255,.2); border-radius:var(--r-sm);
+          font-weight:var(--fw-bold); color:#fff; background:rgba(0,0,0,.15);
+          font-size:var(--fs-xs); font-family:'Poppins',sans-serif; cursor:pointer;
+        }
+        .fw-type-select option{ color:#333; background:#fff }
+
+        .fw-header-cell{ text-align:center !important; color:#fff; padding:var(--sp-3) }
+        .fw-header-1{ background-color:var(--c-navy) }
+        .fw-header-2{ background-color:#1e3a5f }
+        .fw-header-3{ background-color:var(--c-green) }
+        .fw-header-title{ text-transform:uppercase; font-weight:var(--fw-xbold); font-size:var(--fs-sm); letter-spacing:.5px; display:block }
+
+        .fw-section-title{
+          background:var(--c-border-2); font-weight:var(--fw-bold); font-size:var(--fs-xs);
+          text-transform:uppercase; letter-spacing:1px; color:var(--c-text-3);
+          padding:var(--sp-2) var(--sp-3); border-top:1px solid var(--c-border);
+        }
+
+        .fw-text-warn{ color:var(--c-danger) !important; font-weight:var(--fw-bold) }
+        .fw-text-ok{ color:var(--c-green) !important; font-weight:var(--fw-bold) }
+        .fw-bold{ font-weight:var(--fw-bold); color:var(--c-navy) }
+
+        .fw-total-row td{
+          border-top:2px solid #cbd5e1; font-weight:var(--fw-bold);
+          font-size:var(--fs-sm); background:var(--c-bg); color:var(--c-navy);
+        }
+        .fw-summary-header td{
+          background:var(--c-navy); color:#fff; font-weight:var(--fw-bold);
+          font-size:var(--fs-xs); text-transform:uppercase; letter-spacing:.05em;
+          padding:var(--sp-2) var(--sp-3); border-top:2px solid var(--c-navy);
         }
 
         /* ── CTA SECTION ── */
-        .cta-card {
-            background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%);
-            border-radius: 24px; padding: 56px 48px; text-align: center;
-            position: relative; overflow: hidden;
+        .cta-card{
+          background:linear-gradient(135deg, #0f172a 0%, #1e3a5f 100%);
+          border-radius:var(--r-xl); padding:var(--sp-12) var(--sp-10); text-align:center;
+          position:relative; overflow:hidden;
         }
-        .cta-card::before {
-            content: ''; position: absolute; top: -60px; right: -60px;
-            width: 240px; height: 240px; border-radius: 50%;
-            background: rgba(16,185,129,0.08);
+        .cta-card::before{
+          content:''; position:absolute; top:-60px; right:-60px;
+          width:240px; height:240px; border-radius:var(--r-full);
+          background:rgba(16,185,129,.08);
         }
-        .cta-card::after {
-            content: ''; position: absolute; bottom: -80px; left: -40px;
-            width: 200px; height: 200px; border-radius: 50%;
-            background: rgba(16,185,129,0.05);
+        .cta-card::after{
+          content:''; position:absolute; bottom:-80px; left:-40px;
+          width:200px; height:200px; border-radius:var(--r-full);
+          background:rgba(16,185,129,.05);
         }
 
         /* ── RESPONSIVE ── */
-        @media (max-width: 768px) {
-            .fw-table th, .fw-table td { font-size: 11px; padding: 5px 4px; }
-            .cta-card { padding: 36px 24px; }
+        @media (max-width:768px){
+          .fw-table th, .fw-table td{ font-size:var(--fs-xs); padding:var(--sp-1) }
+          .cta-card{ padding:var(--sp-8) var(--sp-6) }
         }
     </style>
 </head>
