@@ -224,11 +224,14 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
   #sidebar.mob-open{transform:translateX(0)}
   #sidebar-overlay{display:block;opacity:0;pointer-events:none;transition:opacity .25s}
   #sidebar-overlay.mob-open{opacity:1;pointer-events:auto}
-  #hamburger{display:flex}
-  #topbar{padding:0 var(--sp-3);gap:var(--sp-2)}
-  #topbar-search{display:none}
-  #lang-btn{display:none}
-  #topbar-name{display:none}
+  #hamburger{display:flex!important}
+  #topbar{padding:0 12px!important;gap:8px!important;overflow:hidden!important}
+  #topbar-search{display:none!important;visibility:hidden!important;width:0!important}
+  #lang-btn{display:none!important;visibility:hidden!important}
+  #topbar-name{display:none!important;visibility:hidden!important}
+  #topbar-badge{display:none!important;visibility:hidden!important}
+  #topbar-left{min-width:0!important;overflow:hidden!important}
+  #topbar-title{white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important}
   #content{padding:var(--sp-3)}
   .kpi-5,.kpi-4{grid-template-columns:repeat(2,1fr);gap:var(--sp-2)}
   .kpi-3{grid-template-columns:repeat(3,1fr);gap:var(--sp-2)}
@@ -257,7 +260,6 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
   #app{height:100dvh}
   .v-hero-stats{grid-template-columns:repeat(3,1fr)!important;gap:8px!important}
   .v-hero-stats-4{grid-template-columns:repeat(2,1fr)!important;gap:8px!important}
-  #topbar-user-name{display:none}
   .pg-hdr.pg-hdr-row{flex-direction:column;align-items:stretch;gap:var(--sp-2)}
   .pg-hdr.pg-hdr-row .btn{align-self:flex-start}
   .mob-btn-wrap{display:flex;flex-wrap:wrap;gap:var(--sp-2)}
@@ -2565,10 +2567,32 @@ function openNotifications(){
 // ─────────────────────────────────────────────────────────────
 // INIT
 // ─────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
+// MOBILE — JS fallback (inline styles não interferem com display via JS)
+// ─────────────────────────────────────────────────────────────
+function applyMobileLayout(){
+  const mob=window.innerWidth<=768;
+  const xs=window.innerWidth<=480;
+  const s=document.getElementById('topbar-search');
+  const l=document.getElementById('lang-btn');
+  const n=document.getElementById('topbar-name');
+  const b=document.getElementById('topbar-badge');
+  const h=document.getElementById('hamburger');
+  const tb=document.getElementById('topbar');
+  if(s)s.style.display=mob?'none':'flex';
+  if(l)l.style.display=mob?'none':'';
+  if(n)n.style.display=mob?'none':'';
+  if(b)b.style.display=mob?'none':'';
+  if(h)h.style.display=mob?'flex':'none';
+  if(tb){tb.style.gap=xs?'6px':mob?'8px':'';tb.style.padding=xs?'0 8px':mob?'0 12px':'';}
+}
+
 document.addEventListener('DOMContentLoaded',()=>{
   // Translate static login elements
   document.querySelectorAll('[data-i18n]').forEach(el=>{el.textContent=t(el.dataset.i18n);});
+  applyMobileLayout();
 });
+window.addEventListener('resize',applyMobileLayout);
 </script>
 </body>
 </html>
