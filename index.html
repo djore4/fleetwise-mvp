@@ -216,59 +216,88 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
 #hamburger:hover{background:var(--c-bg)}
 
 @media(max-width:768px){
+  /* Login */
   #login-screen{flex-direction:column}
   .login-left{width:100%;padding:var(--sp-6) var(--sp-5);min-height:auto}
-  .login-left-stats{display:none}
+  .login-left-stats{display:none!important}
   .login-right{padding:var(--sp-6) var(--sp-5)}
+
+  /* Sidebar */
   #sidebar{position:fixed;left:0;top:0;bottom:0;z-index:100;transform:translateX(-100%);transition:transform .25s ease;width:260px!important;min-width:260px!important}
   #sidebar.mob-open{transform:translateX(0)}
-  #sidebar-overlay{display:block;opacity:0;pointer-events:none;transition:opacity .25s}
+  #sidebar-overlay{display:block!important;opacity:0;pointer-events:none;transition:opacity .25s}
   #sidebar-overlay.mob-open{opacity:1;pointer-events:auto}
-  #hamburger{display:flex}
-  #topbar{padding:0 var(--sp-3);gap:var(--sp-2);overflow:hidden}
-  #topbar-search{display:none!important}
-  #lang-btn{display:none!important}
-  #topbar-name{display:none!important}
-  #topbar-badge{display:none!important}
-  #topbar-left{min-width:0}
-  #topbar-title{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  #content{padding:var(--sp-4)}
-  .kpi-5,.kpi-4{grid-template-columns:repeat(2,1fr);gap:var(--sp-2)}
-  .kpi-3{grid-template-columns:repeat(2,1fr);gap:var(--sp-2)}
-  .kpi-card{padding:var(--sp-3)}
+
+  /* Topbar — esconde tudo excepto hamburger + título + sino + avatar */
+  #hamburger{display:flex!important}
+  #topbar{padding:0 12px!important;gap:8px!important;overflow:hidden!important}
+  #topbar-search{display:none!important;visibility:hidden!important;width:0!important;overflow:hidden!important}
+  #lang-btn{display:none!important;visibility:hidden!important}
+  #topbar-name{display:none!important;visibility:hidden!important}
+  #topbar-badge{display:none!important;visibility:hidden!important}
+  #topbar-left{min-width:0!important;overflow:hidden!important}
+  #topbar-title{white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;max-width:100%!important}
+
+  /* Layout */
+  #app{height:100dvh}
+  #content{padding:16px}
+
+  /* KPI grids */
+  .kpi-5,.kpi-4{grid-template-columns:repeat(2,1fr);gap:8px}
+  .kpi-3{grid-template-columns:repeat(2,1fr);gap:8px}
+  .kpi-card{padding:12px}
   .kpi-value{font-size:var(--fs-lg)}
-  .g2,.g3,.g21{grid-template-columns:1fr;gap:var(--sp-3)}
+
+  /* Content grids */
+  .g2,.g3,.g21{grid-template-columns:1fr;gap:12px}
+
+  /* Tables */
   .tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
   .data-tbl{min-width:520px}
+
+  /* Tabs */
   .tabs{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
   .tabs::-webkit-scrollbar{display:none}
-  .tab-btn{white-space:nowrap;flex-shrink:0;padding:var(--sp-2) var(--sp-3);font-size:var(--fs-md)}
+  .tab-btn{white-space:nowrap;flex-shrink:0;padding:8px 12px;font-size:var(--fs-md)}
+
+  /* Modal */
   .modal-box{width:96%;max-height:92vh;margin:0 auto}
+
+  /* Charts */
   .chart-wrap{height:180px}
   .chart-tall{height:220px}
   .chart-sm{height:140px}
-  .pg-hdr{margin-bottom:var(--sp-4)}
+
+  /* Page headers */
+  .pg-hdr{margin-bottom:16px}
   .pg-title{font-size:var(--fs-xl)}
-  .card-body{padding:var(--sp-4)}
-  .fbar{gap:var(--sp-2)}
+  .card-body{padding:16px}
+
+  /* Filter bar */
+  .fbar{gap:8px;flex-wrap:wrap}
   .fbar .form-input{min-width:0;flex:1}
   .fbar .form-select{min-width:0;flex:1;font-size:var(--fs-md)}
-  .savings-item{padding:var(--sp-3)}
-  .v-hero{padding:var(--sp-5)}
-  #app{height:100dvh}
+
+  /* Misc */
+  .savings-item{padding:12px}
+  .v-hero{padding:20px}
   .v-hero-stats{grid-template-columns:repeat(3,1fr)!important}
 }
+
 @media(max-width:480px){
   .kpi-5,.kpi-4,.kpi-3{grid-template-columns:1fr 1fr}
   .kpi-value{font-size:var(--fs-lg)}
   .kpi-icon{width:32px;height:32px;font-size:var(--fs-md)}
   #content{padding:10px}
-  .card-body{padding:var(--sp-4)}
-  .data-tbl th,.data-tbl td{padding:var(--sp-2) var(--sp-3)}
+  .card-body{padding:12px}
+  .data-tbl th,.data-tbl td{padding:8px 12px}
   .pg-title{font-size:var(--fs-lg)}
-  .login-left{padding:var(--sp-5) var(--sp-4)}
-  .login-right{padding:var(--sp-4)}
-  .btn{font-size:var(--fs-md);padding:var(--sp-2) var(--sp-3)}
+  .login-left{padding:20px 16px}
+  .login-right{padding:16px}
+  .btn{font-size:var(--fs-md);padding:8px 12px}
+  /* Topbar extra compact */
+  #topbar{gap:6px!important;padding:0 8px!important}
+  #hamburger{width:32px!important;height:32px!important}
 }
 </style>
 </head>
@@ -2548,10 +2577,38 @@ function openNotifications(){
 // ─────────────────────────────────────────────────────────────
 // INIT
 // ─────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────
+// MOBILE RESPONSIVE — JS fallback (garante que inline styles não interferem)
+// ─────────────────────────────────────────────────────────────
+function applyMobileLayout(){
+  const mob=window.innerWidth<=768;
+  const xs=window.innerWidth<=480;
+  const els={
+    search:document.getElementById('topbar-search'),
+    lang:document.getElementById('lang-btn'),
+    name:document.getElementById('topbar-name'),
+    badge:document.getElementById('topbar-badge'),
+    ham:document.getElementById('hamburger'),
+  };
+  if(els.search) els.search.style.display=mob?'none':'flex';
+  if(els.lang)   els.lang.style.display=mob?'none':'';
+  if(els.name)   els.name.style.display=mob?'none':'';
+  if(els.badge)  els.badge.style.display=mob?'none':'';
+  if(els.ham)    els.ham.style.display=mob?'flex':'none';
+  // topbar gap/padding
+  const tb=document.getElementById('topbar');
+  if(tb){
+    tb.style.gap=xs?'6px':mob?'8px':'';
+    tb.style.padding=xs?'0 8px':mob?'0 12px':'';
+  }
+}
+
 document.addEventListener('DOMContentLoaded',()=>{
   // Translate static login elements
   document.querySelectorAll('[data-i18n]').forEach(el=>{el.textContent=t(el.dataset.i18n);});
+  applyMobileLayout();
 });
+window.addEventListener('resize',applyMobileLayout);
 </script>
 </body>
 </html>
