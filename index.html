@@ -216,13 +216,16 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
 #hamburger:hover{background:var(--c-bg)}
 
 @media(max-width:768px){
+  /* Login */
   #login-screen{flex-direction:column}
   .login-left{width:100%;padding:var(--sp-6) var(--sp-5);min-height:auto}
-  .login-left-stats{display:none}
+  .login-left-stats{display:none!important}
   .login-right{padding:var(--sp-6) var(--sp-5)}
+
+  /* Sidebar */
   #sidebar{position:fixed;left:0;top:0;bottom:0;z-index:100;transform:translateX(-100%);transition:transform .25s ease;width:260px!important;min-width:260px!important}
   #sidebar.mob-open{transform:translateX(0)}
-  #sidebar-overlay{display:block;opacity:0;pointer-events:none;transition:opacity .25s}
+  #sidebar-overlay{display:block!important;opacity:0;pointer-events:none;transition:opacity .25s}
   #sidebar-overlay.mob-open{opacity:1;pointer-events:auto}
   #hamburger{display:flex!important}
   #topbar{padding:0 12px!important;gap:8px!important;overflow:hidden!important}
@@ -242,10 +245,16 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
   .g2,.g3,.g21{grid-template-columns:1fr;gap:var(--sp-3)}
   .tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
   .data-tbl{min-width:520px}
+
+  /* Tabs */
   .tabs{overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
   .tabs::-webkit-scrollbar{display:none}
-  .tab-btn{white-space:nowrap;flex-shrink:0;padding:var(--sp-2) var(--sp-3);font-size:var(--fs-md)}
+  .tab-btn{white-space:nowrap;flex-shrink:0;padding:8px 12px;font-size:var(--fs-md)}
+
+  /* Modal */
   .modal-box{width:96%;max-height:92vh;margin:0 auto}
+
+  /* Charts */
   .chart-wrap{height:180px}
   .chart-tall{height:220px}
   .chart-sm{height:140px}
@@ -268,6 +277,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;heigh
   .info-row-lbl{font-size:.78rem;color:#64748b;flex-shrink:0;max-width:50%}
   .info-row-val{font-size:.85rem;font-weight:600;color:#0f172a;text-align:right;word-break:break-word;min-width:0}
 }
+
 @media(max-width:480px){
   .kpi-5,.kpi-4,.kpi-3{grid-template-columns:1fr 1fr}
   .kpi-value{font-size:var(--fs-base)}
